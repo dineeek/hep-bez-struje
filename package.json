@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-typescript-starter",
-  "version": "1.0.0",
-  "description": "chrome-extension-typescript-starter",
+  "name": "hep-bez-struje",
+  "version": "0.0.1",
+  "description": "hep-bez-struje",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
+    "url": "https://github.com/dineeek/hep-bez-struje.git"
   },
   "dependencies": {
     "react": "^17.0.1",

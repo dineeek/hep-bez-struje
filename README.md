@@ -1,46 +1,18 @@
-# Chrome Extension TypeScript Starter
+# Hep - Bez struje Chrome plugin
 
-![build](https://github.com/chibat/chrome-extension-typescript-starter/workflows/build/badge.svg)
+![build](https://github.com/dineeek/hep-bez-strujeworkflows/build/badge.svg)
 
-Chrome Extension, TypeScript and Visual Studio Code
+Chrome Extension based on TypeScript for checking HEP areas without electric power.
 
 ## Prerequisites
 
-* [node + npm](https://nodejs.org/) (Current Version)
-
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* React
-* Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## Project Structure
-
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
+- [node + npm](https://nodejs.org/) (Current Version)
 
 ## Setup
 
 ```
 npm install
 ```
-
-## Import as Visual Studio Code project
-
-...
 
 ## Build
 
@@ -67,4 +39,5 @@ type `Ctrl + Shift + B`
 Load `dist` directory
 
 ## Test
+
 `npx jest` or `npm run test`

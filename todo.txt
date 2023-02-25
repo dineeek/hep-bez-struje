@@ -1,0 +1,15 @@
+Hep bez struje
+    - request example: https://www.hep.hr/ods/bez-struje/19?dp=varazdin&el=108&datum=23.02.2023
+    - no cors
+    - fetch response and scrap the data
+
+UI
+    - create two dropdowns - područje & pogon
+    - check button
+    - save selected values as preferences
+
+Code
+    - reuse popup.tsx as container
+    - reuse options.tsx class for dropdowns ui + save preferences -> opcije proširenja (postavke ui)
+    - add one more to display result
+
