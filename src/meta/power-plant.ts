@@ -1,4 +1,4 @@
-interface IPowerPlant {
+export interface IPowerPlant {
   distributionAreaId: number;
   value: string; // search param - el=value
   name: string;

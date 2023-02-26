@@ -1,69 +1,122 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
+import { IPowerPlant, POWER_PLANTS } from "../meta/power-plant";
+import { optionUiStyle } from "./option.ui.style";
 
 const Options = () => {
-  const [color, setColor] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
-  const [like, setLike] = useState<boolean>(false);
+  const [distributionArea, setDistributionArea] = useState<string>("");
+  const [powerPlant, setPowerPlant] = useState<string>("");
+  const [distAreaPowerPlants, setDistAreaPowerPlants] = useState<IPowerPlant[]>(
+    []
+  );
+  const [saveStatus, setSaveStatus] = useState<string>("");
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences stored in chrome.storage
     chrome.storage.sync.get(
       {
-        favoriteColor: "red",
-        likesColor: true,
+        hepDistributionArea: DISTRIBUTION_AREAS[0].value, // use first of list as default
+        hepPowerPlant: "",
       },
       (items) => {
-        setColor(items.favoriteColor);
-        setLike(items.likesColor);
+        onDistributionAreaChange(items.hepDistributionArea);
+        items.hepPowerPlant && setPowerPlant(items.hepPowerPlant);
       }
     );
   }, []);
 
+  const onDistributionAreaChange = (distArea: string): void => {
+    setDistributionArea(distArea);
+
+    const areaId = DISTRIBUTION_AREAS.find(
+      (area) => area.value === distArea
+    )?.id;
+
+    const powerPlants = POWER_PLANTS.filter(
+      (plant) => plant.distributionAreaId === areaId
+    );
+
+    setDistAreaPowerPlants(powerPlants);
+  };
+
+  const getAreaOptions = () => {
+    return DISTRIBUTION_AREAS.map((area) => (
+      <option key={area.value} value={area.value}>
+        {area.name}
+      </option>
+    ));
+  };
+
+  const getPlantOptions = () => {
+    return distAreaPowerPlants.map((plant) => {
+      return (
+        <option key={plant.value} value={plant.value}>
+          {plant.name}
+        </option>
+      );
+    });
+  };
+
+  const showStatus = (message: string) => {
+    setSaveStatus(message);
+
+    const id = setTimeout(() => {
+      setSaveStatus("");
+    }, 2000);
+    return () => clearTimeout(id);
+  };
+
   const saveOptions = () => {
+    if (!distributionArea || !powerPlant) {
+      return showStatus("Odaberite područje i pogon.");
+    }
+
     // Saves options to chrome.storage.sync
     chrome.storage.sync.set(
       {
-        favoriteColor: color,
-        likesColor: like,
+        hepDistributionArea: distributionArea,
+        hepPowerPlant: powerPlant,
       },
       () => {
-        // Update status to let user know options were saved.
-        setStatus("Options saved.");
-        const id = setTimeout(() => {
-          setStatus("");
-        }, 1000);
-        return () => clearTimeout(id);
+        return showStatus("Vrijednosti su spremljene.");
       }
     );
   };
 
   return (
     <>
-      <div>
-        Favorite color:{" "}
-        <select
-          value={color}
-          onChange={(event) => setColor(event.target.value)}
-        >
-          <option value="red">red</option>
-          <option value="green">green</option>
-          <option value="blue">blue</option>
-          <option value="yellow">yellow</option>
-        </select>
+      <div style={optionUiStyle.container}>
+        <div style={optionUiStyle.selection}>
+          Distribucijsko područje:
+          <select
+            style={optionUiStyle.select}
+            value={distributionArea}
+            onChange={(event) => onDistributionAreaChange(event.target.value)}
+          >
+            {getAreaOptions()}
+          </select>
+        </div>
+
+        <div style={optionUiStyle.selection}>
+          Pogon:
+          <select
+            style={optionUiStyle.select}
+            value={powerPlant}
+            onChange={(event) => setPowerPlant(event.target.value)}
+          >
+            <option defaultValue="none" hidden></option>
+            {getPlantOptions()}
+          </select>
+        </div>
+
+        <div style={optionUiStyle.actions}>
+          <span style={optionUiStyle.darkColor}>{saveStatus}</span>
+          <button style={optionUiStyle.saveButton} onClick={saveOptions}>
+            Spremi
+          </button>
+        </div>
       </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            checked={like}
-            onChange={(event) => setLike(event.target.checked)}
-          />
-          I like colors.
-        </label>
-      </div>
-      <div>{status}</div>
-      <button onClick={saveOptions}>Save</button>
     </>
   );
 };

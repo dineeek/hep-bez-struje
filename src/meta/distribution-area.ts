@@ -1,4 +1,4 @@
-interface IDistributionArea {
+export interface IDistributionArea {
   id: number;
   value: string; // search param - dp=value
   name: string;
