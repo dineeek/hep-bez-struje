@@ -1,16 +1,19 @@
-Hep bez struje
+Hep bez struje - TODO
     - request example: https://www.hep.hr/ods/bez-struje/19?dp=varazdin&el=108&datum=23.02.2023
     - no cors
     - fetch response and scrap the data
 
-UI
-    - create two dropdowns - područje & pogon
+Popup - TODO
+    - show selected area and plant -> use chrome storage
+    - fetch data on every popup init / show loader
+    - show fetched data for three days forward
+
+Options UI - DONE
+    - create two dropdowns - area & plant
     - check button
     - save selected values as preferences
 
-Code
+Code - TODO
     - reuse popup.tsx as container
-    - reuse options.tsx class for dropdowns ui + save preferences -> opcije proširenja (postavke ui)
-    - add one more to display result
-    - fetch data every day
+    - add one more to display result - as a child of popup
 

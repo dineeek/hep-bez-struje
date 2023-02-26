@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
 import { IPowerPlant, POWER_PLANTS } from "../meta/power-plant";
-import { optionUiStyle } from "./option.ui.style";
+import { ChromeStorage } from "../utils/chrome-storage";
+import { optionsStyle } from "./options-style";
 
 const Options = () => {
   const [distributionArea, setDistributionArea] = useState<string>("");
@@ -14,16 +15,7 @@ const Options = () => {
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences stored in chrome.storage
-    chrome.storage.sync.get(
-      {
-        hepDistributionArea: DISTRIBUTION_AREAS[0].value, // use first of list as default
-        hepPowerPlant: "",
-      },
-      (items) => {
-        onDistributionAreaChange(items.hepDistributionArea);
-        items.hepPowerPlant && setPowerPlant(items.hepPowerPlant);
-      }
-    );
+    ChromeStorage.getStatePreferences(onDistributionAreaChange, setPowerPlant);
   }, []);
 
   const onDistributionAreaChange = (distArea: string): void => {
@@ -72,25 +64,20 @@ const Options = () => {
       return showStatus("Odaberite područje i pogon.");
     }
 
-    // Saves options to chrome.storage.sync
-    chrome.storage.sync.set(
-      {
-        hepDistributionArea: distributionArea,
-        hepPowerPlant: powerPlant,
-      },
-      () => {
-        return showStatus("Vrijednosti su spremljene.");
-      }
+    ChromeStorage.savePreferences(
+      distributionArea,
+      powerPlant,
+      showStatus("Vrijednosti su spremljene.")
     );
   };
 
   return (
     <>
-      <div style={optionUiStyle.container}>
-        <div style={optionUiStyle.selection}>
+      <div style={optionsStyle.container}>
+        <div style={optionsStyle.selection}>
           Distribucijsko područje:
           <select
-            style={optionUiStyle.select}
+            style={optionsStyle.select}
             value={distributionArea}
             onChange={(event) => onDistributionAreaChange(event.target.value)}
           >
@@ -98,10 +85,10 @@ const Options = () => {
           </select>
         </div>
 
-        <div style={optionUiStyle.selection}>
+        <div style={optionsStyle.selection}>
           Pogon:
           <select
-            style={optionUiStyle.select}
+            style={optionsStyle.select}
             value={powerPlant}
             onChange={(event) => setPowerPlant(event.target.value)}
           >
@@ -110,9 +97,9 @@ const Options = () => {
           </select>
         </div>
 
-        <div style={optionUiStyle.actions}>
-          <span style={optionUiStyle.darkColor}>{saveStatus}</span>
-          <button style={optionUiStyle.saveButton} onClick={saveOptions}>
+        <div style={optionsStyle.actions}>
+          <span style={optionsStyle.darkColor}>{saveStatus}</span>
+          <button style={optionsStyle.saveButton} onClick={saveOptions}>
             Spremi
           </button>
         </div>

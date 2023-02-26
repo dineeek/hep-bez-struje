@@ -1,4 +1,4 @@
-export const optionUiStyle = {
+export const optionsStyle = {
   container: {
     display: "flex",
     flexFlow: "column nowrap",
