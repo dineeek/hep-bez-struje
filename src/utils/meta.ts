@@ -1,5 +1,4 @@
-import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
-import { IPowerPlant, POWER_PLANTS } from "../meta/power-plant";
+import { IPowerPlant, DISTRIBUTION_AREAS, POWER_PLANTS } from "../meta";
 
 export class MetaUtil {
   static getDistributionAreaPowerPlants(

@@ -1,5 +1,3 @@
-import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
-
 export class ChromeUtil {
   static getStatePreferences(
     setDistAreaCallback: (area: string) => void,
@@ -18,21 +16,12 @@ export class ChromeUtil {
     );
   }
 
-  static savePreferences(
-    area: string,
-    plant: string,
-    saveCallback: () => void
-  ): void {
+  static savePreferences(area: string, plant: string): void {
     // Saves options to chrome.storage.sync
-    chrome.storage.sync.set(
-      {
-        hepDistributionArea: area,
-        hepPowerPlant: plant,
-      },
-      () => {
-        return saveCallback();
-      }
-    );
+    chrome.storage.sync.set({
+      hepDistributionArea: area,
+      hepPowerPlant: plant,
+    });
   }
 
   static setBadgeText(text: string): void {

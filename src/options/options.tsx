@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
-import { IPowerPlant, POWER_PLANTS } from "../meta/power-plant";
-import { ChromeUtil } from "../utils/chrome-storage";
-import { MetaUtil } from "../utils/meta";
+import { DISTRIBUTION_AREAS, IPowerPlant } from "../meta";
+import { ChromeUtil, MetaUtil } from "../utils";
 import { optionsStyle } from "./options-style";
 
 const Options = () => {
@@ -21,6 +19,7 @@ const Options = () => {
 
   const onDistributionAreaChange = (areaValue: string): void => {
     setDistributionArea(areaValue);
+    setPowerPlant("");
     setDistAreaPowerPlants(MetaUtil.getDistributionAreaPowerPlants(areaValue));
   };
 
@@ -53,14 +52,12 @@ const Options = () => {
 
   const saveOptions = () => {
     if (!distributionArea || !powerPlant) {
-      return showStatus("Odaberite područje i pogon.");
+      showStatus("Odaberite područje i pogon.");
+      return;
     }
 
-    ChromeUtil.savePreferences(
-      distributionArea,
-      powerPlant,
-      showStatus("Vrijednosti su spremljene.")
-    );
+    ChromeUtil.savePreferences(distributionArea, powerPlant);
+    showStatus("Vrijednosti su spremljene.");
   };
 
   return (

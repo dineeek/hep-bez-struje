@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { ChromeUtil } from "../utils/chrome-storage";
-import { MetaUtil } from "../utils/meta";
+import { ChromeUtil, MetaUtil } from "../utils";
 import { popupStyle } from "./popup-style";
 
 const Popup = () => {
@@ -18,16 +17,20 @@ const Popup = () => {
         <span style={popupStyle.title}>HEP - bez struje</span>
         {distributionArea && powerPlant ? (
           <>
-            <span>
-              Distribucijsko područje:
-              {MetaUtil.getDistributionAreaName(distributionArea)}
+            <span style={popupStyle.selectedValues}>
+              Distribucijsko područje:{" "}
+              <b>{MetaUtil.getDistributionAreaName(distributionArea)}</b>
             </span>
-            <span>Pogon: {MetaUtil.getPowerPlantName(powerPlant)}</span>
+            <span>
+              Pogon: <b>{MetaUtil.getPowerPlantName(powerPlant)}</b>
+            </span>
             <span>
               Datum:{" "}
-              {new Date().toLocaleString("hr", {
-                formatMatcher: "best fit",
-              })}
+              <b>
+                {new Date().toLocaleString("hr", {
+                  formatMatcher: "best fit",
+                })}
+              </b>
             </span>
           </>
         ) : (
