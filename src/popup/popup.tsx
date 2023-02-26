@@ -11,7 +11,7 @@ const Popup = () => {
   return (
     <>
       <div style={{ minWidth: "500px" }}>
-        Današnji datum: {new Date().toLocaleDateString()}
+        Današnji datum: {new Date().toUTCString()}
       </div>
 
       <button onClick={() => setCount(count + 1)}>count up</button>
