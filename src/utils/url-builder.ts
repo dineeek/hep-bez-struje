@@ -6,7 +6,7 @@ enum SearchParams {
   DATE = "datum", // format: 25.02.2023
 }
 
-export class URLBuilder {
+export class URLBuilderUtil {
   static buildUrl(
     distributionArea: string,
     powerPlant: string,

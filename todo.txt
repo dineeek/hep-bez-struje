@@ -4,16 +4,8 @@ Hep bez struje - TODO
     - fetch response and scrap the data
 
 Popup - TODO
-    - show selected area and plant -> use chrome storage
     - fetch data on every popup init / show loader
     - show fetched data for three days forward
-
-Options UI - DONE
-    - create two dropdowns - area & plant
-    - check button
-    - save selected values as preferences
-
-Code - TODO
-    - reuse popup.tsx as container
-    - add one more to display result - as a child of popup
+    - show info icon - change in preferences in options
+    - set badge count as number of days without power 
 

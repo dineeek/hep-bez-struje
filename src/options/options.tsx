@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
 import { IPowerPlant, POWER_PLANTS } from "../meta/power-plant";
-import { ChromeStorage } from "../utils/chrome-storage";
+import { ChromeUtil } from "../utils/chrome-storage";
+import { MetaUtil } from "../utils/meta";
 import { optionsStyle } from "./options-style";
 
 const Options = () => {
@@ -15,21 +16,12 @@ const Options = () => {
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences stored in chrome.storage
-    ChromeStorage.getStatePreferences(onDistributionAreaChange, setPowerPlant);
+    ChromeUtil.getStatePreferences(onDistributionAreaChange, setPowerPlant);
   }, []);
 
-  const onDistributionAreaChange = (distArea: string): void => {
-    setDistributionArea(distArea);
-
-    const areaId = DISTRIBUTION_AREAS.find(
-      (area) => area.value === distArea
-    )?.id;
-
-    const powerPlants = POWER_PLANTS.filter(
-      (plant) => plant.distributionAreaId === areaId
-    );
-
-    setDistAreaPowerPlants(powerPlants);
+  const onDistributionAreaChange = (areaValue: string): void => {
+    setDistributionArea(areaValue);
+    setDistAreaPowerPlants(MetaUtil.getDistributionAreaPowerPlants(areaValue));
   };
 
   const getAreaOptions = () => {
@@ -64,7 +56,7 @@ const Options = () => {
       return showStatus("Odaberite područje i pogon.");
     }
 
-    ChromeStorage.savePreferences(
+    ChromeUtil.savePreferences(
       distributionArea,
       powerPlant,
       showStatus("Vrijednosti su spremljene.")
@@ -81,28 +73,33 @@ const Options = () => {
             value={distributionArea}
             onChange={(event) => onDistributionAreaChange(event.target.value)}
           >
+            <option defaultValue="none" hidden></option>
             {getAreaOptions()}
           </select>
         </div>
 
-        <div style={optionsStyle.selection}>
-          Pogon:
-          <select
-            style={optionsStyle.select}
-            value={powerPlant}
-            onChange={(event) => setPowerPlant(event.target.value)}
-          >
-            <option defaultValue="none" hidden></option>
-            {getPlantOptions()}
-          </select>
-        </div>
+        {distributionArea && (
+          <div style={optionsStyle.selection}>
+            Pogon:
+            <select
+              style={optionsStyle.select}
+              value={powerPlant}
+              onChange={(event) => setPowerPlant(event.target.value)}
+            >
+              <option defaultValue="none" hidden></option>
+              {getPlantOptions()}
+            </select>
+          </div>
+        )}
 
-        <div style={optionsStyle.actions}>
-          <span style={optionsStyle.darkColor}>{saveStatus}</span>
-          <button style={optionsStyle.saveButton} onClick={saveOptions}>
-            Spremi
-          </button>
-        </div>
+        {distributionArea && powerPlant && (
+          <div style={optionsStyle.actions}>
+            <span style={optionsStyle.darkColor}>{saveStatus}</span>
+            <button style={optionsStyle.saveButton} onClick={saveOptions}>
+              Spremi
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

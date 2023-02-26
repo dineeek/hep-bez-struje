@@ -1,17 +1,18 @@
 import { DISTRIBUTION_AREAS } from "../meta/distribution-area";
 
-export class ChromeStorage {
+export class ChromeUtil {
   static getStatePreferences(
     setDistAreaCallback: (area: string) => void,
     setPlantCallback: (plant: string) => void
   ): void {
     chrome.storage.sync.get(
       {
-        hepDistributionArea: DISTRIBUTION_AREAS[0].value, // use first of list as default
+        hepDistributionArea: "", // use first of list as default
         hepPowerPlant: "",
       },
       (items) => {
-        setDistAreaCallback(items.hepDistributionArea);
+        items.hepDistributionArea &&
+          setDistAreaCallback(items.hepDistributionArea);
         items.hepPowerPlant && setPlantCallback(items.hepPowerPlant);
       }
     );
@@ -32,5 +33,9 @@ export class ChromeStorage {
         return saveCallback();
       }
     );
+  }
+
+  static setBadgeText(text: string): void {
+    chrome.action.setBadgeText({ text: text });
   }
 }
