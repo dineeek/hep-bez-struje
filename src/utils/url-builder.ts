@@ -7,7 +7,7 @@ enum SearchParams {
 }
 
 export class URLBuilderUtil {
-  static buildUrl(
+  static build(
     distributionArea: string,
     powerPlant: string,
     date: string

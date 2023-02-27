@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DISTRIBUTION_AREAS, IPowerPlant } from "../meta";
 import { ChromeUtil, MetaUtil } from "../utils";
-import { optionsStyle } from "./options-style";
+import "./options.css";
 
 const Options = () => {
   const [distributionArea, setDistributionArea] = useState<string>("");
@@ -62,11 +62,11 @@ const Options = () => {
 
   return (
     <>
-      <div style={optionsStyle.container}>
-        <div style={optionsStyle.selection}>
+      <div className="container">
+        <div className="selection">
           Distribucijsko područje:
           <select
-            style={optionsStyle.select}
+            className="select"
             value={distributionArea}
             onChange={(event) => onDistributionAreaChange(event.target.value)}
           >
@@ -76,10 +76,10 @@ const Options = () => {
         </div>
 
         {distributionArea && (
-          <div style={optionsStyle.selection}>
+          <div className="selection">
             Pogon:
             <select
-              style={optionsStyle.select}
+              className="select"
               value={powerPlant}
               onChange={(event) => setPowerPlant(event.target.value)}
             >
@@ -90,9 +90,9 @@ const Options = () => {
         )}
 
         {distributionArea && powerPlant && (
-          <div style={optionsStyle.actions}>
-            <span style={optionsStyle.darkColor}>{saveStatus}</span>
-            <button style={optionsStyle.saveButton} onClick={saveOptions}>
+          <div className="actions">
+            <span className="darkColor">{saveStatus}</span>
+            <button className="saveButton" onClick={saveOptions}>
               Spremi
             </button>
           </div>

@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 10px;
+  font-size: 14px;
+}
+
+.selection {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 4px;
+}
+
+.select {
+  height: 24px;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 10px;
+  padding-top: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.saveButton {
+  height: 30px;
+  width: 80px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  color: white;
+  letter-spacing: 0.75px;
+  background-color: rgb(41 42 45);
+}
+
+.darkcolor {
+  color: rgb(41 42 45);
+}

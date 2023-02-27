@@ -1,11 +1,6 @@
-Hep bez struje - TODO
-    - request example: https://www.hep.hr/ods/bez-struje/19?dp=varazdin&el=108&datum=23.02.2023
-    - no cors
-    - fetch response and scrap the data
-
 Popup - TODO
-    - fetch data on every popup init / show loader
-    - show fetched data for three days forward
+    - show loader
+    - show option to fetch data for three days forward
     - show info icon - change in preferences in options
     - set badge count as number of days without power 
 
