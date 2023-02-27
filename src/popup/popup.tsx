@@ -7,15 +7,17 @@ import "./popup.css";
 const Popup = () => {
   const [distributionArea, setDistributionArea] = useState<string>("");
   const [powerPlant, setPowerPlant] = useState<string>("");
-  const [notifications, setNotifications] = useState<INotification[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [notifications, setNotifications] = useState<INotification[]>([]);
+  const [fetchStatus, setFetchStatus] = useState<string>("");
+
+  const todayDate = new Date().toLocaleString("hr", {
+    formatMatcher: "best fit",
+    dateStyle: "short",
+  });
 
   const fetchTodaysNotifications = () => {
-    const today = new Date().toLocaleString("hr", {
-      formatMatcher: "best fit",
-      dateStyle: "short",
-    });
-    const url = URLBuilderUtil.build(distributionArea, powerPlant, today);
+    const url = URLBuilderUtil.build(distributionArea, powerPlant, todayDate);
 
     setLoading(true);
 
@@ -25,6 +27,12 @@ const Popup = () => {
       .then((notifications) => {
         setLoading(false);
         setNotifications(notifications);
+        notifications.length === 0 &&
+          setFetchStatus("Nema planiranih prekida napajanja.");
+      })
+      .catch(() => {
+        setLoading(false);
+        setFetchStatus("Dogodila se pogreška. Probajte ponovno kasnije.");
       });
   };
 
@@ -35,6 +43,20 @@ const Popup = () => {
   useEffect(() => {
     powerPlant && fetchTodaysNotifications();
   }, [powerPlant]);
+
+  const getNotificationList = () => {
+    return notifications.map((notification, index) => {
+      return (
+        <div key={"notification_" + index} className="notifications">
+          <span>{notification.place}</span>
+          <span>{notification.street}</span>
+          {notification.note && <span>{notification.note}</span>}
+          <span>{notification.dateTime}</span>
+          <span>{notification.reason}</span>
+        </div>
+      );
+    });
+  };
 
   return (
     <>
@@ -50,38 +72,22 @@ const Popup = () => {
               Pogon: <b>{MetaUtil.getPowerPlantName(powerPlant)}</b>
             </span>
             <span>
-              Datum:{" "}
-              <b>
-                {new Date().toLocaleString("hr", {
-                  formatMatcher: "best fit",
-                  dateStyle: "short",
-                })}
-              </b>
+              Datum: <b>{todayDate}</b>
             </span>
 
             {loading ? (
               <div className="loader"></div>
             ) : notifications.length > 0 ? (
-              notifications.map((notification, index) => {
-                return (
-                  <div key={"notification_" + index} className="notifications">
-                    <span>{notification.place}</span>
-                    <span>{notification.street}</span>
-                    {notification.note && <span>{notification.note}</span>}
-                    <span>{notification.dateTime}</span>
-                    <span>{notification.reason}</span>
-                  </div>
-                );
-              })
+              getNotificationList()
             ) : (
-              "Nema planiranih prekida napajanja."
+              <span>{fetchStatus}</span>
             )}
           </>
         ) : (
           <>
             <span>
               Odaberite HEP distribucijsko područje i pogon u opcijama
-              ekstenzije za pregled područja bez struje.
+              ekstenzije za dohvat područja bez struje.
             </span>
           </>
         )}

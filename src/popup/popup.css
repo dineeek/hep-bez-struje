@@ -8,7 +8,6 @@
 
 .title {
   font-size: 15px;
-  margin-bottom: 6px;
 }
 
 .selectedValues {
@@ -19,13 +18,18 @@
   display: flex;
   flex-flow: column nowrap;
   row-gap: 10px;
-  border-bottom: 1px solid rgb(41 42 45);
+  border-bottom: 1px dashed rgb(41 42 45);
   padding-bottom: 10px;
 }
 
-.notifications:last-child {
-  border-bottom: none;
+.notifications:first-of-type {
+  padding-top: 10px;
+  border-top: 1px dashed rgb(41 42 45);
+}
+
+.notifications:last-of-type {
   padding-bottom: 0;
+  border-bottom: none;
 }
 
 .loader {
