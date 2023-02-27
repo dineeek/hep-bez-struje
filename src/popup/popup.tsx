@@ -61,7 +61,15 @@ const Popup = () => {
   return (
     <>
       <div className="container">
-        <span className="title">HEP - bez struje</span>
+        <div className="title">
+          <span>HEP - bez struje</span>
+          <img
+            className="info"
+            src="info.png"
+            title="Promjena distribucijskog područja i pogona moguća je u opcijama ovog proširenja."
+          />
+        </div>
+
         {distributionArea && powerPlant ? (
           <>
             <span className="selectedValues">
