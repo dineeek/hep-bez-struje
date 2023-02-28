@@ -10,8 +10,16 @@
   },
 
   "action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "icons/no_power32.png",
+    "default_popup": "popup.html",
+    "default_title": "HEP - bez struje"
+  },
+
+  "icons": {
+    "16": "icons/no_power16.png",
+    "32": "icons/no_power32.png",
+    "48": "icons/no_power48.png",
+    "128": "icons/no_power128.png"
   },
 
   "permissions": ["storage"],
