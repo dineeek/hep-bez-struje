@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DISTRIBUTION_AREAS, IPowerPlant } from "../meta";
-import { ChromeUtil, MetaUtil } from "../utils";
+import { MetaUtil } from "../utils";
 import "./options.css";
 
 const Options = () => {
@@ -14,11 +14,18 @@ const Options = () => {
   const [saveStatus, setSaveStatus] = useState<string>("");
 
   useEffect(() => {
-    // Restores select box and checkbox state using the preferences stored in chrome.storage
-    ChromeUtil.getStatePreferences(
-      onDistributionAreaChange,
-      setPowerPlant,
-      setStreet
+    chrome.storage.sync.get(
+      {
+        hepDistributionArea: "",
+        hepPowerPlant: "",
+        hepUserStreet: "",
+      },
+      (items) => {
+        items.hepDistributionArea &&
+          onDistributionAreaChange(items.hepDistributionArea);
+        items.hepPowerPlant && setPowerPlant(items.hepPowerPlant);
+        items.hepUserStreet && setStreet(items.hepUserStreet);
+      }
     );
   }, []);
 
@@ -61,7 +68,11 @@ const Options = () => {
       return;
     }
 
-    ChromeUtil.savePreferences(distributionArea, powerPlant, street);
+    chrome.storage.sync.set({
+      hepDistributionArea: distributionArea,
+      hepPowerPlant: powerPlant,
+      hepUserStreet: street,
+    });
     showStatus("Vrijednosti su spremljene.");
   };
 

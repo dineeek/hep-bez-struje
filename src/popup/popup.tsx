@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { INotification } from "../models/notification.model";
-import { ChromeUtil, MetaUtil, ScrapperUtil, URLBuilderUtil } from "../utils";
+import { MetaUtil, ScrapperUtil, URLBuilderUtil } from "../utils";
 import "./popup.css";
 
+interface IUserPreferences {
+  distributionArea: string;
+  powerPlant: string;
+  street: string;
+}
+
 const Popup = () => {
-  const [distributionArea, setDistributionArea] = useState<string>("");
-  const [powerPlant, setPowerPlant] = useState<string>("");
-  const [street, setStreet] = useState<string>("");
+  const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
+    distributionArea: "",
+    powerPlant: "",
+    street: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>("");
@@ -17,25 +25,40 @@ const Popup = () => {
   });
 
   useEffect(() => {
-    ChromeUtil.getStatePreferences(
-      setDistributionArea,
-      setPowerPlant,
-      setStreet
+    chrome.storage.sync.get(
+      {
+        hepDistributionArea: "",
+        hepPowerPlant: "",
+        hepUserStreet: "",
+      },
+      (items) => {
+        setUserPreferences({
+          distributionArea: items.hepDistributionArea,
+          powerPlant: items.hepPowerPlant,
+          street: items.hepUserStreet,
+        });
+      }
     );
   }, []);
 
   useEffect(() => {
-    powerPlant && fetchTodaysNotifications();
-  }, [powerPlant]);
+    userPreferences?.powerPlant && fetchTodaysNotifications();
+  }, [userPreferences]);
 
   const fetchTodaysNotifications = () => {
-    const url = URLBuilderUtil.build(distributionArea, powerPlant, todayDate);
+    const url = URLBuilderUtil.build(
+      userPreferences.distributionArea,
+      userPreferences.powerPlant,
+      todayDate
+    );
 
     setLoading(true);
 
     fetch(url)
       .then((res) => res.text())
-      .then((document) => ScrapperUtil.scrapData(document, street))
+      .then((document) =>
+        ScrapperUtil.scrapData(document, userPreferences.street)
+      )
       .then((notifications) => {
         setLoading(false);
         setStatusAndBadge(notifications);
@@ -97,14 +120,19 @@ const Popup = () => {
           />
         </div>
 
-        {distributionArea && powerPlant ? (
+        {userPreferences.powerPlant ? (
           <>
             <span className="selected-values">
               Distribucijsko područje:{" "}
-              <b>{MetaUtil.getDistributionAreaName(distributionArea)}</b>
+              <b>
+                {MetaUtil.getDistributionAreaName(
+                  userPreferences.distributionArea
+                )}
+              </b>
             </span>
             <span>
-              Pogon: <b>{MetaUtil.getPowerPlantName(powerPlant)}</b>
+              Pogon:{" "}
+              <b>{MetaUtil.getPowerPlantName(userPreferences.powerPlant)}</b>
             </span>
             <span>
               Datum: <b>{todayDate}</b>
