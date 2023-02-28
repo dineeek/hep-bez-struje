@@ -43,6 +43,11 @@
   border-bottom: none;
 }
 
+.highlight {
+  color: rgb(150, 1, 1);
+  font-weight: 500;
+}
+
 .loader {
   display: grid;
   place-self: center;

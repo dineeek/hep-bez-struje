@@ -42,7 +42,7 @@ const Popup = () => {
   }, []);
 
   useEffect(() => {
-    userPreferences?.powerPlant && fetchTodaysNotifications();
+    userPreferences.powerPlant && fetchTodaysNotifications();
   }, [userPreferences]);
 
   const fetchTodaysNotifications = () => {
@@ -88,16 +88,12 @@ const Popup = () => {
   const getNotificationList = () => {
     return notifications.map((notification, index) => {
       return (
-        <div key={"notification_" + index} className="notifications">
-          {notification.isUserStreet ? (
-            <>
-              <div>
-                <img className="red-flag" src="icons/red_flag.png" />
-                <img className="red-flag" src="icons/red_flag.png" />
-                <img className="red-flag" src="icons/red_flag.png" />
-              </div>
-            </>
-          ) : null}
+        <div
+          key={"notification_" + index}
+          className={`notifications ${
+            notification.isUserStreet ? "highlight" : ""
+          }`}
+        >
           <span>{notification.place}</span>
           <span>{notification.street}</span>
           {notification.note && <span>{notification.note}</span>}
