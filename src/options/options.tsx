@@ -10,11 +10,16 @@ const Options = () => {
   const [distAreaPowerPlants, setDistAreaPowerPlants] = useState<IPowerPlant[]>(
     []
   );
+  const [street, setStreet] = useState<string>("");
   const [saveStatus, setSaveStatus] = useState<string>("");
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences stored in chrome.storage
-    ChromeUtil.getStatePreferences(onDistributionAreaChange, setPowerPlant);
+    ChromeUtil.getStatePreferences(
+      onDistributionAreaChange,
+      setPowerPlant,
+      setStreet
+    );
   }, []);
 
   const onDistributionAreaChange = (areaValue: string): void => {
@@ -56,7 +61,7 @@ const Options = () => {
       return;
     }
 
-    ChromeUtil.savePreferences(distributionArea, powerPlant);
+    ChromeUtil.savePreferences(distributionArea, powerPlant, street);
     showStatus("Vrijednosti su spremljene.");
   };
 
@@ -66,7 +71,7 @@ const Options = () => {
         <div className="selection">
           Distribucijsko područje:
           <select
-            className="select"
+            className="selectInput"
             value={distributionArea}
             onChange={(event) => onDistributionAreaChange(event.target.value)}
           >
@@ -79,7 +84,7 @@ const Options = () => {
           <div className="selection">
             Pogon:
             <select
-              className="select"
+              className="selectInput"
               value={powerPlant}
               onChange={(event) => setPowerPlant(event.target.value)}
             >
@@ -90,12 +95,29 @@ const Options = () => {
         )}
 
         {distributionArea && powerPlant && (
-          <div className="actions">
-            <span className="darkColor">{saveStatus}</span>
-            <button className="saveButton" onClick={saveOptions}>
-              Spremi
-            </button>
-          </div>
+          <>
+            <div className="selection">
+              Ulica:
+              <input
+                className="selectInput"
+                type="text"
+                onChange={(event) => setStreet(event.target.value)}
+                placeholder="Opcionalno - npr. Vukovarska"
+                value={street}
+              />
+            </div>
+
+            <div className="actions">
+              <span className="darkColor">{saveStatus}</span>
+              <button
+                type="submit"
+                className="saveButton"
+                onClick={saveOptions}
+              >
+                Spremi
+              </button>
+            </div>
+          </>
         )}
       </div>
     </>

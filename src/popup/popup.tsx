@@ -7,14 +7,26 @@ import "./popup.css";
 const Popup = () => {
   const [distributionArea, setDistributionArea] = useState<string>("");
   const [powerPlant, setPowerPlant] = useState<string>("");
+  const [street, setStreet] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>("");
 
   const todayDate = new Date().toLocaleString("hr", {
-    formatMatcher: "best fit",
     dateStyle: "short",
   });
+
+  useEffect(() => {
+    ChromeUtil.getStatePreferences(
+      setDistributionArea,
+      setPowerPlant,
+      setStreet
+    );
+  }, []);
+
+  useEffect(() => {
+    powerPlant && fetchTodaysNotifications();
+  }, [powerPlant]);
 
   const fetchTodaysNotifications = () => {
     const url = URLBuilderUtil.build(distributionArea, powerPlant, todayDate);
@@ -23,12 +35,11 @@ const Popup = () => {
 
     fetch(url)
       .then((res) => res.text())
-      .then((document) => ScrapperUtil.scrapData(document))
+      .then((document) => ScrapperUtil.scrapData(document, street))
       .then((notifications) => {
         setLoading(false);
+        setStatusAndBadge(notifications);
         setNotifications(notifications);
-        notifications.length === 0 &&
-          setFetchStatus("Nema planiranih prekida napajanja.");
       })
       .catch(() => {
         setLoading(false);
@@ -36,18 +47,34 @@ const Popup = () => {
       });
   };
 
-  useEffect(() => {
-    ChromeUtil.getStatePreferences(setDistributionArea, setPowerPlant);
-  }, []);
+  const setStatusAndBadge = (notifications: INotification[]) => {
+    notifications.length === 0 &&
+      setFetchStatus("Nema planiranih prekida napajanja.");
 
-  useEffect(() => {
-    powerPlant && fetchTodaysNotifications();
-  }, [powerPlant]);
+    const userAffectedDaysCount = notifications.filter(
+      (notification) => notification.isUserStreet
+    ).length;
+
+    if (userAffectedDaysCount > 0) {
+      chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
+    } else {
+      chrome.action.setBadgeText({ text: "" });
+    }
+  };
 
   const getNotificationList = () => {
     return notifications.map((notification, index) => {
       return (
         <div key={"notification_" + index} className="notifications">
+          {notification.isUserStreet ? (
+            <>
+              <div>
+                <img className="red-flag" src="icons/red_flag.png" />
+                <img className="red-flag" src="icons/red_flag.png" />
+                <img className="red-flag" src="icons/red_flag.png" />
+              </div>
+            </>
+          ) : null}
           <span>{notification.place}</span>
           <span>{notification.street}</span>
           {notification.note && <span>{notification.note}</span>}
@@ -65,14 +92,14 @@ const Popup = () => {
           <span>HEP - bez struje</span>
           <img
             className="info"
-            src="info.png"
+            src="icons/info.png"
             title="Promjena distribucijskog područja i pogona moguća je u opcijama ovog proširenja."
           />
         </div>
 
         {distributionArea && powerPlant ? (
           <>
-            <span className="selectedValues">
+            <span className="selected-values">
               Distribucijsko područje:{" "}
               <b>{MetaUtil.getDistributionAreaName(distributionArea)}</b>
             </span>

@@ -1,5 +1,0 @@
-Popup - TODO
-    - show option to fetch data for three days forward
-    - set badge count as number of days without power 
-    - set manifest icons
-
