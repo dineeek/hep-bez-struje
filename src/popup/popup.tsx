@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { INotification } from "../models/notification.model";
-import { MetaUtil, ScrapperUtil, URLBuilderUtil } from "../utils";
+import { INotification, IUserPreferences } from "../models";
+import { MetaUtil, ScrapperUtil } from "../utils";
 import "./popup.css";
-
-interface IUserPreferences {
-  distributionArea: string;
-  powerPlant: string;
-  street: string;
-}
 
 const Popup = () => {
   const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
     distributionArea: "",
     powerPlant: "",
     street: "",
+    futureSearch: false,
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>("");
-
-  const todayDate = new Date().toLocaleString("hr", {
-    dateStyle: "short",
-  });
 
   useEffect(() => {
     chrome.storage.sync.get(
@@ -30,12 +21,14 @@ const Popup = () => {
         hepDistributionArea: "",
         hepPowerPlant: "",
         hepUserStreet: "",
+        hepFutureSearch: false,
       },
       (items) => {
         setUserPreferences({
           distributionArea: items.hepDistributionArea,
           powerPlant: items.hepPowerPlant,
           street: items.hepUserStreet,
+          futureSearch: items.hepFutureSearch,
         });
       }
     );
@@ -46,19 +39,9 @@ const Popup = () => {
   }, [userPreferences]);
 
   const fetchTodaysNotifications = () => {
-    const url = URLBuilderUtil.build(
-      userPreferences.distributionArea,
-      userPreferences.powerPlant,
-      todayDate
-    );
-
     setLoading(true);
 
-    fetch(url)
-      .then((res) => res.text())
-      .then((document) =>
-        ScrapperUtil.scrapData(document, userPreferences.street)
-      )
+    ScrapperUtil.getNotifications(userPreferences)
       .then((notifications) => {
         setLoading(false);
         setStatusAndBadge(notifications);
@@ -95,6 +78,9 @@ const Popup = () => {
             notification.isUserStreet ? "highlight-card" : ""
           }`}
         >
+          <span>
+            Datum: <b>{notification.date}</b>
+          </span>
           <span>{notification.place}</span>
           <span>{notification.street}</span>
           {notification.note && <span>{notification.note}</span>}
@@ -130,9 +116,6 @@ const Popup = () => {
             <span>
               Pogon:{" "}
               <b>{MetaUtil.getPowerPlantName(userPreferences.powerPlant)}</b>
-            </span>
-            <span>
-              Datum: <b>{todayDate}</b>
             </span>
 
             {loading ? (

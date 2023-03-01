@@ -11,6 +11,7 @@ const Options = () => {
     []
   );
   const [street, setStreet] = useState<string>("");
+  const [futureSearch, setFutureSearch] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>("");
 
   useEffect(() => {
@@ -19,12 +20,14 @@ const Options = () => {
         hepDistributionArea: "",
         hepPowerPlant: "",
         hepUserStreet: "",
+        hepFutureSearch: false,
       },
       (items) => {
         items.hepDistributionArea &&
           onDistributionAreaChange(items.hepDistributionArea);
         items.hepPowerPlant && setPowerPlant(items.hepPowerPlant);
         items.hepUserStreet && setStreet(items.hepUserStreet);
+        setFutureSearch(items.hepFutureSearch);
       }
     );
   }, []);
@@ -33,6 +36,7 @@ const Options = () => {
     setDistributionArea(areaValue);
     setPowerPlant("");
     setStreet("");
+    setFutureSearch(false);
     setDistAreaPowerPlants(MetaUtil.getDistributionAreaPowerPlants(areaValue));
   };
 
@@ -73,6 +77,7 @@ const Options = () => {
       hepDistributionArea: distributionArea,
       hepPowerPlant: powerPlant,
       hepUserStreet: street,
+      hepFutureSearch: futureSearch,
     });
     showStatus("Vrijednosti su spremljene.");
   };
@@ -111,11 +116,21 @@ const Options = () => {
             <div className="selection">
               Ulica:
               <input
-                className="selectInput"
+                className="select-input"
                 type="text"
                 onChange={(event) => setStreet(event.target.value)}
                 placeholder="Opcionalno - npr. Vukovarska"
                 value={street}
+              />
+            </div>
+
+            <div className="checkbox">
+              Provjeri tri dana unaprijed:
+              <input
+                className="check-input"
+                type="checkbox"
+                checked={futureSearch}
+                onChange={() => setFutureSearch(!futureSearch)}
               />
             </div>
 

@@ -1,7 +1,83 @@
-import { INotification } from "../models/notification.model";
+import { INotification, IUserPreferences } from "../models";
+import { URLBuilderUtil } from "./url-builder";
 
 export class ScrapperUtil {
-  static scrapData(data: string, userStreet: string): INotification[] {
+  static getNotifications(
+    userPreferences: IUserPreferences
+  ): Promise<INotification[]> {
+    if (userPreferences.futureSearch) {
+      return this.getFutureNotifications(userPreferences);
+    }
+
+    return this.getTodaysNotifications(userPreferences);
+  }
+
+  // HEP is providing only three days forward information
+  private static getFutureNotifications = async (
+    userPreferences: IUserPreferences
+  ): Promise<INotification[]> => {
+    const notificationPromises = [];
+    // index is number of day to add
+    for (let i = 0; i < 4; i++) {
+      const todayDate = new Date();
+      const futureDate = new Date(todayDate);
+      futureDate.setDate(todayDate.getDate() + i);
+
+      const searchDate = futureDate.toLocaleString("hr", {
+        dateStyle: "short",
+      });
+
+      const url = URLBuilderUtil.build(
+        userPreferences.distributionArea,
+        userPreferences.powerPlant,
+        searchDate
+      );
+
+      notificationPromises.push(
+        this.fetchData(url, searchDate, userPreferences.street)
+      );
+    }
+
+    let notifications: INotification[] = [];
+
+    for (const notificationPromise of notificationPromises) {
+      notifications = [...notifications, ...(await notificationPromise)];
+    }
+
+    return notifications;
+  };
+
+  private static getTodaysNotifications = (
+    userPreferences: IUserPreferences
+  ): Promise<INotification[]> => {
+    const todayDate = new Date().toLocaleString("hr", {
+      dateStyle: "short",
+    });
+
+    const url = URLBuilderUtil.build(
+      userPreferences.distributionArea,
+      userPreferences.powerPlant,
+      todayDate
+    );
+
+    return this.fetchData(url, todayDate, userPreferences.street);
+  };
+
+  private static fetchData = (
+    url: string,
+    date: string,
+    street: string
+  ): Promise<INotification[]> => {
+    return fetch(url)
+      .then((res) => res.text())
+      .then((response) => this.scrapData(response, date, street));
+  };
+
+  private static scrapData(
+    data: string,
+    date: string,
+    userStreet: string
+  ): INotification[] {
     var document = new DOMParser().parseFromString(data, "text/html");
     var elements = document.querySelectorAll(".mjesto, .vrijeme");
 
@@ -29,6 +105,7 @@ export class ScrapperUtil {
       const street = group[0].substring(streetIndexOf, noteStartIndex);
 
       return {
+        date,
         place: group[0].substring(0, streetIndexOf),
         street: street,
         isUserStreet:

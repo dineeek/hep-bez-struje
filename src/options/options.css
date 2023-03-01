@@ -18,11 +18,23 @@
   border-radius: 6px;
 }
 
+.checkbox {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.check-input {
+  height: 18px;
+  width: 18px;
+  accent-color: currentcolor;
+}
+
 .actions {
   display: flex;
   flex-flow: row nowrap;
   column-gap: 10px;
-  padding-top: 10px;
   justify-content: space-between;
   align-items: center;
 }

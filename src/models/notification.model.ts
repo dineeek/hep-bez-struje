@@ -1,4 +1,5 @@
 export interface INotification {
+  date: string;
   place: string;
   street: string;
   isUserStreet: boolean;
