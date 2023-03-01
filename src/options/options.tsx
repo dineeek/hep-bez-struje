@@ -83,7 +83,7 @@ const Options = () => {
         <div className="selection">
           Distribucijsko područje:
           <select
-            className="selectInput"
+            className="select-input"
             value={distributionArea}
             onChange={(event) => onDistributionAreaChange(event.target.value)}
           >
@@ -96,7 +96,7 @@ const Options = () => {
           <div className="selection">
             Pogon:
             <select
-              className="selectInput"
+              className="select-input"
               value={powerPlant}
               onChange={(event) => setPowerPlant(event.target.value)}
             >
@@ -123,7 +123,7 @@ const Options = () => {
               <span className="darkColor">{saveStatus}</span>
               <button
                 type="submit"
-                className="saveButton"
+                className="save-button"
                 onClick={saveOptions}
               >
                 Spremi
