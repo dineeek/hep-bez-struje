@@ -32,6 +32,7 @@ const Options = () => {
   const onDistributionAreaChange = (areaValue: string): void => {
     setDistributionArea(areaValue);
     setPowerPlant("");
+    setStreet("");
     setDistAreaPowerPlants(MetaUtil.getDistributionAreaPowerPlants(areaValue));
   };
 

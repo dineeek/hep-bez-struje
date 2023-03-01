@@ -79,6 +79,7 @@ const Popup = () => {
     ).length;
 
     if (userAffectedDaysCount > 0) {
+      chrome.action.setBadgeBackgroundColor({ color: "red" });
       chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
     } else {
       chrome.action.setBadgeText({ text: "" });
@@ -90,8 +91,8 @@ const Popup = () => {
       return (
         <div
           key={"notification_" + index}
-          className={`notifications ${
-            notification.isUserStreet ? "highlight" : ""
+          className={`notification-card ${
+            notification.isUserStreet ? "highlight-card" : ""
           }`}
         >
           <span>{notification.place}</span>
