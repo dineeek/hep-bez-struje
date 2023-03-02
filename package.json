@@ -1,16 +1,27 @@
 {
   "name": "hep-bez-struje",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "hep-bez-struje",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist",
-    "test": "npx jest",
+    "test": "npx jest --watch",
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
-  "author": "",
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "author": "Dino Klicek",
+  "keywords": [
+    "hep",
+    "bez struje",
+    "chrome plugin",
+    "extension",
+    "react",
+    "typescript"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

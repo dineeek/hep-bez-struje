@@ -43,7 +43,7 @@ export class ScrapperUtil {
       const futureDate = new Date(todayDate);
       futureDate.setDate(todayDate.getDate() + i);
 
-      const searchDate = futureDate.toLocaleDateString();
+      const searchDate = futureDate.toLocaleDateString("hr");
 
       const url = this.buildUrl(
         userPreferences.distributionArea,
@@ -68,7 +68,7 @@ export class ScrapperUtil {
   private static getTodaysNotifications = (
     userPreferences: IUserPreferences
   ): Promise<INotification[]> => {
-    const todayDate = new Date().toLocaleDateString();
+    const todayDate = new Date().toLocaleDateString("hr");
 
     const url = this.buildUrl(
       userPreferences.distributionArea,
