@@ -105,7 +105,7 @@ const Popup = () => {
 
         {userPreferences.powerPlant ? (
           <>
-            <span className="selected-values">
+            <span>
               Distribucijsko područje:{" "}
               <b>
                 {MetaUtil.getDistributionAreaName(
@@ -119,9 +119,16 @@ const Popup = () => {
             </span>
 
             {loading ? (
-              <div className="loader"></div>
+              <div className="loader">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             ) : notifications.length > 0 ? (
-              getNotificationList()
+              <>
+                <hr className="line-break"></hr>
+                {getNotificationList()}
+              </>
             ) : (
               <span>{fetchStatus}</span>
             )}
