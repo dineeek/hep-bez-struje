@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { DISTRIBUTION_AREAS, IPowerPlant } from "../meta";
+import { ChromeStorage } from "../models";
 import { MetaUtil } from "../utils";
 import "./options.css";
 
@@ -17,17 +18,16 @@ const Options = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        hepDistributionArea: "",
-        hepPowerPlant: "",
-        hepUserStreet: "",
-        hepFutureSearch: false,
+        [ChromeStorage.DISTRIBUTION_AREA]: "",
+        [ChromeStorage.POWER_PLANT]: "",
+        [ChromeStorage.USER_STREET]: "",
+        [ChromeStorage.FUTURE_SEARCH]: false,
       },
-      (items) => {
-        items.hepDistributionArea &&
-          onDistributionAreaChange(items.hepDistributionArea);
-        items.hepPowerPlant && setPowerPlant(items.hepPowerPlant);
-        items.hepUserStreet && setStreet(items.hepUserStreet);
-        setFutureSearch(items.hepFutureSearch);
+      (storage) => {
+        onDistributionAreaChange(storage[ChromeStorage.DISTRIBUTION_AREA]);
+        setPowerPlant(storage[ChromeStorage.POWER_PLANT]);
+        setStreet(storage[ChromeStorage.USER_STREET]);
+        setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
       }
     );
   }, []);
@@ -74,11 +74,12 @@ const Options = () => {
     }
 
     chrome.storage.sync.set({
-      hepDistributionArea: distributionArea,
-      hepPowerPlant: powerPlant,
-      hepUserStreet: street,
-      hepFutureSearch: futureSearch,
+      [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
+      [ChromeStorage.POWER_PLANT]: powerPlant,
+      [ChromeStorage.USER_STREET]: street,
+      [ChromeStorage.FUTURE_SEARCH]: futureSearch,
     });
+
     showStatus("Vrijednosti su spremljene.");
   };
 
@@ -114,7 +115,7 @@ const Options = () => {
         {distributionArea && powerPlant && (
           <>
             <div className="selection">
-              Ulica:
+              Moja ulica:
               <input
                 className="select-input"
                 type="text"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { INotification, IUserPreferences } from "../models";
+import { ChromeStorage, INotification, IUserPreferences } from "../models";
 import { MetaUtil, ScrapperUtil } from "../utils";
 import "./popup.css";
 
@@ -18,17 +18,17 @@ const Popup = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        hepDistributionArea: "",
-        hepPowerPlant: "",
-        hepUserStreet: "",
-        hepFutureSearch: false,
+        [ChromeStorage.DISTRIBUTION_AREA]: "",
+        [ChromeStorage.POWER_PLANT]: "",
+        [ChromeStorage.USER_STREET]: "",
+        [ChromeStorage.FUTURE_SEARCH]: false,
       },
-      (items) => {
+      (storage) => {
         setUserPreferences({
-          distributionArea: items.hepDistributionArea,
-          powerPlant: items.hepPowerPlant,
-          street: items.hepUserStreet,
-          futureSearch: items.hepFutureSearch,
+          distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
+          powerPlant: storage[ChromeStorage.POWER_PLANT],
+          street: storage[ChromeStorage.USER_STREET],
+          futureSearch: storage[ChromeStorage.FUTURE_SEARCH],
         });
       }
     );

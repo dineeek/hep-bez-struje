@@ -1,5 +1,12 @@
 import { INotification, IUserPreferences } from "../models";
-import { URLBuilderUtil } from "./url-builder";
+
+const BASE_URL = "https://www.hep.hr/ods/bez-struje/19";
+
+enum SearchParams {
+  DISTRIBUTION_AREA = "dp",
+  POWER_PLANT = "el",
+  DATE = "datum",
+}
 
 export class ScrapperUtil {
   static getNotifications(
@@ -10,6 +17,19 @@ export class ScrapperUtil {
     }
 
     return this.getTodaysNotifications(userPreferences);
+  }
+
+  private static buildUrl(
+    distributionArea: string,
+    powerPlant: string,
+    date: string
+  ): string {
+    const url = new URL(BASE_URL);
+    url.searchParams.append(SearchParams.DISTRIBUTION_AREA, distributionArea);
+    url.searchParams.append(SearchParams.POWER_PLANT, powerPlant);
+    url.searchParams.append(SearchParams.DATE, date.replace(/\s/g, ""));
+
+    return url.href;
   }
 
   // HEP is providing only three days forward information
@@ -23,11 +43,9 @@ export class ScrapperUtil {
       const futureDate = new Date(todayDate);
       futureDate.setDate(todayDate.getDate() + i);
 
-      const searchDate = futureDate.toLocaleString("hr", {
-        dateStyle: "short",
-      });
+      const searchDate = futureDate.toLocaleDateString();
 
-      const url = URLBuilderUtil.build(
+      const url = this.buildUrl(
         userPreferences.distributionArea,
         userPreferences.powerPlant,
         searchDate
@@ -50,11 +68,9 @@ export class ScrapperUtil {
   private static getTodaysNotifications = (
     userPreferences: IUserPreferences
   ): Promise<INotification[]> => {
-    const todayDate = new Date().toLocaleString("hr", {
-      dateStyle: "short",
-    });
+    const todayDate = new Date().toLocaleDateString();
 
-    const url = URLBuilderUtil.build(
+    const url = this.buildUrl(
       userPreferences.distributionArea,
       userPreferences.powerPlant,
       todayDate
