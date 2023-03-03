@@ -1,43 +1,25 @@
-# Hep - Bez struje Chrome plugin
+# Hep - bez struje
 
 [![lint:test:build](https://github.com/dineeek/hep-bez-struje//actions/workflows/lint-test-build.yml/badge.svg?branch=main)](https://github.com/dineeek/hep-bez-struje//actions/workflows/lint-test-build.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
-Chrome Extension based on TypeScript for checking HEP areas without electric power.
+Chrome Extension based on TypeScript & React for checking HEP areas without electric power. Based on HEP web page data scrapping.
 
-## Prerequisites
+## Features
 
-- [node + npm](https://nodejs.org/) (Current Version)
+- Change and saving distribution area and power station in extension options
+- Fetching areas without electrical power per selected area and station
+- Up to three days future search
+- Detecting user street if it will not have electricity for some day
+- Supported languages: de, en, hr, hu and sl
 
-## Setup
+# Contributing
 
-```
-npm install
-```
+Contributions are more than welcome!
 
-## Build
+# License
 
-```
-npm run build
-```
+MIT License
 
-## Build in watch mode
-
-### terminal
-
-```
-npm run watch
-```
-
-### Visual Studio Code
-
-Run watch mode.
-
-type `Ctrl + Shift + B`
-
-## Load extension to chrome
-
-Load `dist` directory
-
-## Test
-
-`npx jest` or `npm run test`
+Copyright (c) 2023 Dino Klicek
