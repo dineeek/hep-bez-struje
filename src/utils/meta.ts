@@ -1,14 +1,16 @@
-import { IPowerPlant, DISTRIBUTION_AREAS, POWER_PLANTS } from "../meta";
+import { IPowerStation, DISTRIBUTION_AREAS, POWER_STATIONS } from "../meta";
 
 export class MetaUtil {
-  static getDistributionAreaPowerPlants(
+  static getDistributionAreaPowerStations(
     distributionArea: string
-  ): IPowerPlant[] {
+  ): IPowerStation[] {
     const areaId = DISTRIBUTION_AREAS.find(
       (area) => area.value === distributionArea
     )?.id;
 
-    return POWER_PLANTS.filter((plant) => plant.distributionAreaId === areaId);
+    return POWER_STATIONS.filter(
+      (station) => station.distributionAreaId === areaId
+    );
   }
 
   static getDistributionAreaName(distributionArea: string): string {
@@ -18,7 +20,9 @@ export class MetaUtil {
     );
   }
 
-  static getPowerPlantName(powerPlant: string): string {
-    return POWER_PLANTS.find((area) => area.value === powerPlant)?.name ?? "";
+  static getPowerStationName(powerStation: string): string {
+    return (
+      POWER_STATIONS.find((area) => area.value === powerStation)?.name ?? ""
+    );
   }
 }

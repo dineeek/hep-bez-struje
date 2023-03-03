@@ -4,7 +4,7 @@ const BASE_URL = "https://www.hep.hr/ods/bez-struje/19";
 
 enum SearchParams {
   DISTRIBUTION_AREA = "dp",
-  POWER_PLANT = "el",
+  POWER_STATION = "el",
   DATE = "datum",
 }
 
@@ -21,12 +21,12 @@ export class ScrapperUtil {
 
   private static buildUrl(
     distributionArea: string,
-    powerPlant: string,
+    powerStation: string,
     date: string
   ): string {
     const url = new URL(BASE_URL);
     url.searchParams.append(SearchParams.DISTRIBUTION_AREA, distributionArea);
-    url.searchParams.append(SearchParams.POWER_PLANT, powerPlant);
+    url.searchParams.append(SearchParams.POWER_STATION, powerStation);
     url.searchParams.append(SearchParams.DATE, date.replace(/\s/g, ""));
 
     return url.href;
@@ -47,7 +47,7 @@ export class ScrapperUtil {
 
       const url = this.buildUrl(
         userPreferences.distributionArea,
-        userPreferences.powerPlant,
+        userPreferences.powerStation,
         searchDate
       );
 
@@ -72,7 +72,7 @@ export class ScrapperUtil {
 
     const url = this.buildUrl(
       userPreferences.distributionArea,
-      userPreferences.powerPlant,
+      userPreferences.powerStation,
       todayDate
     );
 

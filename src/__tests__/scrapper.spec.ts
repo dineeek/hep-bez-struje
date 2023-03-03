@@ -1,11 +1,11 @@
-import { DISTRIBUTION_AREAS, POWER_PLANTS } from "../meta";
+import { DISTRIBUTION_AREAS, POWER_STATIONS } from "../meta";
 import { IUserPreferences } from "../models";
 import { ScrapperUtil } from "../utils/scrapper";
 import { HTML_DOCUMENT_MOCK, NOTIFICATIONS_MOCK } from "./__mocks__";
 
 const USER_PREFERENCES_MOCK: IUserPreferences = {
   distributionArea: DISTRIBUTION_AREAS[0].value,
-  powerPlant: POWER_PLANTS[0].value,
+  powerStation: POWER_STATIONS[0].value,
   street: "",
   futureSearch: false,
 };
@@ -24,7 +24,7 @@ describe("Scrapper util", () => {
   it("should build url per given params", () => {
     const url = ScrapperUtil["buildUrl"](
       USER_PREFERENCES_MOCK.distributionArea,
-      USER_PREFERENCES_MOCK.powerPlant,
+      USER_PREFERENCES_MOCK.powerStation,
       new Date("2023-03-01").toLocaleDateString("hr")
     );
 
@@ -48,7 +48,7 @@ describe("Scrapper util", () => {
     expect(urlBuilderSpy).toHaveBeenCalledTimes(1);
     expect(urlBuilderSpy).toHaveBeenLastCalledWith(
       USER_PREFERENCES_MOCK.distributionArea,
-      USER_PREFERENCES_MOCK.powerPlant,
+      USER_PREFERENCES_MOCK.powerStation,
       todayDate.toLocaleDateString("hr")
     );
     expect(fetchSpy).toBeCalledTimes(1);
@@ -72,7 +72,7 @@ describe("Scrapper util", () => {
     expect(urlBuilderSpy).toHaveBeenCalledTimes(4);
     expect(urlBuilderSpy).toHaveBeenLastCalledWith(
       USER_PREFERENCES_MOCK.distributionArea,
-      USER_PREFERENCES_MOCK.powerPlant,
+      USER_PREFERENCES_MOCK.powerStation,
       expectedLastDate.toLocaleDateString("hr")
     );
     expect(fetchSpy).toHaveBeenCalledTimes(4);

@@ -1,10 +1,10 @@
-export interface IPowerPlant {
+export interface IPowerStation {
   distributionAreaId: number;
   value: string; // search param - el=value
   name: string;
 }
 
-export const POWER_PLANTS: IPowerPlant[] = [
+export const POWER_STATIONS: IPowerStation[] = [
   {
     distributionAreaId: 1,
     value: "BJ",

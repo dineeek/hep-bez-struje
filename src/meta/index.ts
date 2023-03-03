@@ -1,2 +1,2 @@
 export * from "./distribution-area";
-export * from "./power-plant";
+export * from "./power-station";

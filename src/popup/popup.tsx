@@ -7,7 +7,7 @@ import "./popup.css";
 const Popup = () => {
   const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
     distributionArea: "",
-    powerPlant: "",
+    powerStation: "",
     street: "",
     futureSearch: false,
   });
@@ -23,14 +23,14 @@ const Popup = () => {
     chrome.storage.sync.get(
       {
         [ChromeStorage.DISTRIBUTION_AREA]: "",
-        [ChromeStorage.POWER_PLANT]: "",
+        [ChromeStorage.POWER_STATION]: "",
         [ChromeStorage.USER_STREET]: "",
         [ChromeStorage.FUTURE_SEARCH]: false,
       },
       (storage) => {
         setUserPreferences({
           distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
-          powerPlant: storage[ChromeStorage.POWER_PLANT],
+          powerStation: storage[ChromeStorage.POWER_STATION],
           street: storage[ChromeStorage.USER_STREET],
           futureSearch: storage[ChromeStorage.FUTURE_SEARCH],
         });
@@ -39,7 +39,7 @@ const Popup = () => {
   }, []);
 
   useEffect(() => {
-    userPreferences.powerPlant && fetchTodaysNotifications();
+    userPreferences.powerStation && fetchTodaysNotifications();
   }, [userPreferences]);
 
   const fetchTodaysNotifications = () => {
@@ -100,7 +100,7 @@ const Popup = () => {
       <div className="container">
         <div className="title">
           <span> {localize("extensionName")}</span>
-          {userPreferences.powerPlant ? (
+          {userPreferences.powerStation ? (
             <img
               className="info"
               src="icons/info.png"
@@ -109,7 +109,7 @@ const Popup = () => {
           ) : null}
         </div>
 
-        {userPreferences.powerPlant ? (
+        {userPreferences.powerStation ? (
           <>
             <span>
               {localize("labelDistributionArea")}
@@ -120,8 +120,10 @@ const Popup = () => {
               </b>
             </span>
             <span>
-              {localize("labelPowerPlant")}
-              <b>{MetaUtil.getPowerPlantName(userPreferences.powerPlant)}</b>
+              {localize("labelPowerStation")}
+              <b>
+                {MetaUtil.getPowerStationName(userPreferences.powerStation)}
+              </b>
             </span>
 
             {loading ? (

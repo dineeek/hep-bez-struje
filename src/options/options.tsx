@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { DISTRIBUTION_AREAS, IPowerPlant } from "../meta";
+import { DISTRIBUTION_AREAS, IPowerStation } from "../meta";
 import { ChromeStorage } from "../models";
 import { MetaUtil } from "../utils";
 import "./options.css";
 
 const Options = () => {
   const [distributionArea, setDistributionArea] = useState<string>("");
-  const [powerPlant, setPowerPlant] = useState<string>("");
-  const [distAreaPowerPlants, setDistAreaPowerPlants] = useState<IPowerPlant[]>(
-    []
-  );
+  const [powerStation, setPowerStation] = useState<string>("");
+  const [distAreaPowerStations, setDistAreaPowerStations] = useState<
+    IPowerStation[]
+  >([]);
   const [street, setStreet] = useState<string>("");
   const [futureSearch, setFutureSearch] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>("");
@@ -23,13 +23,13 @@ const Options = () => {
     chrome.storage.sync.get(
       {
         [ChromeStorage.DISTRIBUTION_AREA]: "",
-        [ChromeStorage.POWER_PLANT]: "",
+        [ChromeStorage.POWER_STATION]: "",
         [ChromeStorage.USER_STREET]: "",
         [ChromeStorage.FUTURE_SEARCH]: false,
       },
       (storage) => {
         onDistributionAreaChange(storage[ChromeStorage.DISTRIBUTION_AREA]);
-        setPowerPlant(storage[ChromeStorage.POWER_PLANT]);
+        setPowerStation(storage[ChromeStorage.POWER_STATION]);
         setStreet(storage[ChromeStorage.USER_STREET]);
         setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
       }
@@ -38,10 +38,12 @@ const Options = () => {
 
   const onDistributionAreaChange = (areaValue: string): void => {
     setDistributionArea(areaValue);
-    setPowerPlant("");
+    setPowerStation("");
     setStreet("");
     setFutureSearch(false);
-    setDistAreaPowerPlants(MetaUtil.getDistributionAreaPowerPlants(areaValue));
+    setDistAreaPowerStations(
+      MetaUtil.getDistributionAreaPowerStations(areaValue)
+    );
   };
 
   const getAreaOptions = () => {
@@ -52,11 +54,11 @@ const Options = () => {
     ));
   };
 
-  const getPlantOptions = () => {
-    return distAreaPowerPlants.map((plant) => {
+  const getPowerStationOptions = () => {
+    return distAreaPowerStations.map((station) => {
       return (
-        <option key={plant.value} value={plant.value}>
-          {plant.name}
+        <option key={station.value} value={station.value}>
+          {station.name}
         </option>
       );
     });
@@ -72,14 +74,14 @@ const Options = () => {
   };
 
   const saveOptions = () => {
-    if (!distributionArea || !powerPlant) {
+    if (!distributionArea || !powerStation) {
       showStatus("messageNoOptionsSelected");
       return;
     }
 
     chrome.storage.sync.set({
       [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
-      [ChromeStorage.POWER_PLANT]: powerPlant,
+      [ChromeStorage.POWER_STATION]: powerStation,
       [ChromeStorage.USER_STREET]: street,
       [ChromeStorage.FUTURE_SEARCH]: futureSearch,
     });
@@ -104,19 +106,19 @@ const Options = () => {
 
         {distributionArea && (
           <div className="selection">
-            {localize("labelPowerPlant")}
+            {localize("labelPowerStation")}
             <select
               className="select-input"
-              value={powerPlant}
-              onChange={(event) => setPowerPlant(event.target.value)}
+              value={powerStation}
+              onChange={(event) => setPowerStation(event.target.value)}
             >
               <option defaultValue="none" hidden></option>
-              {getPlantOptions()}
+              {getPowerStationOptions()}
             </select>
           </div>
         )}
 
-        {distributionArea && powerPlant && (
+        {distributionArea && powerStation && (
           <>
             <div className="selection">
               {localize("labelMyStreet")}
