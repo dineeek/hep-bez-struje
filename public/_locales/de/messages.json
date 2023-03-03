@@ -1,0 +1,44 @@
+{
+  "extensionName": {
+    "message": "HEP - kein Strom"
+  },
+  "extensionDescription": {
+    "message": "HEP-Bereiche ohne Strom"
+  },
+  "labelDistributionArea": {
+    "message": "Verbreitungsgebiet: "
+  },
+  "labelPowerPlant": {
+    "message": "Station: "
+  },
+  "labelMyStreet": {
+    "message": "Meine Straße: "
+  },
+  "placeholderMyStreet": {
+    "message": "Optional - z. B. Vukovarska"
+  },
+  "labelFutureSearch": {
+    "message": "Prüfen Sie drei Tage im Voraus: "
+  },
+  "labelSave": {
+    "message": "Speichern"
+  },
+  "messageOptionsSaved": {
+    "message": "Die Werte wurden gespeichert."
+  },
+  "messageNoOptionsSelected": {
+    "message": "Verteilgebiet und Station auswählen."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Wählen Sie den HEP-Verteilerbereich und die Station in den Erweiterungsoptionen, um Blackout-Bereiche abzurufen."
+  },
+  "messageFetchNotificationsError": {
+    "message": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+  },
+  "messageNoNotifications": {
+    "message": "Es gibt keine geplanten Stromausfälle."
+  },
+  "tooltipInfoIcon": {
+    "message": "Verteilgebiets- und Stationswechsel in Erweiterungsoptionen möglich."
+  }
+}

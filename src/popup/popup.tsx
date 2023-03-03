@@ -15,6 +15,10 @@ const Popup = () => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>("");
 
+  const localize = (translationKey: string): string => {
+    return chrome.i18n.getMessage(translationKey);
+  };
+
   useEffect(() => {
     chrome.storage.sync.get(
       {
@@ -49,13 +53,13 @@ const Popup = () => {
       })
       .catch(() => {
         setLoading(false);
-        setFetchStatus("Dogodila se pogreška. Probajte ponovno kasnije.");
+        setFetchStatus(localize("messageFetchNotificationsError"));
       });
   };
 
   const setStatusAndBadge = (notifications: INotification[]) => {
     notifications.length === 0 &&
-      setFetchStatus("Nema planiranih prekida napajanja.");
+      setFetchStatus(localize("messageNoNotifications"));
 
     const userAffectedDaysCount = notifications.filter(
       (notification) => notification.isUserStreet
@@ -95,12 +99,12 @@ const Popup = () => {
     <>
       <div className="container">
         <div className="title">
-          <span>HEP - bez struje</span>
+          <span> {localize("extensionName")}</span>
           {userPreferences.powerPlant ? (
             <img
               className="info"
               src="icons/info.png"
-              title="Promjena distribucijskog područja i pogona moguća je u opcijama ovog proširenja."
+              title={localize("tooltipInfoIcon")}
             />
           ) : null}
         </div>
@@ -108,7 +112,7 @@ const Popup = () => {
         {userPreferences.powerPlant ? (
           <>
             <span>
-              Distribucijsko područje:{" "}
+              {localize("labelDistributionArea")}
               <b>
                 {MetaUtil.getDistributionAreaName(
                   userPreferences.distributionArea
@@ -116,7 +120,7 @@ const Popup = () => {
               </b>
             </span>
             <span>
-              Pogon:{" "}
+              {localize("labelPowerPlant")}
               <b>{MetaUtil.getPowerPlantName(userPreferences.powerPlant)}</b>
             </span>
 
@@ -137,10 +141,7 @@ const Popup = () => {
           </>
         ) : (
           <>
-            <span>
-              Odaberite HEP distribucijsko područje i pogon u opcijama
-              ekstenzije za dohvat područja bez struje.
-            </span>
+            <span>{localize("messageNoOptionsSelectedPopup")}</span>
           </>
         )}
       </div>

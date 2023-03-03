@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
 
-  "name": "HEP - bez struje",
-  "description": "HEP područja bez struje",
-  "version": "1.0",
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "hr",
+  "version": "0.0.1",
 
   "options_ui": {
     "page": "options.html"
@@ -12,7 +13,7 @@
   "action": {
     "default_icon": "icons/no_power32.png",
     "default_popup": "popup.html",
-    "default_title": "HEP - bez struje"
+    "default_title": "__MSG_extensionName__"
   },
 
   "icons": {

@@ -1,0 +1,44 @@
+{
+  "extensionName": {
+    "message": "HEP - brez napajanja"
+  },
+  "extensionDescription": {
+    "message": "HEP območja brez elektrike"
+  },
+  "labelDistributionArea": {
+    "message": "Distribucijsko območje: "
+  },
+  "labelPowerPlant": {
+    "message": "Postaja: "
+  },
+  "labelMyStreet": {
+    "message": "Moja ulica: "
+  },
+  "placeholderMyStreet": {
+    "message": "Izbirno - npr. Vukovarska"
+  },
+  "labelFutureSearch": {
+    "message": "Preveri tri dni vnaprej: "
+  },
+  "labelSave": {
+    "message": "Shrani"
+  },
+  "messageOptionsSaved": {
+    "message": "Vrednosti so bile shranjene."
+  },
+  "messageNoOptionsSelected": {
+    "message": "Izberi distribucijsko območje in postajo."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Izberite distribucijsko območje in postajo HEP v možnostih razširitve za pridobitev območij izpada."
+  },
+  "messageFetchNotificationsError": {
+    "message": "Prišlo je do napake. Poskusite znova pozneje."
+  },
+  "messageNoNotifications": {
+    "message": "Ni načrtovanih izpadov električne energije."
+  },
+  "tooltipInfoIcon": {
+    "message": "Sprememba distribucijskega območja in postaje je možna v možnostih razširitve."
+  }
+}

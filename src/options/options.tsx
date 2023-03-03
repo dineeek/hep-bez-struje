@@ -15,6 +15,10 @@ const Options = () => {
   const [futureSearch, setFutureSearch] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>("");
 
+  const localize = (translationKey: string): string => {
+    return chrome.i18n.getMessage(translationKey);
+  };
+
   useEffect(() => {
     chrome.storage.sync.get(
       {
@@ -58,8 +62,8 @@ const Options = () => {
     });
   };
 
-  const showStatus = (message: string) => {
-    setSaveStatus(message);
+  const showStatus = (messageKey: string) => {
+    setSaveStatus(localize(messageKey));
 
     const id = setTimeout(() => {
       setSaveStatus("");
@@ -69,7 +73,7 @@ const Options = () => {
 
   const saveOptions = () => {
     if (!distributionArea || !powerPlant) {
-      showStatus("Odaberite područje i pogon.");
+      showStatus("messageNoOptionsSelected");
       return;
     }
 
@@ -80,14 +84,14 @@ const Options = () => {
       [ChromeStorage.FUTURE_SEARCH]: futureSearch,
     });
 
-    showStatus("Vrijednosti su spremljene.");
+    showStatus("messageOptionsSaved");
   };
 
   return (
     <>
       <div className="container">
         <div className="selection">
-          Distribucijsko područje:
+          {localize("labelDistributionArea")}
           <select
             className="select-input"
             value={distributionArea}
@@ -100,7 +104,7 @@ const Options = () => {
 
         {distributionArea && (
           <div className="selection">
-            Pogon:
+            {localize("labelPowerPlant")}
             <select
               className="select-input"
               value={powerPlant}
@@ -115,18 +119,18 @@ const Options = () => {
         {distributionArea && powerPlant && (
           <>
             <div className="selection">
-              Moja ulica:
+              {localize("labelMyStreet")}
               <input
                 className="select-input"
                 type="text"
                 onChange={(event) => setStreet(event.target.value)}
-                placeholder="Opcionalno - npr. Vukovarska"
+                placeholder={localize("placeholderMyStreet")}
                 value={street}
               />
             </div>
 
             <div className="checkbox">
-              Provjeri tri dana unaprijed:
+              {localize("labelFutureSearch")}
               <input
                 className="check-input"
                 type="checkbox"
@@ -142,7 +146,7 @@ const Options = () => {
                 className="save-button"
                 onClick={saveOptions}
               >
-                Spremi
+                {localize("labelSave")}
               </button>
             </div>
           </>
