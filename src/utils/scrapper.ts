@@ -112,29 +112,29 @@ export class ScrapperUtil {
       groupedValues.push(trimmedTexts.slice(i * 2, (i + 1) * 2));
     }
 
-    return groupedValues.map(([mjesto, vrijeme]) => {
-      const streetIndexOf = mjesto.indexOf("Ulica");
-      const noteIndexOf = mjesto.indexOf("Napomena");
-      const reasonIndexOf = vrijeme.indexOf("Radovi");
+    return groupedValues.map(([place, timeReason]) => {
+      const streetIndexOf = place.indexOf("Ulica");
+      const noteIndexOf = place.indexOf("Napomena");
+      const reasonIndexOf = timeReason.indexOf("Radovi");
 
       const noteStartIndex = noteIndexOf > 0 ? noteIndexOf : undefined;
 
       const street = this.normalizeString(
-        mjesto.substring(streetIndexOf, noteStartIndex)
+        place.substring(streetIndexOf, noteStartIndex)
       );
 
       return {
         date,
-        place: this.normalizeString(mjesto.substring(0, streetIndexOf)),
-        street: street,
+        place: this.normalizeString(place.substring(0, streetIndexOf)),
+        street,
         isUserStreet:
           !!userStreet &&
           street.toLowerCase().includes(userStreet.toLowerCase()),
         note: noteStartIndex
-          ? this.normalizeString(mjesto.substring(noteStartIndex))
+          ? this.normalizeString(place.substring(noteStartIndex))
           : "",
-        dateTime: this.normalizeString(vrijeme.substring(0, reasonIndexOf)),
-        reason: this.normalizeString(vrijeme.substring(reasonIndexOf)),
+        dateTime: this.normalizeString(timeReason.substring(0, reasonIndexOf)),
+        reason: this.normalizeString(timeReason.substring(reasonIndexOf)),
       };
     });
   }
