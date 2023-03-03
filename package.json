@@ -8,6 +8,7 @@
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist",
     "test": "npx jest --watchAll",
+    "lint": "prettier --check \"src/**/*.{ts,tsx}\"",
     "style": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "author": "Dino Klicek",

@@ -1,6 +1,6 @@
 # Hep - Bez struje Chrome plugin
 
-![build](https://github.com/dineeek/hep-bez-strujeworkflows/build/badge.svg)
+[![lint:test:build](https://github.com/dineeek/hep-bez-struje//actions/workflows/lint-test-build.yml/badge.svg?branch=main)](https://github.com/dineeek/hep-bez-struje//actions/workflows/lint-test-build.yml)
 
 Chrome Extension based on TypeScript for checking HEP areas without electric power.
 

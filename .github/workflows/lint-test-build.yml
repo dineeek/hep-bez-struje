@@ -1,8 +1,8 @@
-name: build
+name: lint:test:build
 
 on:
   push:
-    branches: [master]
+    branches: [master, develop]
   pull_request:
     branches: [master]
 
@@ -13,7 +13,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
       - uses: actions/checkout@v2
@@ -22,5 +21,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run build --if-present
+      - run: npm lint
       - run: npm test
+      - run: npm run build --if-present
