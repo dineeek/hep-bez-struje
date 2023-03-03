@@ -45,7 +45,8 @@ body {
 }
 
 .highlight-card {
-  background-color: #ff000acf !important;
+  background-color: #e31c24 !important;
+  color: whitesmoke;
 }
 
 .loader {

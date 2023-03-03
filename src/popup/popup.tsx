@@ -96,11 +96,13 @@ const Popup = () => {
       <div className="container">
         <div className="title">
           <span>HEP - bez struje</span>
-          <img
-            className="info"
-            src="icons/info.png"
-            title="Promjena distribucijskog područja i pogona moguća je u opcijama ovog proširenja."
-          />
+          {userPreferences.powerPlant ? (
+            <img
+              className="info"
+              src="icons/info.png"
+              title="Promjena distribucijskog područja i pogona moguća je u opcijama ovog proširenja."
+            />
+          ) : null}
         </div>
 
         {userPreferences.powerPlant ? (
