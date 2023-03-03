@@ -1,10 +1,14 @@
 {
+  "version": "0.0.1",
   "manifest_version": 3,
-
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
+  "minimum_chrome_version": "80",
+
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+
   "default_locale": "hr",
-  "version": "0.0.1",
 
   "options_ui": {
     "page": "options.html"
@@ -21,9 +25,5 @@
     "32": "icons/no_power32.png",
     "48": "icons/no_power48.png",
     "128": "icons/no_power128.png"
-  },
-
-  "permissions": ["storage"],
-
-  "host_permissions": ["<all_urls>"]
+  }
 }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { ChromeStorage, INotification, IUserPreferences } from "../models";
-import { MetaUtil, ScrapperUtil } from "../utils";
-import { Loader, NotificationList } from "./components";
+import { ChromeStorage, INotification, IUserPreferences } from "../../models";
+import { MetaUtil, ScrapperUtil } from "../../utils";
+import { Loader, NotificationList } from "../components";
 import "./popup.css";
 
 const Popup = () => {
