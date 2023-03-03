@@ -1,9 +1,9 @@
 export interface INotification {
-  date: string;
-  place: string;
-  street: string;
+  place: string | undefined;
+  street: string | undefined;
   isUserStreet: boolean;
-  note: string;
-  dateTime: string;
-  reason: string;
+  note: string | undefined;
+  date: string;
+  time: string | undefined;
+  reason: string | undefined;
 }

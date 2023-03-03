@@ -20,6 +20,24 @@
   "labelFutureSearch": {
     "message": "Provjeri tri dana unaprijed: "
   },
+  "labelDate": {
+    "message": "Datum: "
+  },
+  "labelPlace": {
+    "message": "Mjesto: "
+  },
+  "labelStreet": {
+    "message": "Ulica: "
+  },
+  "labelNote": {
+    "message": "Napomena: "
+  },
+  "labelTime": {
+    "message": "Očekivano trajanje: "
+  },
+  "labelReason": {
+    "message": "Vrsta radova: "
+  },
   "labelSave": {
     "message": "Spremi"
   },

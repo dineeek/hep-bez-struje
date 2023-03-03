@@ -3,7 +3,7 @@ import { INotification } from "../../models";
 export const NOTIFICATIONS_MOCK: INotification[] = [
   {
     date: "01. 03. 2023.",
-    dateTime: "Očekivano trajanje: 08:00 - 14:00",
+    time: "Očekivano trajanje: 08:00 - 14:00",
     isUserStreet: false,
     note: "",
     place: "Mjesto: ZAGREB",
@@ -12,7 +12,7 @@ export const NOTIFICATIONS_MOCK: INotification[] = [
   },
   {
     date: "01. 03. 2023.",
-    dateTime: "Očekivano trajanje: 06:00 - 11:00",
+    time: "Očekivano trajanje: 06:00 - 11:00",
     isUserStreet: false,
     note: "",
     place: "Mjesto: SESVETE",
@@ -22,7 +22,7 @@ export const NOTIFICATIONS_MOCK: INotification[] = [
   },
   {
     date: "01. 03. 2023.",
-    dateTime: "Očekivano trajanje: 06:00 - 12:00",
+    time: "Očekivano trajanje: 06:00 - 12:00",
     isUserStreet: false,
     note: "",
     place: "Mjesto: ZAGREB",

@@ -20,6 +20,24 @@
   "labelFutureSearch": {
     "message": "Preveri tri dni vnaprej: "
   },
+  "labelDate": {
+    "message": "Datum: "
+  },
+  "labelPlace": {
+    "message": "Kraj: "
+  },
+  "labelStreet": {
+    "message": "Ulica: "
+  },
+  "labelNote": {
+    "message": "Opomba: "
+  },
+  "labelTime": {
+    "message": "Predvideno trajanje: "
+  },
+  "labelReason": {
+    "message": "Vrsta dela: "
+  },
   "labelSave": {
     "message": "Shrani"
   },

@@ -20,6 +20,24 @@
   "labelFutureSearch": {
     "message": "Check three days in advance: "
   },
+  "labelDate": {
+    "message": "Date: "
+  },
+  "labelPlace": {
+    "message": "Place: "
+  },
+  "labelStreet": {
+    "message": "Street: "
+  },
+  "labelNote": {
+    "message": "Note: "
+  },
+  "labelTime": {
+    "message": "Expected duration: "
+  },
+  "labelReason": {
+    "message": "Type of work: "
+  },
   "labelSave": {
     "message": "Save"
   },

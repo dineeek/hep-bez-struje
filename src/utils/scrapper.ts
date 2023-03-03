@@ -8,6 +8,14 @@ enum SearchParams {
   DATE = "datum",
 }
 
+enum TextPatterns {
+  "PLACE" = "Mjesto: ",
+  "STREET" = "Ulica: ",
+  "NOTE" = "Napomena: ",
+  TIME = "Očekivano vrijeme: ",
+  REASON = "Radovi: ",
+}
+
 export class ScrapperUtil {
   static getNotifications(
     userPreferences: IUserPreferences
@@ -112,32 +120,63 @@ export class ScrapperUtil {
       groupedValues.push(trimmedTexts.slice(i * 2, (i + 1) * 2));
     }
 
-    return groupedValues.map(([place, timeReason]) => {
-      const streetIndexOf = place.indexOf("Ulica");
-      const noteIndexOf = place.indexOf("Napomena");
-      const reasonIndexOf = timeReason.indexOf("Radovi");
-
-      const noteStartIndex = noteIndexOf > 0 ? noteIndexOf : undefined;
-
-      const street = this.normalizeString(
-        place.substring(streetIndexOf, noteStartIndex)
-      );
-
-      return {
-        date,
-        place: this.normalizeString(place.substring(0, streetIndexOf)),
-        street,
-        isUserStreet:
-          !!userStreet &&
-          street.toLowerCase().includes(userStreet.toLowerCase()),
-        note: noteStartIndex
-          ? this.normalizeString(place.substring(noteStartIndex))
-          : "",
-        dateTime: this.normalizeString(timeReason.substring(0, reasonIndexOf)),
-        reason: this.normalizeString(timeReason.substring(reasonIndexOf)),
-      };
-    });
+    return groupedValues.map(([placeStreetNote, timeReason]) =>
+      this.toNotification(placeStreetNote, timeReason, date, userStreet)
+    );
   }
+
+  private static toNotification = (
+    placeStreetNote: string,
+    timeReason: string,
+    date: string,
+    userStreet: string
+  ): INotification => {
+    const streetStartIndexOf = placeStreetNote.indexOf(TextPatterns.STREET);
+    const noteIndexOf = placeStreetNote.indexOf(TextPatterns.NOTE);
+    const reasonIndexOf = timeReason.indexOf(TextPatterns.REASON);
+
+    const noteStartIndex = noteIndexOf > 0 ? noteIndexOf : undefined;
+
+    const place = this.normalizeString(
+      placeStreetNote.substring(TextPatterns.PLACE.length, streetStartIndexOf)
+    );
+
+    const street = this.normalizeString(
+      placeStreetNote.substring(
+        streetStartIndexOf + TextPatterns.STREET.length,
+        noteStartIndex
+      )
+    );
+
+    const isUserStreet =
+      !!userStreet &&
+      !!street &&
+      street.toLowerCase().includes(userStreet.toLowerCase());
+
+    const note = noteStartIndex
+      ? this.normalizeString(
+          placeStreetNote.substring(noteStartIndex + TextPatterns.NOTE.length)
+        )
+      : "";
+
+    const time = this.normalizeString(
+      timeReason.substring(TextPatterns.TIME.length, reasonIndexOf)
+    );
+
+    const reason = this.normalizeString(
+      timeReason.substring(reasonIndexOf + TextPatterns.REASON.length)
+    );
+
+    return {
+      date,
+      place,
+      street,
+      isUserStreet,
+      note,
+      time,
+      reason,
+    };
+  };
 
   private static normalizeString(value: string): string {
     return value.replace(/(\r\n|\n|\t|\r)/gm, "").trim();

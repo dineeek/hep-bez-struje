@@ -20,6 +20,24 @@
   "labelFutureSearch": {
     "message": "Ellenőrizze három nappal korábban: "
   },
+  "labelDate": {
+    "message": "Dátum: "
+  },
+  "labelPlace": {
+    "message": "Hely: "
+  },
+  "labelStreet": {
+    "message": "Utca: "
+  },
+  "labelNote": {
+    "message": "Megjegyzés: "
+  },
+  "labelTime": {
+    "message": "Várható időtartam: "
+  },
+  "labelReason": {
+    "message": "Munka típusa: "
+  },
   "labelSave": {
     "message": "Mentés"
   },

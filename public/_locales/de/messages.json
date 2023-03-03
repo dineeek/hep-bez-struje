@@ -20,6 +20,24 @@
   "labelFutureSearch": {
     "message": "Prüfen Sie drei Tage im Voraus: "
   },
+  "labelDate": {
+    "message": "Datum: "
+  },
+  "labelPlace": {
+    "message": "Ort: "
+  },
+  "labelStreet": {
+    "message": "Straße: "
+  },
+  "labelNote": {
+    "message": "Hinweis: "
+  },
+  "labelTime": {
+    "message": "Erwartete Dauer: "
+  },
+  "labelReason": {
+    "message": "Art der Arbeit: "
+  },
   "labelSave": {
     "message": "Speichern"
   },

@@ -83,13 +83,43 @@ const Popup = () => {
           }`}
         >
           <span>
-            Datum: <b>{notification.date}</b>
+            {localize("labelDate")} <b>{notification.date}</b>
           </span>
-          <span>{notification.place}</span>
-          <span>{notification.street}</span>
-          {notification.note && <span>{notification.note}</span>}
-          <span>{notification.dateTime}</span>
-          <span>{notification.reason}</span>
+
+          {notification.place && (
+            <span>
+              {localize("labelPlace")}
+              {notification.place}
+            </span>
+          )}
+
+          {notification.street && (
+            <span>
+              {localize("labelStreet")}
+              {notification.street}
+            </span>
+          )}
+
+          {notification.note && (
+            <span>
+              {localize("labelNote")}
+              {notification.note}
+            </span>
+          )}
+
+          {notification.time && (
+            <span>
+              {localize("labelTime")}
+              <b>{notification.time}</b>
+            </span>
+          )}
+
+          {notification.reason && (
+            <span>
+              {localize("labelReason")}
+              {notification.reason}
+            </span>
+          )}
         </div>
       );
     });
