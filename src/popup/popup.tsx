@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { ChromeStorage, INotification, IUserPreferences } from "../models";
 import { MetaUtil, ScrapperUtil } from "../utils";
+import { Loader, NotificationList } from "./components";
 import "./popup.css";
 
 const Popup = () => {
@@ -73,58 +74,6 @@ const Popup = () => {
     }
   };
 
-  const getNotificationList = () => {
-    return notifications.map((notification, index) => {
-      return (
-        <div
-          key={"notification_" + index}
-          className={`notification-card ${
-            notification.isUserStreet ? "highlight-card" : ""
-          }`}
-        >
-          <span>
-            {localize("labelDate")} <b>{notification.date}</b>
-          </span>
-
-          {notification.place && (
-            <span>
-              {localize("labelPlace")}
-              {notification.place}
-            </span>
-          )}
-
-          {notification.street && (
-            <span>
-              {localize("labelStreet")}
-              {notification.street}
-            </span>
-          )}
-
-          {notification.note && (
-            <span>
-              {localize("labelNote")}
-              {notification.note}
-            </span>
-          )}
-
-          {notification.time && (
-            <span>
-              {localize("labelTime")}
-              <b>{notification.time}</b>
-            </span>
-          )}
-
-          {notification.reason && (
-            <span>
-              {localize("labelReason")}
-              {notification.reason}
-            </span>
-          )}
-        </div>
-      );
-    });
-  };
-
   return (
     <>
       <div className="container">
@@ -157,15 +106,11 @@ const Popup = () => {
             </span>
 
             {loading ? (
-              <div className="loader">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+              <Loader />
             ) : notifications.length > 0 ? (
               <>
                 <hr className="line-break"></hr>
-                {getNotificationList()}
+                <NotificationList notifications={notifications} />
               </>
             ) : (
               <span>{fetchStatus}</span>
