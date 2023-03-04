@@ -10,7 +10,9 @@
 Chrome extension for checking HEP areas without electric power. Based on HEP web
 page data scrapping, TypeScript & React.
 
-![Slideshow](https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif)
+<p align="center">
+  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif" alt="Slideshow" />
+</p>
 
 ## Download
 
@@ -23,21 +25,6 @@ TODO + download badges
 - Up to three days future search
 - Detecting user street if it will not have electricity for some day
 - Supported languages: DE, EN, HR, HU and SL
-
-<details style="cursor: pointer;">
-  <summary>Extension screenshots</summary>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/0_loader.png" name="Loading notifications">
-  <br/>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/1_no_preferences_selected.png" name="No preferences selected message">
-  <br/>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/2_selected_prefrences.png" name="Selected required preferences">
-  <br/>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/3_no_notifications.png" name="No notifications found">
-  <br/>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/4_insert_all_preferences.png" name="All preferences are inserted">
-  <br/>
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/5_notifications.png" name="Notification and highlighted on with user street">
-</details>
 
 ## Permissions
 
