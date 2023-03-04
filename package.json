@@ -4,12 +4,13 @@
   "description": "hep-bez-struje",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --config webpack/webpack.dev.js --watch",
-    "build": "webpack --config webpack/webpack.prod.js",
+    "dev": "webpack --config webpack/webpack.dev.js --watch",
+    "test:watch": "npx jest --watchAll",
+    "style": "prettier --write \"src/**/*.{ts,tsx}\"",
     "clean": "rimraf dist",
-    "test": "npx jest --watchAll",
     "lint": "prettier --check \"src/**/*.{ts,tsx}\"",
-    "style": "prettier --write \"src/**/*.{ts,tsx}\""
+    "test": "npx jest",
+    "build": "webpack --config webpack/webpack.prod.js"
   },
   "author": "Dino Klicek",
   "keywords": [
