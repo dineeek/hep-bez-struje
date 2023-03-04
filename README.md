@@ -2,10 +2,12 @@
 
 # Hep - bez struje
 
-![version](https://img.shields.io/github/v/release/hep-bez-struje/hep-bez-struje?label=version&sort=semver)
+![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/dineeek/hep-bez-struje?include_prereleases)
 [![lint:test:build](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml/badge.svg?branch=develop)](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+![Github](https://img.shields.io/github/license/dineeek/hep-bez-struje)
+![GitHub repo size](https://img.shields.io/github/repo-size/dineeek/hep-bez-struje)
 
 Chrome extension for checking HEP areas without electric power. Based on HEP web
 page data scrapping, TypeScript & React.
