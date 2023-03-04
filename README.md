@@ -1,4 +1,4 @@
-<img align="left" width="32" height="32" src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/icons/icon.png" alt="Extension icon">
+<img align="left" width="64" height="64" src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/icons/icon.png" alt="Extension icon">
 
 # Hep - bez struje
 
@@ -23,8 +23,8 @@ TODO + download badges
 - Storing distribution area and power station in extension options
 - Showing areas without electrical power per selected area and station
 - Up to three days future search
-- Detecting user street if it will not have electricity for some day
-- Supported languages: DE, EN, HR, HU and SL
+- Detecting expected power outage for user street
+- Localization: DE, EN, HR, HU and SL
 
 ## Permissions
 
