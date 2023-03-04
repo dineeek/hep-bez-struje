@@ -1,0 +1,62 @@
+{
+  "extensionName": {
+    "message": "HEP - no power"
+  },
+  "extensionDescription": {
+    "message": "HEP areas without electricity"
+  },
+  "labelDistributionArea": {
+    "message": "Distribution area: "
+  },
+  "labelPowerStation": {
+    "message": "Station: "
+  },
+  "labelMyStreet": {
+    "message": "My street: "
+  },
+  "placeholderMyStreet": {
+    "message": "Optional - e.g. Vukovarska"
+  },
+  "labelFutureSearch": {
+    "message": "Check three days in advance: "
+  },
+  "labelDate": {
+    "message": "Date: "
+  },
+  "labelPlace": {
+    "message": "Place: "
+  },
+  "labelStreet": {
+    "message": "Street: "
+  },
+  "labelNote": {
+    "message": "Note: "
+  },
+  "labelTime": {
+    "message": "Expected duration: "
+  },
+  "labelReason": {
+    "message": "Type of work: "
+  },
+  "labelSave": {
+    "message": "Save"
+  },
+  "messageOptionsSaved": {
+    "message": "The preferences have been saved."
+  },
+  "messageNoOptionsSelected": {
+    "message": "Select distribution area and station."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Select HEP distribution area and station in extension options to retrieve blackout areas."
+  },
+  "messageFetchNotificationsError": {
+    "message": "An error occurred. Please try again later."
+  },
+  "messageNoNotifications": {
+    "message": "There are no scheduled power outages."
+  },
+  "tooltipInfoIcon": {
+    "message": "Change of distribution area and station is possible in extension options."
+  }
+}

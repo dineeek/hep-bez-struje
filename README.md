@@ -1,70 +1,41 @@
-# Chrome Extension TypeScript Starter
+<img align="left" width="64" height="64" src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/icons/icon.png" alt="Extension icon">
 
-![build](https://github.com/chibat/chrome-extension-typescript-starter/workflows/build/badge.svg)
+# Hep - bez struje
 
-Chrome Extension, TypeScript and Visual Studio Code
+![version](https://img.shields.io/github/v/release/hep-bez-struje/hep-bez-struje?label=version&sort=semver)
+[![lint:test:build](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml/badge.svg?branch=develop)](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
-## Prerequisites
+Chrome extension for checking HEP areas without electric power. Based on HEP web
+page data scrapping, TypeScript & React.
 
-* [node + npm](https://nodejs.org/) (Current Version)
+<p align="center">
+  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif" alt="Slideshow" />
+</p>
 
-## Option
+## Download
 
-* [Visual Studio Code](https://code.visualstudio.com/)
+TODO + download badges
 
-## Includes the following
+## Features
 
-* TypeScript
-* Webpack
-* React
-* Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
+- Storing distribution area and power station in extension options
+- Showing areas without electrical power per selected area and station
+- Up to three days future search
+- Detecting expected power outage for user street
+- Localization: DE, EN, HR, HU and SL
 
-## Project Structure
+## Permissions
 
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
+The extensions needs permissions for storing selected options preferences.
 
-## Setup
+# Contributing
 
-```
-npm install
-```
+Contributions are welcome!
 
-## Import as Visual Studio Code project
+# License
 
-...
+MIT License
 
-## Build
-
-```
-npm run build
-```
-
-## Build in watch mode
-
-### terminal
-
-```
-npm run watch
-```
-
-### Visual Studio Code
-
-Run watch mode.
-
-type `Ctrl + Shift + B`
-
-## Load extension to chrome
-
-Load `dist` directory
-
-## Test
-`npx jest` or `npm run test`
+Copyright (c) 2023 Dino Klicek

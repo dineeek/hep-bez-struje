@@ -1,0 +1,62 @@
+{
+  "extensionName": {
+    "message": "HEP - bez struje"
+  },
+  "extensionDescription": {
+    "message": "HEP područja bez struje"
+  },
+  "labelDistributionArea": {
+    "message": "Distribucijsko područje: "
+  },
+  "labelPowerStation": {
+    "message": "Pogon: "
+  },
+  "labelMyStreet": {
+    "message": "Moja ulica: "
+  },
+  "placeholderMyStreet": {
+    "message": "Opcionalno - npr. Vukovarska"
+  },
+  "labelFutureSearch": {
+    "message": "Provjeri tri dana unaprijed: "
+  },
+  "labelDate": {
+    "message": "Datum: "
+  },
+  "labelPlace": {
+    "message": "Mjesto: "
+  },
+  "labelStreet": {
+    "message": "Ulica: "
+  },
+  "labelNote": {
+    "message": "Napomena: "
+  },
+  "labelTime": {
+    "message": "Očekivano trajanje: "
+  },
+  "labelReason": {
+    "message": "Vrsta radova: "
+  },
+  "labelSave": {
+    "message": "Spremi"
+  },
+  "messageOptionsSaved": {
+    "message": "Vrijednosti su spremljene."
+  },
+  "messageNoOptionsSelected": {
+    "message": "Odaberite distribucijsko područje i pogon."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Odaberite HEP distribucijsko područje i pogon u opcijama proširenja za dohvat područja bez struje."
+  },
+  "messageFetchNotificationsError": {
+    "message": "Dogodila se pogreška. Probajte ponovno kasnije."
+  },
+  "messageNoNotifications": {
+    "message": "Nema planiranih prekida napajanja."
+  },
+  "tooltipInfoIcon": {
+    "message": "Promjena distribucijskog područja i pogona moguća je u opcijama proširenja."
+  }
+}

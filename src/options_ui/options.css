@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 10px;
+  font-size: 14px;
+}
+
+.selection {
+  display: flex;
+  flex-flow: column nowrap;
+  row-gap: 4px;
+}
+
+.select-input {
+  height: 24px;
+  font-size: 14px;
+  border: 1px solid rgb(41 42 45);
+  border-radius: 6px;
+}
+
+.checkbox {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.check-input {
+  height: 18px;
+  width: 18px;
+  accent-color: currentcolor;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  column-gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.save-button {
+  height: 30px;
+  width: 80px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  color: white;
+  letter-spacing: 0.75px;
+  background-color: rgb(41 42 45);
+}
+
+.status-color {
+  color: rgb(41 42 45);
+}
