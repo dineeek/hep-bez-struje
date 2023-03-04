@@ -1,2 +1,2 @@
-export * from "./distribution-area";
-export * from "./power-station";
+export * from './distribution-area';
+export * from './power-station';

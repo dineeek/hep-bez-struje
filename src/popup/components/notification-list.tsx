@@ -1,5 +1,5 @@
-import React from "react";
-import { INotification } from "../../models";
+import React from 'react';
+import { INotification } from '../../models';
 
 export interface NotificationListProps {
   notifications: INotification[];
@@ -15,46 +15,46 @@ export const NotificationList = (props: NotificationListProps) => {
       {props.notifications.map((notification, index) => {
         return (
           <div
-            key={"notification_" + index}
+            key={'notification_' + index}
             className={`notification-card ${
-              notification.isUserStreet ? "highlight-card" : ""
+              notification.isUserStreet ? 'highlight-card' : ''
             }`}
           >
             <span>
-              {localize("labelDate")} <b>{notification.date}</b>
+              {localize('labelDate')} <b>{notification.date}</b>
             </span>
 
             {notification.place && (
               <span>
-                {localize("labelPlace")}
+                {localize('labelPlace')}
                 {notification.place}
               </span>
             )}
 
             {notification.street && (
               <span>
-                {localize("labelStreet")}
+                {localize('labelStreet')}
                 {notification.street}
               </span>
             )}
 
             {notification.note && (
               <span>
-                {localize("labelNote")}
+                {localize('labelNote')}
                 {notification.note}
               </span>
             )}
 
             {notification.time && (
               <span>
-                {localize("labelTime")}
+                {localize('labelTime')}
                 <b>{notification.time}</b>
               </span>
             )}
 
             {notification.reason && (
               <span>
-                {localize("labelReason")}
+                {localize('labelReason')}
                 {notification.reason}
               </span>
             )}

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { DISTRIBUTION_AREAS, IPowerStation } from "../meta";
-import { ChromeStorage } from "../models";
-import { MetaUtil } from "../utils";
-import "./options.css";
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { DISTRIBUTION_AREAS, IPowerStation } from '../meta';
+import { ChromeStorage } from '../models';
+import { MetaUtil } from '../utils';
+import './options.css';
 
 const Options = () => {
-  const [distributionArea, setDistributionArea] = useState<string>("");
-  const [powerStation, setPowerStation] = useState<string>("");
+  const [distributionArea, setDistributionArea] = useState<string>('');
+  const [powerStation, setPowerStation] = useState<string>('');
   const [distAreaPowerStations, setDistAreaPowerStations] = useState<
     IPowerStation[]
   >([]);
-  const [street, setStreet] = useState<string>("");
+  const [street, setStreet] = useState<string>('');
   const [futureSearch, setFutureSearch] = useState<boolean>(false);
-  const [saveStatus, setSaveStatus] = useState<string>("");
+  const [saveStatus, setSaveStatus] = useState<string>('');
 
   const localize = (translationKey: string): string => {
     return chrome.i18n.getMessage(translationKey);
@@ -22,12 +22,12 @@ const Options = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        [ChromeStorage.DISTRIBUTION_AREA]: "",
-        [ChromeStorage.POWER_STATION]: "",
-        [ChromeStorage.USER_STREET]: "",
-        [ChromeStorage.FUTURE_SEARCH]: false,
+        [ChromeStorage.DISTRIBUTION_AREA]: '',
+        [ChromeStorage.POWER_STATION]: '',
+        [ChromeStorage.USER_STREET]: '',
+        [ChromeStorage.FUTURE_SEARCH]: false
       },
-      (storage) => {
+      storage => {
         onDistributionAreaChange(storage[ChromeStorage.DISTRIBUTION_AREA]);
         setPowerStation(storage[ChromeStorage.POWER_STATION]);
         setStreet(storage[ChromeStorage.USER_STREET]);
@@ -38,8 +38,8 @@ const Options = () => {
 
   const onDistributionAreaChange = (areaValue: string): void => {
     setDistributionArea(areaValue);
-    setPowerStation("");
-    setStreet("");
+    setPowerStation('');
+    setStreet('');
     setFutureSearch(false);
     setDistAreaPowerStations(
       MetaUtil.getDistributionAreaPowerStations(areaValue)
@@ -47,7 +47,7 @@ const Options = () => {
   };
 
   const getAreaOptions = () => {
-    return DISTRIBUTION_AREAS.map((area) => (
+    return DISTRIBUTION_AREAS.map(area => (
       <option key={area.value} value={area.value}>
         {area.name}
       </option>
@@ -55,7 +55,7 @@ const Options = () => {
   };
 
   const getPowerStationOptions = () => {
-    return distAreaPowerStations.map((station) => {
+    return distAreaPowerStations.map(station => {
       return (
         <option key={station.value} value={station.value}>
           {station.name}
@@ -68,14 +68,14 @@ const Options = () => {
     setSaveStatus(localize(messageKey));
 
     const id = setTimeout(() => {
-      setSaveStatus("");
+      setSaveStatus('');
     }, 2000);
     return () => clearTimeout(id);
   };
 
   const saveOptions = () => {
     if (!distributionArea || !powerStation) {
-      showStatus("messageNoOptionsSelected");
+      showStatus('messageNoOptionsSelected');
       return;
     }
 
@@ -83,21 +83,21 @@ const Options = () => {
       [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
       [ChromeStorage.POWER_STATION]: powerStation,
       [ChromeStorage.USER_STREET]: street,
-      [ChromeStorage.FUTURE_SEARCH]: futureSearch,
+      [ChromeStorage.FUTURE_SEARCH]: futureSearch
     });
 
-    showStatus("messageOptionsSaved");
+    showStatus('messageOptionsSaved');
   };
 
   return (
     <>
       <div className="container">
         <div className="selection">
-          {localize("labelDistributionArea")}
+          {localize('labelDistributionArea')}
           <select
             className="select-input"
             value={distributionArea}
-            onChange={(event) => onDistributionAreaChange(event.target.value)}
+            onChange={event => onDistributionAreaChange(event.target.value)}
           >
             <option defaultValue="none" hidden></option>
             {getAreaOptions()}
@@ -106,11 +106,11 @@ const Options = () => {
 
         {distributionArea && (
           <div className="selection">
-            {localize("labelPowerStation")}
+            {localize('labelPowerStation')}
             <select
               className="select-input"
               value={powerStation}
-              onChange={(event) => setPowerStation(event.target.value)}
+              onChange={event => setPowerStation(event.target.value)}
             >
               <option defaultValue="none" hidden></option>
               {getPowerStationOptions()}
@@ -121,18 +121,18 @@ const Options = () => {
         {distributionArea && powerStation && (
           <>
             <div className="selection">
-              {localize("labelMyStreet")}
+              {localize('labelMyStreet')}
               <input
                 className="select-input"
                 type="text"
-                onChange={(event) => setStreet(event.target.value)}
-                placeholder={localize("placeholderMyStreet")}
+                onChange={event => setStreet(event.target.value)}
+                placeholder={localize('placeholderMyStreet')}
                 value={street}
               />
             </div>
 
             <div className="checkbox">
-              {localize("labelFutureSearch")}
+              {localize('labelFutureSearch')}
               <input
                 className="check-input"
                 type="checkbox"
@@ -148,7 +148,7 @@ const Options = () => {
                 className="save-button"
                 onClick={saveOptions}
               >
-                {localize("labelSave")}
+                {localize('labelSave')}
               </button>
             </div>
           </>
@@ -162,5 +162,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Options />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

@@ -1,2 +1,2 @@
-export * from "./html-document.mock";
-export * from "./notifications.mock";
+export * from './html-document.mock';
+export * from './notifications.mock';

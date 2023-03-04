@@ -1,2 +1,2 @@
-export * from "./meta";
-export * from "./scrapper";
+export * from './meta';
+export * from './scrapper';

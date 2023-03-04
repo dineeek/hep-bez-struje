@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
-import { ChromeStorage, INotification, IUserPreferences } from "../../models";
-import { MetaUtil, ScrapperUtil } from "../../utils";
-import { Loader, NotificationList } from "../components";
-import "./popup.css";
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { ChromeStorage, INotification, IUserPreferences } from '../../models';
+import { MetaUtil, ScrapperUtil } from '../../utils';
+import { Loader, NotificationList } from '../components';
+import './popup.css';
 
 const Popup = () => {
   const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
-    distributionArea: "",
-    powerStation: "",
-    street: "",
-    futureSearch: false,
+    distributionArea: '',
+    powerStation: '',
+    street: '',
+    futureSearch: false
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<INotification[]>([]);
-  const [fetchStatus, setFetchStatus] = useState<string>("");
+  const [fetchStatus, setFetchStatus] = useState<string>('');
 
   const localize = (translationKey: string): string => {
     return chrome.i18n.getMessage(translationKey);
@@ -23,17 +23,17 @@ const Popup = () => {
   useEffect(() => {
     chrome.storage.sync.get(
       {
-        [ChromeStorage.DISTRIBUTION_AREA]: "",
-        [ChromeStorage.POWER_STATION]: "",
-        [ChromeStorage.USER_STREET]: "",
-        [ChromeStorage.FUTURE_SEARCH]: false,
+        [ChromeStorage.DISTRIBUTION_AREA]: '',
+        [ChromeStorage.POWER_STATION]: '',
+        [ChromeStorage.USER_STREET]: '',
+        [ChromeStorage.FUTURE_SEARCH]: false
       },
-      (storage) => {
+      storage => {
         setUserPreferences({
           distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
           powerStation: storage[ChromeStorage.POWER_STATION],
           street: storage[ChromeStorage.USER_STREET],
-          futureSearch: storage[ChromeStorage.FUTURE_SEARCH],
+          futureSearch: storage[ChromeStorage.FUTURE_SEARCH]
         });
       }
     );
@@ -47,30 +47,30 @@ const Popup = () => {
     setLoading(true);
 
     ScrapperUtil.getNotifications(userPreferences)
-      .then((notifications) => {
+      .then(notifications => {
         setLoading(false);
         setStatusAndBadge(notifications);
         setNotifications(notifications);
       })
       .catch(() => {
         setLoading(false);
-        setFetchStatus(localize("messageFetchNotificationsError"));
+        setFetchStatus(localize('messageFetchNotificationsError'));
       });
   };
 
   const setStatusAndBadge = (notifications: INotification[]) => {
     notifications.length === 0 &&
-      setFetchStatus(localize("messageNoNotifications"));
+      setFetchStatus(localize('messageNoNotifications'));
 
     const userAffectedDaysCount = notifications.filter(
-      (notification) => notification.isUserStreet
+      notification => notification.isUserStreet
     ).length;
 
     if (userAffectedDaysCount > 0) {
-      chrome.action.setBadgeBackgroundColor({ color: "red" });
+      chrome.action.setBadgeBackgroundColor({ color: 'red' });
       chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
     } else {
-      chrome.action.setBadgeText({ text: "" });
+      chrome.action.setBadgeText({ text: '' });
     }
   };
 
@@ -78,12 +78,12 @@ const Popup = () => {
     <>
       <div className="container">
         <div className="title">
-          <span> {localize("extensionName")}</span>
+          <span> {localize('extensionName')}</span>
           {userPreferences.powerStation ? (
             <img
               className="info"
               src="icons/info.png"
-              title={localize("tooltipInfoIcon")}
+              title={localize('tooltipInfoIcon')}
             />
           ) : null}
         </div>
@@ -91,7 +91,7 @@ const Popup = () => {
         {userPreferences.powerStation ? (
           <>
             <span>
-              {localize("labelDistributionArea")}
+              {localize('labelDistributionArea')}
               <b>
                 {MetaUtil.getDistributionAreaName(
                   userPreferences.distributionArea
@@ -99,7 +99,7 @@ const Popup = () => {
               </b>
             </span>
             <span>
-              {localize("labelPowerStation")}
+              {localize('labelPowerStation')}
               <b>
                 {MetaUtil.getPowerStationName(userPreferences.powerStation)}
               </b>
@@ -118,7 +118,7 @@ const Popup = () => {
           </>
         ) : (
           <>
-            <span>{localize("messageNoOptionsSelectedPopup")}</span>
+            <span>{localize('messageNoOptionsSelectedPopup')}</span>
           </>
         )}
       </div>
@@ -130,5 +130,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Popup />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

@@ -1,19 +1,19 @@
-import { INotification, IUserPreferences } from "../models";
+import { INotification, IUserPreferences } from '../models';
 
-const BASE_URL = "https://www.hep.hr/ods/bez-struje/19";
+const BASE_URL = 'https://www.hep.hr/ods/bez-struje/19';
 
 enum SearchParams {
-  DISTRIBUTION_AREA = "dp",
-  POWER_STATION = "el",
-  DATE = "datum",
+  DISTRIBUTION_AREA = 'dp',
+  POWER_STATION = 'el',
+  DATE = 'datum'
 }
 
 enum TextPatterns {
-  "PLACE" = "Mjesto: ",
-  "STREET" = "Ulica: ",
-  "NOTE" = "Napomena: ",
-  TIME = "Očekivano vrijeme: ",
-  REASON = "Radovi: ",
+  PLACE = 'Mjesto: ',
+  STREET = 'Ulica: ',
+  NOTE = 'Napomena: ',
+  TIME = 'Očekivano vrijeme: ',
+  REASON = 'Radovi: '
 }
 
 export class ScrapperUtil {
@@ -35,7 +35,7 @@ export class ScrapperUtil {
     const url = new URL(BASE_URL);
     url.searchParams.append(SearchParams.DISTRIBUTION_AREA, distributionArea);
     url.searchParams.append(SearchParams.POWER_STATION, powerStation);
-    url.searchParams.append(SearchParams.DATE, date.replace(/\s/g, ""));
+    url.searchParams.append(SearchParams.DATE, date.replace(/\s/g, ''));
 
     return url.href;
   }
@@ -51,7 +51,7 @@ export class ScrapperUtil {
       const futureDate = new Date(todayDate);
       futureDate.setDate(todayDate.getDate() + i);
 
-      const searchDate = futureDate.toLocaleDateString("hr");
+      const searchDate = futureDate.toLocaleDateString('hr');
 
       const url = this.buildUrl(
         userPreferences.distributionArea,
@@ -76,7 +76,7 @@ export class ScrapperUtil {
   private static getTodaysNotifications = (
     userPreferences: IUserPreferences
   ): Promise<INotification[]> => {
-    const todayDate = new Date().toLocaleDateString("hr");
+    const todayDate = new Date().toLocaleDateString('hr');
 
     const url = this.buildUrl(
       userPreferences.distributionArea,
@@ -93,8 +93,8 @@ export class ScrapperUtil {
     street: string
   ): Promise<INotification[]> => {
     return fetch(url)
-      .then((res) => res.text())
-      .then((response) => this.scrapData(response, date, street));
+      .then(res => res.text())
+      .then(response => this.scrapData(response, date, street));
   };
 
   private static scrapData(
@@ -102,12 +102,12 @@ export class ScrapperUtil {
     date: string,
     userStreet: string
   ): INotification[] {
-    var document = new DOMParser().parseFromString(data, "text/html");
-    var elements = document.querySelectorAll(".mjesto, .vrijeme");
+    var document = new DOMParser().parseFromString(data, 'text/html');
+    var elements = document.querySelectorAll('.mjesto, .vrijeme');
 
     const trimmedTexts: string[] = [];
 
-    elements.forEach((el) => {
+    elements.forEach(el => {
       if (el.textContent) {
         trimmedTexts.push(el.textContent.trim());
       }
@@ -157,7 +157,7 @@ export class ScrapperUtil {
       ? this.normalizeString(
           placeStreetNote.substring(noteStartIndex + TextPatterns.NOTE.length)
         )
-      : "";
+      : '';
 
     const time = this.normalizeString(
       timeReason.substring(TextPatterns.TIME.length, reasonIndexOf)
@@ -174,11 +174,11 @@ export class ScrapperUtil {
       isUserStreet,
       note,
       time,
-      reason,
+      reason
     };
   };
 
   private static normalizeString(value: string): string {
-    return value.replace(/(\r\n|\n|\t|\r)/gm, "").trim();
+    return value.replace(/(\r\n|\n|\t|\r)/gm, '').trim();
   }
 }
