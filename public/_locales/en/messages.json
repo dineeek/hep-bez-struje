@@ -42,7 +42,7 @@
     "message": "Save"
   },
   "messageOptionsSaved": {
-    "message": "The values have been saved."
+    "message": "The preferences have been saved."
   },
   "messageNoOptionsSelected": {
     "message": "Select distribution area and station."
