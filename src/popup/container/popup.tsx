@@ -40,10 +40,10 @@ const Popup = () => {
   }, []);
 
   useEffect(() => {
-    userPreferences.powerStation && fetchTodaysNotifications();
+    userPreferences.powerStation && fetchNotifications(); // to avoid initial request
   }, [userPreferences]);
 
-  const fetchTodaysNotifications = () => {
+  const fetchNotifications = () => {
     setLoading(true);
 
     ScrapperUtil.getNotifications(userPreferences)
@@ -59,8 +59,11 @@ const Popup = () => {
   };
 
   const setStatusAndBadge = (notifications: INotification[]) => {
-    notifications.length === 0 &&
+    if (notifications.length === 0) {
+      chrome.action.setBadgeText({ text: '' });
       setFetchStatus(localize('messageNoNotifications'));
+      return;
+    }
 
     const userAffectedDaysCount = notifications.filter(
       notification => notification.isUserStreet
@@ -75,54 +78,48 @@ const Popup = () => {
   };
 
   return (
-    <>
-      <div className="container">
-        <div className="title">
-          <span> {localize('extensionName')}</span>
-          {userPreferences.powerStation ? (
-            <img
-              className="info"
-              src="icons/info.png"
-              title={localize('tooltipInfoIcon')}
-            />
-          ) : null}
-        </div>
-
+    <div className="container">
+      <div className="title">
+        <span> {localize('extensionName')}</span>
         {userPreferences.powerStation ? (
-          <>
-            <span>
-              {localize('labelDistributionArea')}
-              <b>
-                {MetaUtil.getDistributionAreaName(
-                  userPreferences.distributionArea
-                )}
-              </b>
-            </span>
-            <span>
-              {localize('labelPowerStation')}
-              <b>
-                {MetaUtil.getPowerStationName(userPreferences.powerStation)}
-              </b>
-            </span>
-
-            {loading ? (
-              <Loader />
-            ) : notifications.length > 0 ? (
-              <>
-                <hr className="line-break"></hr>
-                <NotificationList notifications={notifications} />
-              </>
-            ) : (
-              <span>{fetchStatus}</span>
-            )}
-          </>
-        ) : (
-          <>
-            <span>{localize('messageNoOptionsSelectedPopup')}</span>
-          </>
-        )}
+          <img
+            className="info"
+            src="icons/info.png"
+            title={localize('tooltipInfoIcon')}
+          />
+        ) : null}
       </div>
-    </>
+
+      {userPreferences.powerStation ? (
+        <>
+          <span>
+            {localize('labelDistributionArea')}
+            <b>
+              {MetaUtil.getDistributionAreaName(
+                userPreferences.distributionArea
+              )}
+            </b>
+          </span>
+          <span>
+            {localize('labelPowerStation')}
+            <b>{MetaUtil.getPowerStationName(userPreferences.powerStation)}</b>
+          </span>
+
+          {loading ? (
+            <Loader />
+          ) : notifications.length > 0 ? (
+            <>
+              <hr className="line-break"></hr>
+              <NotificationList notifications={notifications} />
+            </>
+          ) : (
+            <span>{fetchStatus}</span>
+          )}
+        </>
+      ) : (
+        <span>{localize('messageNoOptionsSelectedPopup')}</span>
+      )}
+    </div>
   );
 };
 

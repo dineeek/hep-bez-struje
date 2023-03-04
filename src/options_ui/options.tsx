@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { DISTRIBUTION_AREAS, IPowerStation } from '../meta';
+import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
 import { ChromeStorage } from '../models';
 import { MetaUtil } from '../utils';
 import './options.css';
@@ -8,9 +8,9 @@ import './options.css';
 const Options = () => {
   const [distributionArea, setDistributionArea] = useState<string>('');
   const [powerStation, setPowerStation] = useState<string>('');
-  const [distAreaPowerStations, setDistAreaPowerStations] = useState<
-    IPowerStation[]
-  >([]);
+  const [areaPowerStations, setAreaPowerStations] = useState<IPowerStation[]>(
+    []
+  );
   const [street, setStreet] = useState<string>('');
   const [futureSearch, setFutureSearch] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>('');
@@ -41,27 +41,15 @@ const Options = () => {
     setPowerStation('');
     setStreet('');
     setFutureSearch(false);
-    setDistAreaPowerStations(
-      MetaUtil.getDistributionAreaPowerStations(areaValue)
-    );
+    setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
   };
 
-  const getAreaOptions = () => {
-    return DISTRIBUTION_AREAS.map(area => (
-      <option key={area.value} value={area.value}>
-        {area.name}
+  const getOptions = (metaValues: IDistributionArea[] | IPowerStation[]) => {
+    return metaValues.map(meta => (
+      <option key={meta.value} value={meta.value}>
+        {meta.name}
       </option>
     ));
-  };
-
-  const getPowerStationOptions = () => {
-    return distAreaPowerStations.map(station => {
-      return (
-        <option key={station.value} value={station.value}>
-          {station.name}
-        </option>
-      );
-    });
   };
 
   const showStatus = (messageKey: string) => {
@@ -90,71 +78,65 @@ const Options = () => {
   };
 
   return (
-    <>
-      <div className="container">
+    <div className="container">
+      <div className="selection">
+        {localize('labelDistributionArea')}
+        <select
+          className="select-input"
+          value={distributionArea}
+          onChange={event => onDistributionAreaChange(event.target.value)}
+        >
+          <option defaultValue="none" hidden></option>
+          {getOptions(DISTRIBUTION_AREAS)}
+        </select>
+      </div>
+
+      {distributionArea && (
         <div className="selection">
-          {localize('labelDistributionArea')}
+          {localize('labelPowerStation')}
           <select
             className="select-input"
-            value={distributionArea}
-            onChange={event => onDistributionAreaChange(event.target.value)}
+            value={powerStation}
+            onChange={event => setPowerStation(event.target.value)}
           >
             <option defaultValue="none" hidden></option>
-            {getAreaOptions()}
+            {getOptions(areaPowerStations)}
           </select>
         </div>
+      )}
 
-        {distributionArea && (
+      {powerStation && (
+        <>
           <div className="selection">
-            {localize('labelPowerStation')}
-            <select
+            {localize('labelMyStreet')}
+            <input
               className="select-input"
-              value={powerStation}
-              onChange={event => setPowerStation(event.target.value)}
-            >
-              <option defaultValue="none" hidden></option>
-              {getPowerStationOptions()}
-            </select>
+              type="text"
+              onChange={event => setStreet(event.target.value)}
+              placeholder={localize('placeholderMyStreet')}
+              value={street}
+            />
           </div>
-        )}
 
-        {distributionArea && powerStation && (
-          <>
-            <div className="selection">
-              {localize('labelMyStreet')}
-              <input
-                className="select-input"
-                type="text"
-                onChange={event => setStreet(event.target.value)}
-                placeholder={localize('placeholderMyStreet')}
-                value={street}
-              />
-            </div>
+          <div className="checkbox">
+            {localize('labelFutureSearch')}
+            <input
+              className="check-input"
+              type="checkbox"
+              checked={futureSearch}
+              onChange={() => setFutureSearch(!futureSearch)}
+            />
+          </div>
 
-            <div className="checkbox">
-              {localize('labelFutureSearch')}
-              <input
-                className="check-input"
-                type="checkbox"
-                checked={futureSearch}
-                onChange={() => setFutureSearch(!futureSearch)}
-              />
-            </div>
-
-            <div className="actions">
-              <span className="darkColor">{saveStatus}</span>
-              <button
-                type="submit"
-                className="save-button"
-                onClick={saveOptions}
-              >
-                {localize('labelSave')}
-              </button>
-            </div>
-          </>
-        )}
-      </div>
-    </>
+          <div className="actions">
+            <span className="status-color">{saveStatus}</span>
+            <button type="submit" className="save-button" onClick={saveOptions}>
+              {localize('labelSave')}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 

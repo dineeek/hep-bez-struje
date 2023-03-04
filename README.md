@@ -4,7 +4,8 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
-Chrome Extension based on TypeScript & React for checking HEP areas without electric power. Based on HEP web page data scrapping.
+Chrome extension for checking HEP areas without electric power. Based on HEP web
+page data scrapping, TypeScript & React.
 
 ## Features
 
