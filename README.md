@@ -18,11 +18,13 @@ page data scrapping, TypeScript & React.
 
 ## Download
 
-Available at Chrome Web store.
+Available at Chrome Web store:
 [**Hep - bez struje**](https://chrome.google.com/webstore/detail/hep-bez-struje/hahhmkkofmofnadefiadmpmcencoaljf)
 
-![chrome users](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf?label=chrome)
-![chrome rating](https://img.shields.io/chrome-web-store/rating/hahhmkkofmofnadefiadmpmcencoaljf?label=chrome)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/hahhmkkofmofnadefiadmpmcencoaljf)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/hahhmkkofmofnadefiadmpmcencoaljf)
+![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/hahhmkkofmofnadefiadmpmcencoaljf)
 
 ## Features
 
