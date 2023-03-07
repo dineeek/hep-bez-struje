@@ -9,38 +9,41 @@
 ![Github](https://img.shields.io/github/license/dineeek/hep-bez-struje)
 ![GitHub repo size](https://img.shields.io/github/repo-size/dineeek/hep-bez-struje)
 
-Chrome extension for checking HEP areas without electric power. Based on HEP web
-page data scrapping, TypeScript & React.
+Unofficial HEP Chrome extension for checking areas without electric power. Based
+on HEP web page data scrapping, TypeScript & React.
 
 <p align="center">
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif" alt="Slideshow" />
+  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif" alt="Screenshot slideshow" />
 </p>
 
 ## Download
 
-Available at Chrome Web store:
-[**Hep - bez struje**](https://chrome.google.com/webstore/detail/hep-bez-struje/hahhmkkofmofnadefiadmpmcencoaljf)
+Available at
+[**Chrome Web Store**](https://chrome.google.com/webstore/detail/hep-bez-struje/hahhmkkofmofnadefiadmpmcencoaljf).
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/hahhmkkofmofnadefiadmpmcencoaljf)
-![Chrome Web Store](https://img.shields.io/chrome-web-store/rating-count/hahhmkkofmofnadefiadmpmcencoaljf)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/hahhmkkofmofnadefiadmpmcencoaljf)
 
 ## Features
 
-- Storing distribution area and power station in extension options
 - Showing areas without electrical power per selected area and station
-- Up to three days future search
-- Detecting expected power outage for user street
-- Localization: DE, EN, HR, HU and SL
+- Storing user selected distribution area and power station
+- Highlighting expected power outage for user street
+- Up to three days future date search
+- Available localization:
+  - German
+  - English
+  - Croatian
+  - Hungarian
+  - Slovenian
 
 ## Permissions
 
-The extensions needs permissions for storing selected options preferences.
+The extensions needs permissions for storing user options preferences.
 
 # Contributing
 
-Contributions are welcome!
+Contributions and upgrade ideas are welcome!
 
 # License
 
