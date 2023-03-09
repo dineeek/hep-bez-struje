@@ -86,7 +86,7 @@ const Options = () => {
           value={distributionArea}
           onChange={event => onDistributionAreaChange(event.target.value)}
         >
-          <option defaultValue="none" hidden></option>
+          <option key="emptyArea" defaultValue="none" hidden></option>
           {getOptions(DISTRIBUTION_AREAS)}
         </select>
       </div>
@@ -99,7 +99,7 @@ const Options = () => {
             value={powerStation}
             onChange={event => setPowerStation(event.target.value)}
           >
-            <option defaultValue="none" hidden></option>
+            <option key="emptyStation" defaultValue="none" hidden></option>
             {getOptions(areaPowerStations)}
           </select>
         </div>
@@ -110,6 +110,7 @@ const Options = () => {
           <div className="selection">
             {localize('labelMyStreet')}
             <input
+              key="userStreet"
               className="select-input"
               type="text"
               onChange={event => setStreet(event.target.value)}
@@ -121,6 +122,7 @@ const Options = () => {
           <div className="checkbox">
             {localize('labelFutureSearch')}
             <input
+              key="futureFlagCheckbox"
               className="check-input"
               type="checkbox"
               checked={futureSearch}
