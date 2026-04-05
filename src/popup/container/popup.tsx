@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
 import { ChromeStorage, INotification, IUserPreferences } from '../../models';
 import { MetaUtil, ScrapperUtil } from '../../utils';
 import { Loader, NotificationList } from '../components';
@@ -123,9 +124,8 @@ const Popup = () => {
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
     <Popup />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );

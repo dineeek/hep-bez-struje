@@ -1,4 +1,3 @@
-import React from 'react';
 import { INotification } from '../../models';
 
 export interface NotificationListProps {

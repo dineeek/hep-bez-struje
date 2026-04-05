@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
 import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
 import { ChromeStorage } from '../models';
 import { MetaUtil } from '../utils';
@@ -142,9 +143,8 @@ const Options = () => {
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
     <Options />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 );
