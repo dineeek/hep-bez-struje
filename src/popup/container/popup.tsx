@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { ChromeStorage, INotification, IUserPreferences } from '../../models';
 import { MetaUtil, ScrapperUtil } from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
+
+const localize = (translationKey: string): string => {
+  return chrome.i18n.getMessage(translationKey);
+};
 
 const Popup = () => {
   const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
@@ -17,9 +21,39 @@ const Popup = () => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>('');
 
-  const localize = (translationKey: string): string => {
-    return chrome.i18n.getMessage(translationKey);
+  const setStatusAndBadge = (notifs: INotification[]) => {
+    if (notifs.length === 0) {
+      chrome.action.setBadgeText({ text: '' });
+      setFetchStatus(localize('messageNoNotifications'));
+      return;
+    }
+
+    const userAffectedDaysCount = notifs.filter(
+      notification => notification.isUserStreet
+    ).length;
+
+    if (userAffectedDaysCount > 0) {
+      chrome.action.setBadgeBackgroundColor({ color: 'red' });
+      chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
+    } else {
+      chrome.action.setBadgeText({ text: '' });
+    }
   };
+
+  const fetchNotifications = useCallback(() => {
+    setLoading(true);
+
+    ScrapperUtil.getNotifications(userPreferences)
+      .then(result => {
+        setLoading(false);
+        setStatusAndBadge(result);
+        setNotifications(result);
+      })
+      .catch(() => {
+        setLoading(false);
+        setFetchStatus(localize('messageFetchNotificationsError'));
+      });
+  }, [userPreferences]);
 
   useEffect(() => {
     chrome.storage.sync.get(
@@ -41,42 +75,11 @@ const Popup = () => {
   }, []);
 
   useEffect(() => {
-    userPreferences.powerStation && fetchNotifications(); // to avoid initial request
-  }, [userPreferences]);
-
-  const fetchNotifications = () => {
-    setLoading(true);
-
-    ScrapperUtil.getNotifications(userPreferences)
-      .then(notifications => {
-        setLoading(false);
-        setStatusAndBadge(notifications);
-        setNotifications(notifications);
-      })
-      .catch(() => {
-        setLoading(false);
-        setFetchStatus(localize('messageFetchNotificationsError'));
-      });
-  };
-
-  const setStatusAndBadge = (notifications: INotification[]) => {
-    if (notifications.length === 0) {
-      chrome.action.setBadgeText({ text: '' });
-      setFetchStatus(localize('messageNoNotifications'));
-      return;
+    if (userPreferences.powerStation) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- data fetching on preference change is intentional
+      fetchNotifications();
     }
-
-    const userAffectedDaysCount = notifications.filter(
-      notification => notification.isUserStreet
-    ).length;
-
-    if (userAffectedDaysCount > 0) {
-      chrome.action.setBadgeBackgroundColor({ color: 'red' });
-      chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
-    } else {
-      chrome.action.setBadgeText({ text: '' });
-    }
-  };
+  }, [userPreferences, fetchNotifications]);
 
   return (
     <div className="container">

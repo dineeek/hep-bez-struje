@@ -102,8 +102,8 @@ export class ScrapperUtil {
     date: string,
     userStreet: string
   ): INotification[] {
-    var document = new DOMParser().parseFromString(data, 'text/html');
-    var elements = document.querySelectorAll('.mjesto, .vrijeme');
+    const doc = new DOMParser().parseFromString(data, 'text/html');
+    const elements = doc.querySelectorAll('.mjesto, .vrijeme');
 
     const trimmedTexts: string[] = [];
 
@@ -113,10 +113,10 @@ export class ScrapperUtil {
       }
     });
 
-    let groupedValues = [];
+    const groupedValues = [];
 
     // grouping every two elements together - they are splitted per selector classes
-    for (var i = 0, end = trimmedTexts.length / 2; i < end; ++i) {
+    for (let i = 0, end = trimmedTexts.length / 2; i < end; ++i) {
       groupedValues.push(trimmedTexts.slice(i * 2, (i + 1) * 2));
     }
 

@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { DISTRIBUTION_AREAS, POWER_STATIONS } from '../meta';
 import { MetaUtil } from '../utils';
 

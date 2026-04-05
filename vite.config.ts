@@ -22,4 +22,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
+  test: {
+    environment: 'jsdom',
+    include: ['src/__tests__/**/*.spec.ts'],
+  },
 });

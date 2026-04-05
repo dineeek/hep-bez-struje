@@ -20,6 +20,14 @@ const Options = () => {
     return chrome.i18n.getMessage(translationKey);
   };
 
+  const onDistributionAreaChange = (areaValue: string): void => {
+    setDistributionArea(areaValue);
+    setPowerStation('');
+    setStreet('');
+    setFutureSearch(false);
+    setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
+  };
+
   useEffect(() => {
     chrome.storage.sync.get(
       {
@@ -29,21 +37,18 @@ const Options = () => {
         [ChromeStorage.FUTURE_SEARCH]: false
       },
       storage => {
-        onDistributionAreaChange(storage[ChromeStorage.DISTRIBUTION_AREA]);
+        setDistributionArea(storage[ChromeStorage.DISTRIBUTION_AREA]);
+        setAreaPowerStations(
+          MetaUtil.getDistributionAreaPowerStations(
+            storage[ChromeStorage.DISTRIBUTION_AREA]
+          )
+        );
         setPowerStation(storage[ChromeStorage.POWER_STATION]);
         setStreet(storage[ChromeStorage.USER_STREET]);
         setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
       }
     );
   }, []);
-
-  const onDistributionAreaChange = (areaValue: string): void => {
-    setDistributionArea(areaValue);
-    setPowerStation('');
-    setStreet('');
-    setFutureSearch(false);
-    setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
-  };
 
   const getOptions = (metaValues: IDistributionArea[] | IPowerStation[]) => {
     return metaValues.map(meta => (
