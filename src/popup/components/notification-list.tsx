@@ -11,10 +11,10 @@ export const NotificationList = (props: NotificationListProps) => {
 
   return (
     <>
-      {props.notifications.map((notification, index) => {
+      {props.notifications.map(notification => {
         return (
           <div
-            key={'notification_' + index}
+            key={`${notification.date}-${notification.place}-${notification.time}`}
             className={`notification-card ${
               notification.isUserStreet ? 'highlight-card' : ''
             }`}

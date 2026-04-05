@@ -1,4 +1,5 @@
 import { INotification, IUserPreferences } from '../models';
+import { fetchWithRetry } from './fetchWithRetry';
 
 const BASE_URL = 'https://www.hep.hr/ods/bez-struje/19';
 
@@ -87,15 +88,15 @@ export class ScrapperUtil {
     return this.fetchData(url, todayDate, userPreferences.street);
   };
 
-  private static fetchData = (
+  private static async fetchData(
     url: string,
     date: string,
     street: string
-  ): Promise<INotification[]> => {
-    return fetch(url)
-      .then(res => res.text())
-      .then(response => this.scrapData(response, date, street));
-  };
+  ): Promise<INotification[]> {
+    const response = await fetchWithRetry(url);
+    const html = await response.text();
+    return this.scrapData(html, date, street);
+  }
 
   private static scrapData(
     data: string,
@@ -104,6 +105,10 @@ export class ScrapperUtil {
   ): INotification[] {
     const doc = new DOMParser().parseFromString(data, 'text/html');
     const elements = doc.querySelectorAll('.mjesto, .vrijeme');
+
+    if (elements.length === 0) {
+      return [];
+    }
 
     const trimmedTexts: string[] = [];
 

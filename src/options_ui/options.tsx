@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
 import { ChromeStorage } from '../models';
+import { ErrorBoundary } from '../shared/ErrorBoundary';
 import { MetaUtil } from '../utils';
 import './options.css';
 
@@ -29,14 +30,14 @@ const Options = () => {
   };
 
   useEffect(() => {
-    chrome.storage.sync.get(
-      {
-        [ChromeStorage.DISTRIBUTION_AREA]: '',
-        [ChromeStorage.POWER_STATION]: '',
-        [ChromeStorage.USER_STREET]: '',
-        [ChromeStorage.FUTURE_SEARCH]: false
-      },
-      storage => {
+    const loadPreferences = async () => {
+      try {
+        const storage = await chrome.storage.sync.get({
+          [ChromeStorage.DISTRIBUTION_AREA]: '',
+          [ChromeStorage.POWER_STATION]: '',
+          [ChromeStorage.USER_STREET]: '',
+          [ChromeStorage.FUTURE_SEARCH]: false
+        });
         setDistributionArea(storage[ChromeStorage.DISTRIBUTION_AREA]);
         setAreaPowerStations(
           MetaUtil.getDistributionAreaPowerStations(
@@ -46,8 +47,11 @@ const Options = () => {
         setPowerStation(storage[ChromeStorage.POWER_STATION]);
         setStreet(storage[ChromeStorage.USER_STREET]);
         setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
+      } catch {
+        setSaveStatus(localize('messageFetchNotificationsError'));
       }
-    );
+    };
+    loadPreferences();
   }, []);
 
   const getOptions = (metaValues: IDistributionArea[] | IPowerStation[]) => {
@@ -67,20 +71,23 @@ const Options = () => {
     return () => clearTimeout(id);
   };
 
-  const saveOptions = () => {
+  const saveOptions = async () => {
     if (!distributionArea || !powerStation) {
       showStatus('messageNoOptionsSelected');
       return;
     }
 
-    chrome.storage.sync.set({
-      [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
-      [ChromeStorage.POWER_STATION]: powerStation,
-      [ChromeStorage.USER_STREET]: street,
-      [ChromeStorage.FUTURE_SEARCH]: futureSearch
-    });
-
-    showStatus('messageOptionsSaved');
+    try {
+      await chrome.storage.sync.set({
+        [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
+        [ChromeStorage.POWER_STATION]: powerStation,
+        [ChromeStorage.USER_STREET]: street,
+        [ChromeStorage.FUTURE_SEARCH]: futureSearch
+      });
+      showStatus('messageOptionsSaved');
+    } catch {
+      showStatus('messageNoOptionsSelected');
+    }
   };
 
   return (
@@ -150,6 +157,8 @@ const Options = () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Options />
+    <ErrorBoundary>
+      <Options />
+    </ErrorBoundary>
   </StrictMode>
 );

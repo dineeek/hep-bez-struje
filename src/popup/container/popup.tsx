@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { ChromeStorage, INotification, IUserPreferences } from '../../models';
+import { ErrorBoundary } from '../../shared/ErrorBoundary';
 import { MetaUtil, ScrapperUtil } from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
@@ -40,43 +41,43 @@ const Popup = () => {
     }
   };
 
-  const fetchNotifications = useCallback(() => {
+  const fetchNotifications = useCallback(async () => {
     setLoading(true);
-
-    ScrapperUtil.getNotifications(userPreferences)
-      .then(result => {
-        setLoading(false);
-        setStatusAndBadge(result);
-        setNotifications(result);
-      })
-      .catch(() => {
-        setLoading(false);
-        setFetchStatus(localize('messageFetchNotificationsError'));
-      });
+    try {
+      const result = await ScrapperUtil.getNotifications(userPreferences);
+      setStatusAndBadge(result);
+      setNotifications(result);
+    } catch {
+      setFetchStatus(localize('messageFetchNotificationsError'));
+    } finally {
+      setLoading(false);
+    }
   }, [userPreferences]);
 
   useEffect(() => {
-    chrome.storage.sync.get(
-      {
-        [ChromeStorage.DISTRIBUTION_AREA]: '',
-        [ChromeStorage.POWER_STATION]: '',
-        [ChromeStorage.USER_STREET]: '',
-        [ChromeStorage.FUTURE_SEARCH]: false
-      },
-      storage => {
+    const loadPreferences = async () => {
+      try {
+        const storage = await chrome.storage.sync.get({
+          [ChromeStorage.DISTRIBUTION_AREA]: '',
+          [ChromeStorage.POWER_STATION]: '',
+          [ChromeStorage.USER_STREET]: '',
+          [ChromeStorage.FUTURE_SEARCH]: false
+        });
         setUserPreferences({
           distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
           powerStation: storage[ChromeStorage.POWER_STATION],
           street: storage[ChromeStorage.USER_STREET],
           futureSearch: storage[ChromeStorage.FUTURE_SEARCH]
         });
+      } catch {
+        setFetchStatus(localize('messageFetchNotificationsError'));
       }
-    );
+    };
+    loadPreferences();
   }, []);
 
   useEffect(() => {
     if (userPreferences.powerStation) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- data fetching on preference change is intentional
       fetchNotifications();
     }
   }, [userPreferences, fetchNotifications]);
@@ -129,6 +130,8 @@ const Popup = () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Popup />
+    <ErrorBoundary>
+      <Popup />
+    </ErrorBoundary>
   </StrictMode>
 );
