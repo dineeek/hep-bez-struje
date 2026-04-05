@@ -20,9 +20,9 @@ Available at
 
 ## Screenshots
 
-| Options to select | Loading | Notification list | Settings |
+| Settings | Loading | Notification list | No options selected |
 |-|-|-|-|
-| ![Options to select](assets/screenshots/1-options.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![Settings](assets/screenshots/4-settings.png) |
+| ![Settings](assets/screenshots/1-settings.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![No options selected](assets/screenshots/4-no-options.png) |
 
 ## Features
 
