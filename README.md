@@ -10,10 +10,6 @@
 Unofficial HEP Chrome extension for checking areas without electric power. Based
 on HEP web page data scraping, TypeScript & React.
 
-<p align="center">
-  <img src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/screenshots/en/slideshow.gif" alt="Screenshot slideshow" />
-</p>
-
 ## Download
 
 Available at
@@ -21,6 +17,12 @@ Available at
 
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/hahhmkkofmofnadefiadmpmcencoaljf)
+
+## Screenshots
+
+| Options to select | Loading | Notification list | Settings |
+|-|-|-|-|
+| ![Options to select](assets/screenshots/1-options.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![Settings](assets/screenshots/4-settings.png) |
 
 ## Features
 
@@ -66,4 +68,4 @@ Contributions and upgrade ideas are welcome!
 
 MIT License
 
-Copyright (c) 2025 Dino Klicek
+Copyright (c) 2026 Dino Klicek
