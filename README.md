@@ -20,9 +20,9 @@ Available at
 
 ## Screenshots
 
-| Settings | Loading | Notification list | No options selected |
-|-|-|-|-|
-| ![Settings](assets/screenshots/1-settings.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![No options selected](assets/screenshots/4-no-options.png) |
+| Settings                                       | Loading                                      | Notification list                                   | No notifications                                         |
+| ---------------------------------------------- | -------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------- |
+| ![Settings](assets/screenshots/1-settings.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![No notifications](assets/screenshots/4-no-notifications.png) |
 
 ## Features
 
