@@ -16,7 +16,6 @@ body {
   flex-flow: column nowrap;
   gap: 16px;
   font-size: var(--font-size-md);
-  max-width: 360px;
   padding: 8px 16px 16px;
 }
 
