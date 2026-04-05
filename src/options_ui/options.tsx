@@ -93,8 +93,11 @@ const Options = () => {
   return (
     <div className="container">
       <div className="selection">
-        {localize('labelDistributionArea')}
+        <label htmlFor="distributionArea">
+          {localize('labelDistributionArea')}
+        </label>
         <select
+          id="distributionArea"
           className="select-input"
           value={distributionArea}
           onChange={event => onDistributionAreaChange(event.target.value)}
@@ -106,8 +109,11 @@ const Options = () => {
 
       {distributionArea && (
         <div className="selection">
-          {localize('labelPowerStation')}
+          <label htmlFor="powerStation">
+            {localize('labelPowerStation')}
+          </label>
           <select
+            id="powerStation"
             className="select-input"
             value={powerStation}
             onChange={event => setPowerStation(event.target.value)}
@@ -121,9 +127,9 @@ const Options = () => {
       {powerStation && (
         <>
           <div className="selection">
-            {localize('labelMyStreet')}
+            <label htmlFor="userStreet">{localize('labelMyStreet')}</label>
             <input
-              key="userStreet"
+              id="userStreet"
               className="select-input"
               type="text"
               onChange={event => setStreet(event.target.value)}
@@ -133,9 +139,11 @@ const Options = () => {
           </div>
 
           <div className="checkbox">
-            {localize('labelFutureSearch')}
+            <label htmlFor="futureSearch">
+              {localize('labelFutureSearch')}
+            </label>
             <input
-              key="futureFlagCheckbox"
+              id="futureSearch"
               className="check-input"
               type="checkbox"
               checked={futureSearch}

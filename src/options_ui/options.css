@@ -1,8 +1,10 @@
+@import '../styles/variables.css';
+
 .container {
   display: flex;
   flex-flow: column nowrap;
   row-gap: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-md);
 }
 
 .selection {
@@ -13,9 +15,9 @@
 
 .select-input {
   height: 24px;
-  font-size: 14px;
-  border: 1px solid rgb(41 42 45);
-  border-radius: 6px;
+  font-size: var(--font-size-md);
+  border: 1px solid var(--color-dark);
+  border-radius: var(--border-radius-sm);
 }
 
 .checkbox {
@@ -44,12 +46,12 @@
   width: 80px;
   border: none;
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--font-size-md);
   color: white;
   letter-spacing: 0.75px;
-  background-color: rgb(41 42 45);
+  background-color: var(--color-dark);
 }
 
 .status-color {
-  color: rgb(41 42 45);
+  color: var(--color-dark);
 }

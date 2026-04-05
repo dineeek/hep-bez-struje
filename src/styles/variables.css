@@ -1,0 +1,11 @@
+:root {
+  --color-primary: #172b63;
+  --color-highlight: #e31c24;
+  --color-dark: rgb(41 42 45);
+  --color-card-alt: #5857701b;
+  --border-radius: 8px;
+  --border-radius-sm: 6px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+}

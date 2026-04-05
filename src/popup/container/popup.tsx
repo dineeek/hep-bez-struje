@@ -90,6 +90,7 @@ const Popup = () => {
           <img
             className="info"
             src="icons/info.png"
+            alt={localize('tooltipInfoIcon')}
             title={localize('tooltipInfoIcon')}
           />
         ) : null}
