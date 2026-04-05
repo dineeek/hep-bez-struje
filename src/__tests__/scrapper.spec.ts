@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { DISTRIBUTION_AREAS, POWER_STATIONS } from '../meta';
 import { IUserPreferences } from '../models';
 import { ScrapperUtil } from '../utils/scrapper';
@@ -18,7 +20,7 @@ const ALL_USER_PREFERENCES_MOCK: IUserPreferences = {
 
 describe('Scrapper util', () => {
   afterEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
   });
 
   it('should build url per given params', () => {
@@ -34,8 +36,8 @@ describe('Scrapper util', () => {
   });
 
   it("should fetch today's notifications", async () => {
-    const urlBuilderSpy = jest.spyOn<any, any>(ScrapperUtil, 'buildUrl');
-    const fetchSpy = jest
+    const urlBuilderSpy = vi.spyOn<any, any>(ScrapperUtil, 'buildUrl');
+    const fetchSpy = vi
       .spyOn<any, any>(ScrapperUtil, 'fetchData')
       .mockResolvedValue([NOTIFICATIONS_MOCK[0]]);
 
@@ -56,8 +58,8 @@ describe('Scrapper util', () => {
   });
 
   it("should fetch today's and three days forward notifications", async () => {
-    const urlBuilderSpy = jest.spyOn<any, any>(ScrapperUtil, 'buildUrl');
-    const fetchSpy = jest
+    const urlBuilderSpy = vi.spyOn<any, any>(ScrapperUtil, 'buildUrl');
+    const fetchSpy = vi
       .spyOn<any, any>(ScrapperUtil, 'fetchData')
       .mockResolvedValue([NOTIFICATIONS_MOCK[0]]);
 

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
+import { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
 import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
 import { ChromeStorage } from '../models';
+import { ErrorBoundary } from '../shared/ErrorBoundary';
 import { MetaUtil } from '../utils';
 import './options.css';
 
@@ -19,23 +21,6 @@ const Options = () => {
     return chrome.i18n.getMessage(translationKey);
   };
 
-  useEffect(() => {
-    chrome.storage.sync.get(
-      {
-        [ChromeStorage.DISTRIBUTION_AREA]: '',
-        [ChromeStorage.POWER_STATION]: '',
-        [ChromeStorage.USER_STREET]: '',
-        [ChromeStorage.FUTURE_SEARCH]: false
-      },
-      storage => {
-        onDistributionAreaChange(storage[ChromeStorage.DISTRIBUTION_AREA]);
-        setPowerStation(storage[ChromeStorage.POWER_STATION]);
-        setStreet(storage[ChromeStorage.USER_STREET]);
-        setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
-      }
-    );
-  }, []);
-
   const onDistributionAreaChange = (areaValue: string): void => {
     setDistributionArea(areaValue);
     setPowerStation('');
@@ -43,6 +28,31 @@ const Options = () => {
     setFutureSearch(false);
     setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
   };
+
+  useEffect(() => {
+    const loadPreferences = async () => {
+      try {
+        const storage = await chrome.storage.sync.get({
+          [ChromeStorage.DISTRIBUTION_AREA]: '',
+          [ChromeStorage.POWER_STATION]: '',
+          [ChromeStorage.USER_STREET]: '',
+          [ChromeStorage.FUTURE_SEARCH]: false
+        });
+        setDistributionArea(storage[ChromeStorage.DISTRIBUTION_AREA]);
+        setAreaPowerStations(
+          MetaUtil.getDistributionAreaPowerStations(
+            storage[ChromeStorage.DISTRIBUTION_AREA]
+          )
+        );
+        setPowerStation(storage[ChromeStorage.POWER_STATION]);
+        setStreet(storage[ChromeStorage.USER_STREET]);
+        setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
+      } catch {
+        setSaveStatus(localize('messageFetchNotificationsError'));
+      }
+    };
+    loadPreferences();
+  }, []);
 
   const getOptions = (metaValues: IDistributionArea[] | IPowerStation[]) => {
     return metaValues.map(meta => (
@@ -61,27 +71,33 @@ const Options = () => {
     return () => clearTimeout(id);
   };
 
-  const saveOptions = () => {
+  const saveOptions = async () => {
     if (!distributionArea || !powerStation) {
       showStatus('messageNoOptionsSelected');
       return;
     }
 
-    chrome.storage.sync.set({
-      [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
-      [ChromeStorage.POWER_STATION]: powerStation,
-      [ChromeStorage.USER_STREET]: street,
-      [ChromeStorage.FUTURE_SEARCH]: futureSearch
-    });
-
-    showStatus('messageOptionsSaved');
+    try {
+      await chrome.storage.sync.set({
+        [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
+        [ChromeStorage.POWER_STATION]: powerStation,
+        [ChromeStorage.USER_STREET]: street,
+        [ChromeStorage.FUTURE_SEARCH]: futureSearch
+      });
+      showStatus('messageOptionsSaved');
+    } catch {
+      showStatus('messageNoOptionsSelected');
+    }
   };
 
   return (
     <div className="container">
       <div className="selection">
-        {localize('labelDistributionArea')}
+        <label htmlFor="distributionArea">
+          {localize('labelDistributionArea')}
+        </label>
         <select
+          id="distributionArea"
           className="select-input"
           value={distributionArea}
           onChange={event => onDistributionAreaChange(event.target.value)}
@@ -93,8 +109,9 @@ const Options = () => {
 
       {distributionArea && (
         <div className="selection">
-          {localize('labelPowerStation')}
+          <label htmlFor="powerStation">{localize('labelPowerStation')}</label>
           <select
+            id="powerStation"
             className="select-input"
             value={powerStation}
             onChange={event => setPowerStation(event.target.value)}
@@ -108,9 +125,9 @@ const Options = () => {
       {powerStation && (
         <>
           <div className="selection">
-            {localize('labelMyStreet')}
+            <label htmlFor="userStreet">{localize('labelMyStreet')}</label>
             <input
-              key="userStreet"
+              id="userStreet"
               className="select-input"
               type="text"
               onChange={event => setStreet(event.target.value)}
@@ -120,9 +137,11 @@ const Options = () => {
           </div>
 
           <div className="checkbox">
-            {localize('labelFutureSearch')}
+            <label htmlFor="futureSearch">
+              {localize('labelFutureSearch')}
+            </label>
             <input
-              key="futureFlagCheckbox"
+              id="futureSearch"
               className="check-input"
               type="checkbox"
               checked={futureSearch}
@@ -131,10 +150,10 @@ const Options = () => {
           </div>
 
           <div className="actions">
-            <span className="status-color">{saveStatus}</span>
             <button type="submit" className="save-button" onClick={saveOptions}>
               {localize('labelSave')}
             </button>
+            {saveStatus && <span className="status-color">{saveStatus}</span>}
           </div>
         </>
       )}
@@ -142,9 +161,10 @@ const Options = () => {
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Options />
-  </React.StrictMode>,
-  document.getElementById('root')
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <ErrorBoundary>
+      <Options />
+    </ErrorBoundary>
+  </StrictMode>
 );

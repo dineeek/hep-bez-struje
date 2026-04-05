@@ -1,4 +1,3 @@
-import React from 'react';
 import { INotification } from '../../models';
 
 export interface NotificationListProps {
@@ -11,14 +10,20 @@ export const NotificationList = (props: NotificationListProps) => {
   };
 
   return (
-    <>
-      {props.notifications.map((notification, index) => {
+    <div role="list">
+      {props.notifications.map(notification => {
         return (
           <div
-            key={'notification_' + index}
+            key={`${notification.date}-${notification.place}-${notification.time}`}
+            role="listitem"
             className={`notification-card ${
               notification.isUserStreet ? 'highlight-card' : ''
             }`}
+            aria-label={
+              notification.isUserStreet
+                ? `${notification.place} - ${notification.time} (your street)`
+                : `${notification.place} - ${notification.time}`
+            }
           >
             <span>
               {localize('labelDate')} <b>{notification.date}</b>
@@ -61,6 +66,6 @@ export const NotificationList = (props: NotificationListProps) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
