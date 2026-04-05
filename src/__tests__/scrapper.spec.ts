@@ -37,7 +37,8 @@ describe('Scrapper util', () => {
 
   it("should fetch today's notifications", async () => {
     const urlBuilderSpy = vi.spyOn<any, any>(ScrapperUtil, 'buildUrl');
-    const fetchSpy = vi.spyOn<any, any>(ScrapperUtil, 'fetchData')
+    const fetchSpy = vi
+      .spyOn<any, any>(ScrapperUtil, 'fetchData')
       .mockResolvedValue([NOTIFICATIONS_MOCK[0]]);
 
     const todayDate = new Date();
@@ -58,7 +59,8 @@ describe('Scrapper util', () => {
 
   it("should fetch today's and three days forward notifications", async () => {
     const urlBuilderSpy = vi.spyOn<any, any>(ScrapperUtil, 'buildUrl');
-    const fetchSpy = vi.spyOn<any, any>(ScrapperUtil, 'fetchData')
+    const fetchSpy = vi
+      .spyOn<any, any>(ScrapperUtil, 'fetchData')
       .mockResolvedValue([NOTIFICATIONS_MOCK[0]]);
 
     const todayDate = new Date();

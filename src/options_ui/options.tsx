@@ -109,9 +109,7 @@ const Options = () => {
 
       {distributionArea && (
         <div className="selection">
-          <label htmlFor="powerStation">
-            {localize('labelPowerStation')}
-          </label>
+          <label htmlFor="powerStation">{localize('labelPowerStation')}</label>
           <select
             id="powerStation"
             className="select-input"
@@ -155,9 +153,7 @@ const Options = () => {
             <button type="submit" className="save-button" onClick={saveOptions}>
               {localize('labelSave')}
             </button>
-            {saveStatus && (
-              <span className="status-color">{saveStatus}</span>
-            )}
+            {saveStatus && <span className="status-color">{saveStatus}</span>}
           </div>
         </>
       )}

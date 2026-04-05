@@ -42,9 +42,7 @@ describe('fetchWithRetry', () => {
   });
 
   it('should throw after exhausting all retries on network error', async () => {
-    vi.spyOn(globalThis, 'fetch').mockRejectedValue(
-      new Error('Network error')
-    );
+    vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network error'));
 
     await expect(fetchWithRetry('https://example.com', 1)).rejects.toThrow(
       'Network error'
