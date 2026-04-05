@@ -152,10 +152,12 @@ const Options = () => {
           </div>
 
           <div className="actions">
-            <span className="status-color">{saveStatus}</span>
             <button type="submit" className="save-button" onClick={saveOptions}>
               {localize('labelSave')}
             </button>
+            {saveStatus && (
+              <span className="status-color">{saveStatus}</span>
+            )}
           </div>
         </>
       )}
