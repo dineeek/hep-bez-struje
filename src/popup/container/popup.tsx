@@ -98,32 +98,38 @@ const Popup = () => {
 
       {userPreferences.powerStation ? (
         <>
-          <span>
-            {localize('labelDistributionArea')}
-            <b>
-              {MetaUtil.getDistributionAreaName(
-                userPreferences.distributionArea
-              )}
-            </b>
-          </span>
-          <span>
-            {localize('labelPowerStation')}
-            <b>{MetaUtil.getPowerStationName(userPreferences.powerStation)}</b>
-          </span>
+          <div className="meta">
+            <span>
+              {localize('labelDistributionArea')}
+              <b>
+                {MetaUtil.getDistributionAreaName(
+                  userPreferences.distributionArea
+                )}
+              </b>
+            </span>
+            <span>
+              {localize('labelPowerStation')}
+              <b>
+                {MetaUtil.getPowerStationName(userPreferences.powerStation)}
+              </b>
+            </span>
+          </div>
 
           {loading ? (
             <Loader />
           ) : notifications.length > 0 ? (
             <>
-              <hr className="line-break"></hr>
+              <hr className="line-break" />
               <NotificationList notifications={notifications} />
             </>
           ) : (
-            <span>{fetchStatus}</span>
+            <span className="empty-state">{fetchStatus}</span>
           )}
         </>
       ) : (
-        <span>{localize('messageNoOptionsSelectedPopup')}</span>
+        <span className="empty-state">
+          {localize('messageNoOptionsSelectedPopup')}
+        </span>
       )}
     </div>
   );

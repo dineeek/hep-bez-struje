@@ -1,57 +1,108 @@
 @import '../styles/variables.css';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.5;
+}
+
 .container {
   display: flex;
   flex-flow: column nowrap;
-  row-gap: 10px;
+  gap: 14px;
   font-size: var(--font-size-md);
+  max-width: 360px;
+  padding: 4px 0;
 }
 
 .selection {
   display: flex;
   flex-flow: column nowrap;
-  row-gap: 4px;
+  gap: 4px;
+}
+
+.selection label {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0.01em;
 }
 
 .select-input {
-  height: 24px;
+  height: 32px;
   font-size: var(--font-size-md);
-  border: 1px solid var(--color-dark);
+  font-family: var(--font-family);
+  border: 1px solid var(--color-border);
   border-radius: var(--border-radius-sm);
+  padding: 0 8px;
+  background: var(--color-bg);
+  color: var(--color-dark);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.select-input:focus {
+  border-color: var(--color-primary-light);
 }
 
 .checkbox {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  column-gap: 5px;
+  gap: 8px;
+}
+
+.checkbox label {
+  font-size: var(--font-size-sm);
+  color: var(--color-dark);
+  cursor: pointer;
 }
 
 .check-input {
-  height: 18px;
-  width: 18px;
-  accent-color: currentcolor;
+  height: 16px;
+  width: 16px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
 }
 
 .actions {
   display: flex;
   flex-flow: row nowrap;
-  column-gap: 10px;
+  gap: 12px;
   justify-content: space-between;
   align-items: center;
+  padding-top: 4px;
 }
 
 .save-button {
-  height: 30px;
-  width: 80px;
+  height: 32px;
+  padding: 0 20px;
   border: none;
-  border-radius: 10px;
-  font-size: var(--font-size-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: 500;
   color: white;
-  letter-spacing: 0.75px;
+  letter-spacing: 0.02em;
+  background-color: var(--color-primary);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.save-button:hover {
+  background-color: var(--color-primary-light);
+}
+
+.save-button:active {
   background-color: var(--color-dark);
 }
 
 .status-color {
-  color: var(--color-dark);
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
 }
