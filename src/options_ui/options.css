@@ -14,10 +14,10 @@ body {
 .container {
   display: flex;
   flex-flow: column nowrap;
-  gap: 14px;
+  gap: 16px;
   font-size: var(--font-size-md);
   max-width: 360px;
-  padding: 4px 0;
+  padding: 8px 16px 16px;
 }
 
 .selection {
@@ -27,27 +27,28 @@ body {
 }
 
 .selection label {
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--color-muted);
+  color: var(--color-dark);
   letter-spacing: 0.01em;
 }
 
 .select-input {
-  height: 32px;
+  height: 36px;
   font-size: var(--font-size-md);
   font-family: var(--font-family);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-sm);
-  padding: 0 8px;
+  padding: 0 10px;
   background: var(--color-bg);
   color: var(--color-dark);
   outline: none;
-  transition: border-color var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 .select-input:focus {
   border-color: var(--color-primary-light);
+  box-shadow: 0 0 0 2px rgba(45, 74, 138, 0.15);
 }
 
 .checkbox {
@@ -80,8 +81,8 @@ body {
 }
 
 .save-button {
-  height: 32px;
-  padding: 0 20px;
+  height: 36px;
+  padding: 0 24px;
   border: none;
   border-radius: var(--border-radius-sm);
   font-size: var(--font-size-sm);
