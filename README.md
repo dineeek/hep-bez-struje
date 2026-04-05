@@ -1,11 +1,15 @@
-<img align="left" width="64" height="64" src="https://github.com/dineeek/hep-bez-struje/blob/develop/assets/icons/icon.png" alt="Extension icon">
+<img align="left" width="64" height="64" src="https://github.com/dineeek/hep-bez-struje/blob/master/assets/icons/icon.png" alt="Extension icon">
 
 # Hep - bez struje
 
 ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/dineeek/hep-bez-struje?include_prereleases)
-[![lint:test:build](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml/badge.svg?branch=develop)](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml)
+[![lint:test:build](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml/badge.svg?branch=master)](https://github.com/dineeek/hep-bez-struje/actions/workflows/lint-test-build.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ![Github](https://img.shields.io/github/license/dineeek/hep-bez-struje)
+![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/hahhmkkofmofnadefiadmpmcencoaljf)
+![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 
 Unofficial HEP Chrome extension for checking areas without electric power. Based
 on HEP web page data scraping, TypeScript & React.
@@ -15,7 +19,6 @@ on HEP web page data scraping, TypeScript & React.
 Available at
 [**Chrome Web Store**](https://chrome.google.com/webstore/detail/hep-bez-struje/hahhmkkofmofnadefiadmpmcencoaljf).
 
-![Chrome Web Store](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
 ![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/hahhmkkofmofnadefiadmpmcencoaljf)
 
 ## Screenshots
