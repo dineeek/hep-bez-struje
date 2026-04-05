@@ -1,7 +1,8 @@
 import { INotification, IUserPreferences } from '../models';
 import { fetchWithRetry } from './fetchWithRetry';
 
-const BASE_URL = 'https://www.hep.hr/ods/bez-struje/19';
+const BASE_URL =
+  import.meta.env.VITE_HEP_BASE_URL || 'https://www.hep.hr/ods/bez-struje/19';
 
 enum SearchParams {
   DISTRIBUTION_AREA = 'dp',
