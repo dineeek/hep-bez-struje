@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "commonjs",
-    "target": "es6",
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "sourceMap": false,
     "rootDir": "src",
-    "outDir": "dist/js",
+    "outDir": "dist",
     "noEmitOnError": true,
     "jsx": "react-jsx",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "typeRoots": ["node_modules/@types"]
-  }
+  },
+  "include": ["src", "vite.config.ts"]
 }
