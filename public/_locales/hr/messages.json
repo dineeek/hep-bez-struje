@@ -58,5 +58,8 @@
   },
   "tooltipInfoIcon": {
     "message": "Promjena distribucijskog područja i pogona moguća je u opcijama proširenja."
+  },
+  "notificationTitle": {
+    "message": "Prekid napajanja u vašoj ulici"
   }
 }

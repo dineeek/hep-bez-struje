@@ -12,7 +12,8 @@ export async function loadUserPreferences(): Promise<IUserPreferences> {
     distributionArea: readText(ChromeStorage.DISTRIBUTION_AREA),
     powerStation: readText(ChromeStorage.POWER_STATION),
     street: readText(ChromeStorage.USER_STREET),
-    futureSearch: Boolean(stored[ChromeStorage.FUTURE_SEARCH])
+    futureSearch: Boolean(stored[ChromeStorage.FUTURE_SEARCH]),
+    notify: Boolean(stored[ChromeStorage.NOTIFY])
   };
 }
 
@@ -23,6 +24,7 @@ export async function saveUserPreferences(
     [ChromeStorage.DISTRIBUTION_AREA]: preferences.distributionArea,
     [ChromeStorage.POWER_STATION]: preferences.powerStation,
     [ChromeStorage.USER_STREET]: preferences.street,
-    [ChromeStorage.FUTURE_SEARCH]: preferences.futureSearch
+    [ChromeStorage.FUTURE_SEARCH]: preferences.futureSearch,
+    [ChromeStorage.NOTIFY]: preferences.notify
   });
 }

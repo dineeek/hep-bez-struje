@@ -58,5 +58,8 @@
   },
   "tooltipInfoIcon": {
     "message": "Change of distribution area and station is possible in extension options."
+  },
+  "notificationTitle": {
+    "message": "Power outage on your street"
   }
 }

@@ -58,5 +58,8 @@
   },
   "tooltipInfoIcon": {
     "message": "Sprememba distribucijskega območja in postaje je možna v možnostih razširitve."
+  },
+  "notificationTitle": {
+    "message": "Prekinitev napajanja v vaši ulici"
   }
 }

@@ -4,11 +4,11 @@ import { StrictMode } from 'react';
 import { IOutage, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
 import {
-  fetchOutages,
   getDistributionAreaName,
   getPowerStationName,
-  isUserStreet,
-  loadUserPreferences
+  loadUserPreferences,
+  markUserStreetOutagesSeen,
+  refreshOutages
 } from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
@@ -17,25 +17,13 @@ const localize = (translationKey: string): string => {
   return chrome.i18n.getMessage(translationKey);
 };
 
-const setBadge = (outages: IOutage[], userStreet: string): void => {
-  const userStreetCount = outages.filter(outage =>
-    isUserStreet(outage.street, userStreet)
-  ).length;
-
-  if (userStreetCount > 0) {
-    chrome.action.setBadgeBackgroundColor({ color: 'red' });
-    chrome.action.setBadgeText({ text: userStreetCount.toString() });
-  } else {
-    chrome.action.setBadgeText({ text: '' });
-  }
-};
-
 const Popup = () => {
   const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
     distributionArea: '',
     powerStation: '',
     street: '',
-    futureSearch: false
+    futureSearch: false,
+    notify: false
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [outages, setOutages] = useState<IOutage[]>([]);
@@ -54,9 +42,9 @@ const Popup = () => {
 
         setLoading(true);
 
-        const result = await fetchOutages(preferences);
+        const result = (await refreshOutages(preferences)).outages;
 
-        setBadge(result, preferences.street);
+        await markUserStreetOutagesSeen(result, preferences.street);
         setOutages(result);
 
         if (result.length === 0) {

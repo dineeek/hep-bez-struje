@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { addDays, getHepToday, toHepDateParam } from '../utils/hep-date';
+import {
+  addDays,
+  getHepTime,
+  getHepToday,
+  toHepDateParam
+} from '../utils/hep-date';
 
 describe('hep-date', () => {
   it('should take today from the Zagreb clock in winter', () => {
@@ -10,6 +15,11 @@ describe('hep-date', () => {
   it('should take today from the Zagreb clock in summer', () => {
     expect(getHepToday(new Date('2026-07-01T21:59:00Z'))).toBe('2026-07-01');
     expect(getHepToday(new Date('2026-07-01T22:00:00Z'))).toBe('2026-07-02');
+  });
+
+  it('should read the Zagreb time on a 24 hour clock', () => {
+    expect(getHepTime(new Date('2026-11-26T23:05:00Z'))).toBe('00:05');
+    expect(getHepTime(new Date('2026-07-01T11:30:00Z'))).toBe('13:30');
   });
 
   it('should add days across a month and a year', () => {

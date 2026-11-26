@@ -18,6 +18,7 @@ const Options = () => {
   );
   const [street, setStreet] = useState<string>('');
   const [futureSearch, setFutureSearch] = useState<boolean>(false);
+  const [notify, setNotify] = useState<boolean>(false);
   const [saveStatus, setSaveStatus] = useState<string>('');
 
   const localize = (translationKey: string): string => {
@@ -42,6 +43,7 @@ const Options = () => {
         setPowerStation(preferences.powerStation);
         setStreet(preferences.street);
         setFutureSearch(preferences.futureSearch);
+        setNotify(preferences.notify);
       } catch {
         setSaveStatus(localize('messageFetchNotificationsError'));
       }
@@ -77,7 +79,8 @@ const Options = () => {
         distributionArea,
         powerStation,
         street,
-        futureSearch
+        futureSearch,
+        notify
       });
       showStatus('messageOptionsSaved');
     } catch {

@@ -15,8 +15,14 @@ export default defineManifest(({ mode }) => {
     default_locale: 'hr',
     minimum_chrome_version: '88',
 
-    permissions: ['storage'],
+    permissions: ['storage', 'alarms'],
+    optional_permissions: ['notifications'],
     host_permissions: [`${new URL(outagesUrl).origin}/*`],
+
+    background: {
+      service_worker: 'src/background/service-worker.ts',
+      type: 'module'
+    },
 
     options_ui: {
       page: 'options.html'

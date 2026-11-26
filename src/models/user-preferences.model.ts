@@ -3,4 +3,5 @@ export interface IUserPreferences {
   powerStation: string;
   street: string;
   futureSearch: boolean;
+  notify: boolean;
 }

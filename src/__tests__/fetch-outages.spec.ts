@@ -13,7 +13,8 @@ const PREFERENCES: IUserPreferences = {
   distributionArea: 'zagreb',
   powerStation: 'ZG',
   street: '',
-  futureSearch: false
+  futureSearch: false,
+  notify: false
 };
 
 const respondWith = (body: string, status = 200) =>

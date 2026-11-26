@@ -58,5 +58,8 @@
   },
   "tooltipInfoIcon": {
     "message": "Verteilgebiets- und Stationswechsel in Erweiterungsoptionen möglich."
+  },
+  "notificationTitle": {
+    "message": "Stromausfall in Ihrer Straße"
   }
 }
