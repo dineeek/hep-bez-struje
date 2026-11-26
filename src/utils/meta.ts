@@ -1,26 +1,37 @@
-import { IPowerStation, DISTRIBUTION_AREAS, POWER_STATIONS } from '../meta';
+import { DISTRIBUTION_AREAS, IPowerStation } from '../meta';
 
-export class MetaUtil {
-  static getDistributionAreaPowerStations(
-    distributionArea: string
-  ): IPowerStation[] {
-    const areaId = DISTRIBUTION_AREAS.find(
-      area => area.value === distributionArea
-    )?.id;
+export function getPowerStations(distributionArea: string): IPowerStation[] {
+  return (
+    DISTRIBUTION_AREAS.find(area => area.value === distributionArea)
+      ?.powerStations ?? []
+  );
+}
 
-    return POWER_STATIONS.filter(
-      station => station.distributionAreaId === areaId
-    );
-  }
+export function getDistributionAreaName(distributionArea: string): string {
+  return (
+    DISTRIBUTION_AREAS.find(area => area.value === distributionArea)?.name ?? ''
+  );
+}
 
-  static getDistributionAreaName(distributionArea: string): string {
-    return (
-      DISTRIBUTION_AREAS.find(area => area.value === distributionArea)?.name ??
-      ''
-    );
-  }
+export function getPowerStationName(
+  distributionArea: string,
+  powerStation: string
+): string {
+  return (
+    getPowerStations(distributionArea).find(
+      station => station.value === powerStation
+    )?.name ?? ''
+  );
+}
 
-  static getPowerStationName(powerStation: string): string {
-    return POWER_STATIONS.find(area => area.value === powerStation)?.name ?? '';
-  }
+export function getStationLabel(
+  distributionArea: string,
+  powerStation: string
+): string {
+  const names = [
+    getDistributionAreaName(distributionArea),
+    getPowerStationName(distributionArea, powerStation)
+  ];
+
+  return [...new Set(names)].filter(Boolean).join(' · ');
 }

@@ -5,23 +5,96 @@
   "extensionDescription": {
     "message": "HEP-Bereiche ohne Strom"
   },
+  "locale": {
+    "message": "de"
+  },
   "labelDistributionArea": {
-    "message": "Verbreitungsgebiet: "
+    "message": "Versorgungsgebiet"
   },
   "labelPowerStation": {
-    "message": "Station: "
+    "message": "Betriebsstelle"
   },
   "labelMyStreet": {
-    "message": "Meine Straße: "
+    "message": "Meine Straßen oder Orte"
   },
   "placeholderMyStreet": {
-    "message": "Optional - z. B. Vukovarska"
+    "message": "z. B. Vukovarska, Sesvete"
+  },
+  "hintMyStreet": {
+    "message": "Optional. Mehrere Straßen oder Orte mit Komma trennen."
   },
   "labelFutureSearch": {
-    "message": "Prüfen Sie drei Tage im Voraus: "
+    "message": "Auch die nächsten drei Tage anzeigen"
   },
-  "labelDate": {
-    "message": "Datum: "
+  "labelNotify": {
+    "message": "Bei einem Stromausfall in meiner Straße oder meinem Ort benachrichtigen"
+  },
+  "labelSave": {
+    "message": "Speichern"
+  },
+  "optionChoose": {
+    "message": "Auswählen"
+  },
+  "messageOptionsSaved": {
+    "message": "Einstellungen gespeichert."
+  },
+  "messageSaveError": {
+    "message": "Speichern fehlgeschlagen. Versuchen Sie es erneut."
+  },
+  "messageLoadError": {
+    "message": "Die Einstellungen wurden nicht geladen. Öffnen Sie diese Seite erneut."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome hat Benachrichtigungen nicht erlaubt."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Wählen Sie in den Einstellungen ein Versorgungsgebiet und eine Betriebsstelle."
+  },
+  "messageFetchNotificationsError": {
+    "message": "Die HEP-Daten sind derzeit nicht verfügbar. Versuchen Sie es später erneut."
+  },
+  "messageNoNotifications": {
+    "message": "Es gibt keine geplanten Stromausfälle."
+  },
+  "messageNoOutagesOnDay": {
+    "message": "keine Stromausfälle"
+  },
+  "messageRefreshFailed": {
+    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden Daten mit Stand $TIME$ Uhr.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Etwas ist schiefgelaufen. Schließen Sie dieses Fenster und öffnen Sie es erneut."
+  },
+  "buttonRefresh": {
+    "message": "Aktualisieren"
+  },
+  "buttonOpenOptions": {
+    "message": "Einstellungen"
+  },
+  "labelUpdated": {
+    "message": "Aktualisiert um $TIME$ Uhr",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Auf hep.hr öffnen"
+  },
+  "tagUserStreet": {
+    "message": "Ihre Straße"
+  },
+  "tagUserPlace": {
+    "message": "Ihr Ort"
+  },
+  "tagUnplanned": {
+    "message": "Störung"
   },
   "labelPlace": {
     "message": "Ort: "
@@ -35,28 +108,10 @@
   "labelTime": {
     "message": "Erwartete Dauer: "
   },
-  "labelReason": {
-    "message": "Art der Arbeit: "
+  "notificationTitle": {
+    "message": "Stromausfall in Ihrer Straße"
   },
-  "labelSave": {
-    "message": "Speichern"
-  },
-  "messageOptionsSaved": {
-    "message": "Die Werte wurden gespeichert."
-  },
-  "messageNoOptionsSelected": {
-    "message": "Verteilgebiet und Station auswählen."
-  },
-  "messageNoOptionsSelectedPopup": {
-    "message": "Wählen Sie den HEP-Verteilerbereich und die Station in den Erweiterungsoptionen, um Blackout-Bereiche abzurufen."
-  },
-  "messageFetchNotificationsError": {
-    "message": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
-  },
-  "messageNoNotifications": {
-    "message": "Es gibt keine geplanten Stromausfälle."
-  },
-  "tooltipInfoIcon": {
-    "message": "Verteilgebiets- und Stationswechsel in Erweiterungsoptionen möglich."
+  "notificationTitlePlace": {
+    "message": "Stromausfall in Ihrem Ort"
   }
 }

@@ -1,140 +1,135 @@
-import { useCallback, useEffect, useState } from 'react';
-import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
-import { ChromeStorage, INotification, IUserPreferences } from '../../models';
+import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
-import { MetaUtil, ScrapperUtil } from '../../utils';
-import { Loader, NotificationList } from '../components';
+import { setUpDocument } from '../../shared/set-up-document';
+import {
+  buildOutagesUrl,
+  formatClockTime,
+  getHepToday,
+  getMessageLocale,
+  getStationLabel,
+  localize
+} from '../../utils';
+import { Loader, OutageList, RefreshIcon, SettingsIcon } from '../components';
 import './popup.css';
+import { useOutages } from './use-outages';
 
-const localize = (translationKey: string): string => {
-  return chrome.i18n.getMessage(translationKey);
+const openOptions = (): void => {
+  chrome.runtime.openOptionsPage();
 };
 
 const Popup = () => {
-  const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
-    distributionArea: '',
-    powerStation: '',
-    street: '',
-    futureSearch: false
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<INotification[]>([]);
-  const [fetchStatus, setFetchStatus] = useState<string>('');
-
-  const setStatusAndBadge = (notifs: INotification[]) => {
-    if (notifs.length === 0) {
-      chrome.action.setBadgeText({ text: '' });
-      setFetchStatus(localize('messageNoNotifications'));
-      return;
-    }
-
-    const userAffectedDaysCount = notifs.filter(
-      notification => notification.isUserStreet
-    ).length;
-
-    if (userAffectedDaysCount > 0) {
-      chrome.action.setBadgeBackgroundColor({ color: 'red' });
-      chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
-    } else {
-      chrome.action.setBadgeText({ text: '' });
-    }
-  };
-
-  const fetchNotifications = useCallback(async () => {
-    setLoading(true);
-    try {
-      const result = await ScrapperUtil.getNotifications(userPreferences);
-      setStatusAndBadge(result);
-      setNotifications(result);
-    } catch {
-      setFetchStatus(localize('messageFetchNotificationsError'));
-    } finally {
-      setLoading(false);
-    }
-  }, [userPreferences]);
-
-  useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        const storage = await chrome.storage.sync.get({
-          [ChromeStorage.DISTRIBUTION_AREA]: '',
-          [ChromeStorage.POWER_STATION]: '',
-          [ChromeStorage.USER_STREET]: '',
-          [ChromeStorage.FUTURE_SEARCH]: false
-        });
-        setUserPreferences({
-          distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
-          powerStation: storage[ChromeStorage.POWER_STATION],
-          street: storage[ChromeStorage.USER_STREET],
-          futureSearch: storage[ChromeStorage.FUTURE_SEARCH]
-        });
-      } catch {
-        setFetchStatus(localize('messageFetchNotificationsError'));
-      }
-    };
-    loadPreferences();
-  }, []);
-
-  useEffect(() => {
-    if (userPreferences.powerStation) {
-      fetchNotifications();
-    }
-  }, [userPreferences, fetchNotifications]);
+  const { preferences, cache, isRefreshing, hasFailed, refresh } = useOutages();
+  const locale = getMessageLocale();
+  const isConfigured = !!preferences?.powerStation;
 
   return (
-    <div className="container">
-      <div className="title">
-        <span> {localize('extensionName')}</span>
-        {userPreferences.powerStation ? (
-          <img
-            className="info"
-            src="icons/info.png"
-            alt={localize('tooltipInfoIcon')}
-            title={localize('tooltipInfoIcon')}
-          />
-        ) : null}
-      </div>
-
-      {userPreferences.powerStation ? (
-        <>
-          <div className="meta">
-            <span>
-              {localize('labelDistributionArea')}
-              <b>
-                {MetaUtil.getDistributionAreaName(
-                  userPreferences.distributionArea
-                )}
-              </b>
-            </span>
-            <span>
-              {localize('labelPowerStation')}
-              <b>
-                {MetaUtil.getPowerStationName(userPreferences.powerStation)}
-              </b>
-            </span>
-          </div>
-
-          {loading ? (
-            <Loader />
-          ) : notifications.length > 0 ? (
-            <>
-              <hr className="line-break" />
-              <NotificationList notifications={notifications} />
-            </>
-          ) : (
-            <span className="empty-state">{fetchStatus}</span>
+    <main className="popup">
+      <header className="popup-header">
+        <img className="popup-icon" src="icons/no_power48.png" alt="" />
+        <div className="popup-heading">
+          <h1 className="title">{localize('extensionName')}</h1>
+          {preferences && isConfigured && (
+            <p className="station">
+              {getStationLabel(
+                preferences.distributionArea,
+                preferences.powerStation
+              )}
+            </p>
           )}
-        </>
-      ) : (
-        <span className="empty-state">
-          {localize('messageNoOptionsSelectedPopup')}
-        </span>
+        </div>
+        <div className="header-actions">
+          {isConfigured && (
+            <button
+              type="button"
+              className={`icon-button ${isRefreshing ? 'is-spinning' : ''}`}
+              onClick={refresh}
+              disabled={isRefreshing}
+              aria-label={localize('buttonRefresh')}
+              title={localize('buttonRefresh')}
+            >
+              <RefreshIcon />
+            </button>
+          )}
+          <button
+            type="button"
+            className="icon-button"
+            onClick={openOptions}
+            aria-label={localize('buttonOpenOptions')}
+            title={localize('buttonOpenOptions')}
+          >
+            <SettingsIcon />
+          </button>
+        </div>
+      </header>
+
+      {preferences && !isConfigured && (
+        <div className="empty-state">
+          <p>{localize('messageNoOptionsSelectedPopup')}</p>
+          <button type="button" className="text-button" onClick={openOptions}>
+            {localize('buttonOpenOptions')}
+          </button>
+        </div>
       )}
-    </div>
+
+      {cache && hasFailed && (
+        <p className="notice" role="status">
+          {localize(
+            'messageRefreshFailed',
+            formatClockTime(cache.fetchedAt, locale)
+          )}
+        </p>
+      )}
+
+      {preferences && cache && (
+        <OutageList
+          cache={cache}
+          userStreet={preferences.street}
+          locale={locale}
+        />
+      )}
+
+      {!cache && hasFailed && (
+        <div className="empty-state" role="alert">
+          <p>{localize('messageFetchNotificationsError')}</p>
+          {isConfigured && (
+            <button type="button" className="text-button" onClick={refresh}>
+              {localize('buttonRefresh')}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isConfigured && !cache && !hasFailed && <Loader />}
+
+      {preferences && isConfigured && (
+        <footer className="popup-footer">
+          {cache && (
+            <span data-testid="updated">
+              {localize(
+                'labelUpdated',
+                formatClockTime(cache.fetchedAt, locale)
+              )}
+            </span>
+          )}
+          <a
+            href={buildOutagesUrl(
+              preferences.distributionArea,
+              preferences.powerStation,
+              cache?.today ?? getHepToday()
+            )}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {localize('linkHepPage')}
+          </a>
+        </footer>
+      )}
+    </main>
   );
 };
 
+setUpDocument();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>

@@ -5,23 +5,96 @@
   "extensionDescription": {
     "message": "HEP območja brez elektrike"
   },
+  "locale": {
+    "message": "sl"
+  },
   "labelDistributionArea": {
-    "message": "Distribucijsko območje: "
+    "message": "Distribucijsko območje"
   },
   "labelPowerStation": {
-    "message": "Postaja: "
+    "message": "Terenska enota"
   },
   "labelMyStreet": {
-    "message": "Moja ulica: "
+    "message": "Moje ulice ali kraji"
   },
   "placeholderMyStreet": {
-    "message": "Izbirno - npr. Vukovarska"
+    "message": "npr. Vukovarska, Sesvete"
+  },
+  "hintMyStreet": {
+    "message": "Neobvezno. Več ulic ali krajev ločite z vejico."
   },
   "labelFutureSearch": {
-    "message": "Preveri tri dni vnaprej: "
+    "message": "Prikaži tudi naslednje tri dni"
   },
-  "labelDate": {
-    "message": "Datum: "
+  "labelNotify": {
+    "message": "Obvesti me o izpadu elektrike v moji ulici ali kraju"
+  },
+  "labelSave": {
+    "message": "Shrani"
+  },
+  "optionChoose": {
+    "message": "Izberite"
+  },
+  "messageOptionsSaved": {
+    "message": "Nastavitve so shranjene."
+  },
+  "messageSaveError": {
+    "message": "Shranjevanje ni uspelo. Poskusite znova."
+  },
+  "messageLoadError": {
+    "message": "Nastavitve se niso naložile. Znova odprite to stran."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome ni dovolil obvestil."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "V nastavitvah izberite distribucijsko območje in terensko enoto."
+  },
+  "messageFetchNotificationsError": {
+    "message": "Podatki HEP trenutno niso na voljo. Poskusite znova pozneje."
+  },
+  "messageNoNotifications": {
+    "message": "Ni načrtovanih izpadov elektrike."
+  },
+  "messageNoOutagesOnDay": {
+    "message": "ni izpadov elektrike"
+  },
+  "messageRefreshFailed": {
+    "message": "Osvežitev ni uspela. Prikazani so podatki, pridobljeni ob $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Prišlo je do napake. Zaprite to okno in ga znova odprite."
+  },
+  "buttonRefresh": {
+    "message": "Osveži"
+  },
+  "buttonOpenOptions": {
+    "message": "Nastavitve"
+  },
+  "labelUpdated": {
+    "message": "Posodobljeno ob $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Odpri na hep.hr"
+  },
+  "tagUserStreet": {
+    "message": "Vaša ulica"
+  },
+  "tagUserPlace": {
+    "message": "Vaš kraj"
+  },
+  "tagUnplanned": {
+    "message": "Okvara"
   },
   "labelPlace": {
     "message": "Kraj: "
@@ -35,28 +108,10 @@
   "labelTime": {
     "message": "Predvideno trajanje: "
   },
-  "labelReason": {
-    "message": "Vrsta dela: "
+  "notificationTitle": {
+    "message": "Izpad elektrike v vaši ulici"
   },
-  "labelSave": {
-    "message": "Shrani"
-  },
-  "messageOptionsSaved": {
-    "message": "Vrednosti so bile shranjene."
-  },
-  "messageNoOptionsSelected": {
-    "message": "Izberi distribucijsko območje in postajo."
-  },
-  "messageNoOptionsSelectedPopup": {
-    "message": "Izberite distribucijsko območje in postajo HEP v možnostih razširitve za pridobitev območij izpada."
-  },
-  "messageFetchNotificationsError": {
-    "message": "Prišlo je do napake. Poskusite znova pozneje."
-  },
-  "messageNoNotifications": {
-    "message": "Ni načrtovanih izpadov električne energije."
-  },
-  "tooltipInfoIcon": {
-    "message": "Sprememba distribucijskega območja in postaje je možna v možnostih razširitve."
+  "notificationTitlePlace": {
+    "message": "Izpad elektrike v vašem kraju"
   }
 }

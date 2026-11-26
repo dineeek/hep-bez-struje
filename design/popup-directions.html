@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HEP - bez struje: popup directions</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        padding: 28px;
+        background: #6b6b6b;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(3, 400px);
+        gap: 28px;
+        align-items: start;
+      }
+
+      .caption {
+        color: #fff;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .caption span {
+        display: block;
+        font-size: 12px;
+        font-weight: 400;
+        opacity: 0.85;
+      }
+
+      .popup {
+        width: 400px;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.45;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .dark {
+        --bg: #141414;
+        --text: #eeeeee;
+        --text-2: #c4c4c4;
+        --muted: #8a8a8a;
+        --line: #2b2b2b;
+        --red: #ff5a5f;
+        --red-solid: #d9232a;
+        --red-wash: rgba(255, 90, 95, 0.12);
+        --amber: #f5c400;
+      }
+
+      .light {
+        --bg: #ffffff;
+        --text: #161616;
+        --text-2: #3f3f3f;
+        --muted: #707070;
+        --line: #e4e4e4;
+        --red: #c81e25;
+        --red-solid: #c81e25;
+        --red-wash: #fdeeee;
+        --amber: #8a6100;
+      }
+
+      .head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px 11px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .head img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .head-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 650;
+        line-height: 1.2;
+      }
+
+      .station {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .icons {
+        display: flex;
+        gap: 12px;
+        color: var(--muted);
+      }
+
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 14px 12px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11.5px;
+      }
+
+      .foot a {
+        color: var(--text-2);
+      }
+
+      .a .day {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        padding: 16px 14px 7px;
+        color: var(--muted);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .a .day b {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .a .day .none {
+        letter-spacing: 0;
+        text-transform: none;
+        font-size: 12px;
+      }
+
+      .a .row {
+        display: grid;
+        grid-template-columns: 46px 1fr;
+        column-gap: 14px;
+        padding: 9px 14px 10px;
+        border-top: 1px solid var(--line);
+      }
+
+      .a .start {
+        font-weight: 650;
+      }
+
+      .a .end {
+        display: block;
+        color: var(--muted);
+      }
+
+      .a .place {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        font-weight: 650;
+      }
+
+      .a .flag {
+        flex: none;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .a .streets {
+        color: var(--text-2);
+        font-size: 12px;
+      }
+
+      .a .note {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .a .mine {
+        background: var(--red-wash);
+      }
+
+      .a .mine .start,
+      .a .mine .flag {
+        color: var(--red);
+      }
+
+      .a .fault .flag {
+        color: var(--amber);
+      }
+
+      .b .day {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 14px;
+        background: var(--text);
+        color: var(--bg);
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      .b .day .none {
+        font-weight: 400;
+      }
+
+      .b .day.empty {
+        background: none;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        font-weight: 400;
+      }
+
+      .b .row {
+        padding: 14px 14px 13px;
+        border-top: 1px solid var(--line);
+      }
+
+      .b .time {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 23px;
+        font-weight: 300;
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+      }
+
+      .b .flag {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .b .place {
+        margin-top: 7px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+
+      .b .streets {
+        margin-top: 1px;
+        color: var(--text-2);
+      }
+
+      .b .note {
+        margin-top: 1px;
+        color: var(--muted);
+      }
+
+      .b .mine {
+        background: var(--red-solid);
+        color: #fff;
+        border-top-color: var(--red-solid);
+      }
+
+      .b .mine .streets {
+        color: #fff;
+      }
+
+      .b .fault .flag {
+        color: var(--amber);
+      }
+
+      .c .rail {
+        position: relative;
+        padding: 4px 0 6px;
+      }
+
+      .c .rail::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 21px;
+        width: 1px;
+        background: var(--line);
+      }
+
+      .c .day {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0 2px;
+        padding: 4px 14px;
+        background: var(--bg);
+        font-size: 12px;
+        font-weight: 650;
+      }
+
+      .c .day .none {
+        color: var(--muted);
+        font-weight: 400;
+      }
+
+      .c .row {
+        position: relative;
+        padding: 7px 14px 9px 42px;
+      }
+
+      .c .row::before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 17px;
+        width: 9px;
+        height: 9px;
+        border: 1.5px solid var(--muted);
+        border-radius: 50%;
+        background: var(--bg);
+      }
+
+      .c .time {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 650;
+      }
+
+      .c .flag {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .c .place {
+        font-weight: 600;
+      }
+
+      .c .streets {
+        color: var(--text-2);
+        font-size: 12px;
+      }
+
+      .c .note {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .c .mine::before {
+        border-color: var(--red);
+        background: var(--red);
+        box-shadow: 0 0 0 4px var(--red-wash);
+      }
+
+      .c .mine .time {
+        color: var(--red);
+      }
+
+      .c .fault::before {
+        border-color: var(--amber);
+        background: var(--amber);
+      }
+
+      .c .fault .flag {
+        color: var(--amber);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="board" id="board"></div>
+
+    <script>
+      const DAYS = [
+        {
+          name: 'Danas',
+          date: 'četvrtak, 26. studenoga',
+          outages: [
+            {
+              start: '02:00',
+              end: '08:00',
+              place: 'VETERNICA, KUZMINEC',
+              note: 'KVAR NA DALEKOVODU',
+              fault: true
+            },
+            {
+              start: '08:30',
+              end: '09:30',
+              place: 'IVANEC - DIO ULICA',
+              streets:
+                'GMAJNA, IVANEC, ULICA BISKUPA MARKA CULEJA, ULICA ROMANA RIBIĆA 16, ULICA ŽELJKA PUTARA GRDAKA 7-9 nep, VARAŽDINSKA ULICA, VRTNA ULICA 11',
+              mine: true
+            },
+            {
+              start: '10:00',
+              end: '11:00',
+              place: 'IVANEC - DIO CENTRA',
+              streets:
+                'TRG HRVATSKIH IVANOVACA 6-8 par, 9, 9/A, ULICA AKADEMIKA MIRKA MALEZA 1-5 nep'
+            },
+            {
+              start: '12:00',
+              end: '13:00',
+              place: 'IVANEC - DIO CENTRA',
+              streets:
+                'IVANEC, ULICA DR. ĐURE ARNOLDA 4-12 par, 11-17 nep, ULICA EUGENA KUMIČIĆA 8-10 par, 5-7 nep, ULICA LJUDEVITA GAJA 2'
+            }
+          ]
+        },
+        { name: 'Sutra', date: 'petak, 27. studenoga', outages: [] },
+        { name: '', date: 'Subota, 28. studenoga', outages: [] },
+        { name: '', date: 'Nedjelja, 29. studenoga', outages: [] }
+      ];
+
+      const ICONS = `
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v4h-4"/></svg>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h8M18 7h2M4 17h2M12 17h8"/><circle cx="15" cy="7" r="2.5"/><circle cx="9" cy="17" r="2.5"/></svg>`;
+
+      const head = `
+        <div class="head">
+          <img src="../public/icons/no_power48.png" alt="" />
+          <div class="head-text">
+            <div class="title">HEP - bez struje</div>
+            <div class="station">Elektra Varaždin · Ivanec</div>
+          </div>
+          <div class="icons">${ICONS}</div>
+        </div>`;
+
+      const foot = `
+        <div class="foot">
+          <span>Ažurirano u 21:53</span>
+          <a href="#">Otvori na hep.hr</a>
+        </div>`;
+
+      const flag = outage =>
+        outage.mine
+          ? '<span class="flag">Vaša ulica</span>'
+          : outage.fault
+            ? '<span class="flag">Kvar</span>'
+            : '';
+
+      const kind = outage =>
+        outage.mine ? 'mine' : outage.fault ? 'fault' : '';
+
+      const text = outage => `
+        ${outage.streets ? `<div class="streets">${outage.streets}</div>` : ''}
+        ${outage.note ? `<div class="note">${outage.note}</div>` : ''}`;
+
+      const dayLabel = day =>
+        day.name ? `<b>${day.name}</b> · ${day.date}` : day.date;
+
+      const none = '<span class="none">nema prekida</span>';
+
+      const A = DAYS.map(
+        day => `
+          <div class="day"><span>${dayLabel(day)}</span>${day.outages.length ? '' : none}</div>
+          ${day.outages
+            .map(
+              outage => `
+                <div class="row ${kind(outage)}">
+                  <div><span class="start">${outage.start}</span><span class="end">${outage.end}</span></div>
+                  <div>
+                    <div class="place"><span>${outage.place}</span>${flag(outage)}</div>
+                    ${text(outage)}
+                  </div>
+                </div>`
+            )
+            .join('')}`
+      ).join('');
+
+      const B = DAYS.map(
+        day => `
+          <div class="day ${day.outages.length ? '' : 'empty'}"><span>${day.name ? `${day.name} · ${day.date}` : day.date}</span>${day.outages.length ? '' : none}</div>
+          ${day.outages
+            .map(
+              outage => `
+                <div class="row ${kind(outage)}">
+                  <div class="time"><span>${outage.start} – ${outage.end}</span>${flag(outage)}</div>
+                  <div class="place">${outage.place}</div>
+                  ${text(outage)}
+                </div>`
+            )
+            .join('')}`
+      ).join('');
+
+      const C = `<div class="rail">${DAYS.map(
+        day => `
+          <div class="day"><span>${day.name ? `${day.name} · ${day.date}` : day.date}</span>${day.outages.length ? '' : none}</div>
+          ${day.outages
+            .map(
+              outage => `
+                <div class="row ${kind(outage)}">
+                  <div class="time"><span>${outage.start} – ${outage.end}</span>${flag(outage)}</div>
+                  <div class="place">${outage.place}</div>
+                  ${text(outage)}
+                </div>`
+            )
+            .join('')}`
+      ).join('')}</div>`;
+
+      const variants = [
+        ['a', 'A · Vozni red', 'Timetable rows, time column on the left', A],
+        ['b', 'B · Oglas', 'Notice sheet, time as the headline', B],
+        ['c', 'C · Vremenska crta', 'Timeline, one dot per outage', C]
+      ];
+
+      document.getElementById('board').innerHTML = ['dark', 'light']
+        .map(theme =>
+          variants
+            .map(
+              ([name, title, description, body]) => `
+                <div>
+                  ${theme === 'dark' ? `<p class="caption">${title}<span>${description}</span></p><br />` : ''}
+                  <div class="popup ${name} ${theme}">${head}${body}${foot}</div>
+                </div>`
+            )
+            .join('')
+        )
+        .join('');
+    </script>
+  </body>
+</html>

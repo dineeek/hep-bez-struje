@@ -1,166 +1,214 @@
-import { useEffect, useState } from 'react';
+import { FormEvent, StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { StrictMode } from 'react';
-import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
-import { ChromeStorage } from '../models';
+import { DISTRIBUTION_AREAS } from '../meta';
+import { IUserPreferences } from '../models';
 import { ErrorBoundary } from '../shared/ErrorBoundary';
-import { MetaUtil } from '../utils';
+import { setUpDocument } from '../shared/set-up-document';
+import {
+  getPowerStations,
+  loadUserPreferences,
+  localize,
+  MessageKey,
+  parseUserStreets,
+  saveUserPreferences
+} from '../utils';
 import './options.css';
 
+const NOTIFICATIONS: chrome.permissions.Permissions = {
+  permissions: ['notifications']
+};
+const SAVED_STATUS_MS = 3000;
+
 const Options = () => {
-  const [distributionArea, setDistributionArea] = useState<string>('');
-  const [powerStation, setPowerStation] = useState<string>('');
-  const [areaPowerStations, setAreaPowerStations] = useState<IPowerStation[]>(
-    []
-  );
-  const [street, setStreet] = useState<string>('');
-  const [futureSearch, setFutureSearch] = useState<boolean>(false);
-  const [saveStatus, setSaveStatus] = useState<string>('');
+  const [preferences, setPreferences] = useState<IUserPreferences>({
+    distributionArea: '',
+    powerStation: '',
+    street: '',
+    futureSearch: false,
+    notify: false
+  });
+  const [status, setStatus] = useState<MessageKey>();
+  const hasStreet = parseUserStreets(preferences.street).length > 0;
 
-  const localize = (translationKey: string): string => {
-    return chrome.i18n.getMessage(translationKey);
+  const update = (changes: Partial<IUserPreferences>): void => {
+    setPreferences(current => ({ ...current, ...changes }));
+    setStatus(undefined);
   };
 
-  const onDistributionAreaChange = (areaValue: string): void => {
-    setDistributionArea(areaValue);
-    setPowerStation('');
-    setStreet('');
-    setFutureSearch(false);
-    setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
+  const onDistributionAreaChange = (distributionArea: string): void => {
+    const powerStations = getPowerStations(distributionArea);
+
+    update({
+      distributionArea,
+      powerStation: powerStations.length === 1 ? powerStations[0].value : ''
+    });
   };
 
-  useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        const storage = await chrome.storage.sync.get({
-          [ChromeStorage.DISTRIBUTION_AREA]: '',
-          [ChromeStorage.POWER_STATION]: '',
-          [ChromeStorage.USER_STREET]: '',
-          [ChromeStorage.FUTURE_SEARCH]: false
-        });
-        setDistributionArea(storage[ChromeStorage.DISTRIBUTION_AREA]);
-        setAreaPowerStations(
-          MetaUtil.getDistributionAreaPowerStations(
-            storage[ChromeStorage.DISTRIBUTION_AREA]
-          )
-        );
-        setPowerStation(storage[ChromeStorage.POWER_STATION]);
-        setStreet(storage[ChromeStorage.USER_STREET]);
-        setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
-      } catch {
-        setSaveStatus(localize('messageFetchNotificationsError'));
-      }
-    };
-    loadPreferences();
-  }, []);
-
-  const getOptions = (metaValues: IDistributionArea[] | IPowerStation[]) => {
-    return metaValues.map(meta => (
-      <option key={meta.value} value={meta.value}>
-        {meta.name}
-      </option>
-    ));
-  };
-
-  const showStatus = (messageKey: string) => {
-    setSaveStatus(localize(messageKey));
-
-    const id = setTimeout(() => {
-      setSaveStatus('');
-    }, 2000);
-    return () => clearTimeout(id);
-  };
-
-  const saveOptions = async () => {
-    if (!distributionArea || !powerStation) {
-      showStatus('messageNoOptionsSelected');
+  const onNotifyChange = async (isChecked: boolean): Promise<void> => {
+    if (!isChecked) {
+      update({ notify: false });
       return;
     }
 
-    try {
-      await chrome.storage.sync.set({
-        [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
-        [ChromeStorage.POWER_STATION]: powerStation,
-        [ChromeStorage.USER_STREET]: street,
-        [ChromeStorage.FUTURE_SEARCH]: futureSearch
-      });
-      showStatus('messageOptionsSaved');
-    } catch {
-      showStatus('messageNoOptionsSelected');
+    const isGranted = await chrome.permissions
+      .request(NOTIFICATIONS)
+      .catch(() => false);
+
+    update({ notify: isGranted });
+
+    if (!isGranted) {
+      setStatus('messageNotifyDenied');
     }
   };
 
+  const onSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+
+    const savedPreferences: IUserPreferences = {
+      ...preferences,
+      street: parseUserStreets(preferences.street).join(', '),
+      notify: preferences.notify && hasStreet
+    };
+
+    try {
+      await saveUserPreferences(savedPreferences);
+      setPreferences(savedPreferences);
+      setStatus('messageOptionsSaved');
+    } catch {
+      setStatus('messageSaveError');
+      return;
+    }
+
+    if (!savedPreferences.notify) {
+      await chrome.permissions.remove(NOTIFICATIONS).catch(() => false);
+    }
+  };
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const storedPreferences = await loadUserPreferences();
+        const canNotify =
+          storedPreferences.notify &&
+          (await chrome.permissions.contains(NOTIFICATIONS));
+
+        setPreferences({ ...storedPreferences, notify: canNotify });
+      } catch {
+        setStatus('messageLoadError');
+      }
+    };
+
+    load();
+  }, []);
+
+  useEffect(() => {
+    if (status !== 'messageOptionsSaved') {
+      return;
+    }
+
+    const timer = setTimeout(() => setStatus(undefined), SAVED_STATUS_MS);
+
+    return () => clearTimeout(timer);
+  }, [status]);
+
   return (
-    <div className="container">
-      <div className="selection">
+    <form className="options" onSubmit={onSubmit}>
+      <div className="field">
         <label htmlFor="distributionArea">
           {localize('labelDistributionArea')}
         </label>
         <select
           id="distributionArea"
-          className="select-input"
-          value={distributionArea}
+          className="input"
+          value={preferences.distributionArea}
           onChange={event => onDistributionAreaChange(event.target.value)}
         >
-          <option key="emptyArea" defaultValue="none" hidden></option>
-          {getOptions(DISTRIBUTION_AREAS)}
+          <option value="" disabled>
+            {localize('optionChoose')}
+          </option>
+          {DISTRIBUTION_AREAS.map(area => (
+            <option key={area.value} value={area.value}>
+              {area.name}
+            </option>
+          ))}
         </select>
       </div>
 
-      {distributionArea && (
-        <div className="selection">
-          <label htmlFor="powerStation">{localize('labelPowerStation')}</label>
-          <select
-            id="powerStation"
-            className="select-input"
-            value={powerStation}
-            onChange={event => setPowerStation(event.target.value)}
-          >
-            <option key="emptyStation" defaultValue="none" hidden></option>
-            {getOptions(areaPowerStations)}
-          </select>
-        </div>
-      )}
+      <div className="field">
+        <label htmlFor="powerStation">{localize('labelPowerStation')}</label>
+        <select
+          id="powerStation"
+          className="input"
+          value={preferences.powerStation}
+          onChange={event => update({ powerStation: event.target.value })}
+          disabled={!preferences.distributionArea}
+        >
+          <option value="" disabled>
+            {localize('optionChoose')}
+          </option>
+          {getPowerStations(preferences.distributionArea).map(station => (
+            <option key={station.value} value={station.value}>
+              {station.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      {powerStation && (
-        <>
-          <div className="selection">
-            <label htmlFor="userStreet">{localize('labelMyStreet')}</label>
-            <input
-              id="userStreet"
-              className="select-input"
-              type="text"
-              onChange={event => setStreet(event.target.value)}
-              placeholder={localize('placeholderMyStreet')}
-              value={street}
-            />
-          </div>
+      <div className="field">
+        <label htmlFor="userStreet">{localize('labelMyStreet')}</label>
+        <input
+          id="userStreet"
+          className="input"
+          type="text"
+          autoComplete="off"
+          aria-describedby="userStreetHint"
+          placeholder={localize('placeholderMyStreet')}
+          value={preferences.street}
+          onChange={event => update({ street: event.target.value })}
+        />
+        <p id="userStreetHint" className="hint">
+          {localize('hintMyStreet')}
+        </p>
+      </div>
 
-          <div className="checkbox">
-            <label htmlFor="futureSearch">
-              {localize('labelFutureSearch')}
-            </label>
-            <input
-              id="futureSearch"
-              className="check-input"
-              type="checkbox"
-              checked={futureSearch}
-              onChange={() => setFutureSearch(!futureSearch)}
-            />
-          </div>
+      <label className="check" htmlFor="futureSearch">
+        <input
+          id="futureSearch"
+          type="checkbox"
+          checked={preferences.futureSearch}
+          onChange={event => update({ futureSearch: event.target.checked })}
+        />
+        {localize('labelFutureSearch')}
+      </label>
 
-          <div className="actions">
-            <button type="submit" className="save-button" onClick={saveOptions}>
-              {localize('labelSave')}
-            </button>
-            {saveStatus && <span className="status-color">{saveStatus}</span>}
-          </div>
-        </>
-      )}
-    </div>
+      <label className="check" htmlFor="notify">
+        <input
+          id="notify"
+          type="checkbox"
+          checked={preferences.notify && hasStreet}
+          onChange={event => onNotifyChange(event.target.checked)}
+          disabled={!hasStreet}
+        />
+        {localize('labelNotify')}
+      </label>
+
+      <div className="actions">
+        <button
+          type="submit"
+          className="save-button"
+          disabled={!preferences.powerStation}
+        >
+          {localize('labelSave')}
+        </button>
+        <p className="status" role="status">
+          {status && localize(status)}
+        </p>
+      </div>
+    </form>
   );
 };
 
+setUpDocument();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>

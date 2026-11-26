@@ -1,29 +1,14 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { crx } from '@crxjs/vite-plugin';
-import manifest from './public/manifest.json';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vitest/config';
+import manifest, { MIN_CHROME_VERSION } from './manifest.config.ts';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    crx({
-      manifest: {
-        ...manifest,
-        action: {
-          ...manifest.action,
-          default_popup: 'popup.html',
-        },
-        options_ui: {
-          page: 'options.html',
-        },
-      },
-    }),
-  ],
+  plugins: [react(), crx({ manifest })],
   build: {
-    outDir: 'dist',
+    target: `chrome${MIN_CHROME_VERSION}`
   },
   test: {
-    environment: 'jsdom',
-    include: ['src/__tests__/**/*.spec.ts'],
-  },
+    include: ['src/__tests__/**/*.spec.ts']
+  }
 });

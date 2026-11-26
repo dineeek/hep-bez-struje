@@ -7,67 +7,87 @@
 }
 
 body {
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-family);
+  font-size: var(--font-size-md);
   line-height: 1.5;
 }
 
-.container {
+:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+.options {
   display: flex;
   flex-flow: column nowrap;
   gap: 16px;
-  font-size: var(--font-size-md);
-  padding: 8px 16px 16px;
+  min-width: 360px;
+  padding: 12px 16px 16px;
 }
 
-.selection {
+.field {
   display: flex;
   flex-flow: column nowrap;
   gap: 4px;
 }
 
-.selection label {
+.field label {
   font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-dark);
-  letter-spacing: 0.01em;
+  font-weight: 650;
+  line-height: 20px;
 }
 
-.select-input {
+.input {
   height: 36px;
-  font-size: var(--font-size-md);
-  font-family: var(--font-family);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--color-muted);
+  border-radius: 2px;
   padding: 0 10px;
   background: var(--color-bg);
-  color: var(--color-dark);
-  outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  transition: border-color var(--transition);
 }
 
-.select-input:focus {
-  border-color: var(--color-primary-light);
-  box-shadow: 0 0 0 2px rgba(45, 74, 138, 0.15);
+.input:focus {
+  border-color: var(--color-text);
 }
 
-.checkbox {
+.input:disabled {
+  border-color: var(--color-line);
+  color: var(--color-muted);
+}
+
+.hint {
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+}
+
+.check {
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
   gap: 8px;
-}
-
-.checkbox label {
   font-size: var(--font-size-sm);
-  color: var(--color-dark);
+  line-height: 20px;
   cursor: pointer;
 }
 
-.check-input {
-  height: 16px;
+.check input {
   width: 16px;
-  accent-color: var(--color-primary);
+  height: 16px;
+  accent-color: var(--color-text);
   cursor: pointer;
+}
+
+.check:has(input:disabled) {
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.check input:disabled {
+  cursor: default;
 }
 
 .actions {
@@ -81,28 +101,28 @@ body {
   width: 100%;
   height: 38px;
   border: none;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-md);
+  border-radius: 2px;
+  background: var(--color-text);
+  color: var(--color-bg);
   font-family: var(--font-family);
-  font-weight: 600;
-  color: white;
-  letter-spacing: 0.02em;
-  background-color: var(--color-primary);
+  font-size: var(--font-size-md);
+  font-weight: 650;
   cursor: pointer;
-  transition: background-color var(--transition);
+  transition: opacity var(--transition);
 }
 
-.save-button:hover {
-  background-color: var(--color-primary-light);
+.save-button:hover:not(:disabled) {
+  opacity: 0.85;
 }
 
-.save-button:active {
-  background-color: var(--color-dark);
+.save-button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
-.status-color {
-  text-align: center;
+.status {
+  min-height: 18px;
   color: var(--color-muted);
   font-size: var(--font-size-xs);
-  min-height: 18px;
+  text-align: center;
 }

@@ -1,2 +1,3 @@
+export { RefreshIcon, SettingsIcon } from './icons';
 export { Loader } from './loader';
-export { NotificationList } from './notification-list';
+export { OutageList } from './outage-list';

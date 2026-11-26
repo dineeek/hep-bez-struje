@@ -5,26 +5,99 @@
   "extensionDescription": {
     "message": "HEP areas without electricity"
   },
+  "locale": {
+    "message": "en"
+  },
   "labelDistributionArea": {
-    "message": "Distribution area: "
+    "message": "Distribution area"
   },
   "labelPowerStation": {
-    "message": "Station: "
+    "message": "Local unit"
   },
   "labelMyStreet": {
-    "message": "My street: "
+    "message": "My streets or towns"
   },
   "placeholderMyStreet": {
-    "message": "Optional - e.g. Vukovarska"
+    "message": "e.g. Vukovarska, Sesvete"
+  },
+  "hintMyStreet": {
+    "message": "Optional. Separate multiple streets or towns with commas."
   },
   "labelFutureSearch": {
-    "message": "Check three days in advance: "
+    "message": "Also show the next three days"
   },
-  "labelDate": {
-    "message": "Date: "
+  "labelNotify": {
+    "message": "Notify me about an outage on my street or in my town"
+  },
+  "labelSave": {
+    "message": "Save"
+  },
+  "optionChoose": {
+    "message": "Choose"
+  },
+  "messageOptionsSaved": {
+    "message": "Settings saved."
+  },
+  "messageSaveError": {
+    "message": "Could not save. Try again."
+  },
+  "messageLoadError": {
+    "message": "Settings did not load. Open this page again."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome did not allow notifications."
+  },
+  "messageNoOptionsSelectedPopup": {
+    "message": "Choose a distribution area and a local unit in the settings."
+  },
+  "messageFetchNotificationsError": {
+    "message": "HEP data is not available right now. Try again later."
+  },
+  "messageNoNotifications": {
+    "message": "There are no scheduled power outages."
+  },
+  "messageNoOutagesOnDay": {
+    "message": "no outages"
+  },
+  "messageRefreshFailed": {
+    "message": "Could not refresh. Showing data from $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Something went wrong. Close this window and open it again."
+  },
+  "buttonRefresh": {
+    "message": "Refresh"
+  },
+  "buttonOpenOptions": {
+    "message": "Settings"
+  },
+  "labelUpdated": {
+    "message": "Updated at $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Open on hep.hr"
+  },
+  "tagUserStreet": {
+    "message": "Your street"
+  },
+  "tagUserPlace": {
+    "message": "Your town"
+  },
+  "tagUnplanned": {
+    "message": "Unplanned"
   },
   "labelPlace": {
-    "message": "Place: "
+    "message": "Location: "
   },
   "labelStreet": {
     "message": "Street: "
@@ -35,28 +108,10 @@
   "labelTime": {
     "message": "Expected duration: "
   },
-  "labelReason": {
-    "message": "Type of work: "
+  "notificationTitle": {
+    "message": "Power outage on your street"
   },
-  "labelSave": {
-    "message": "Save"
-  },
-  "messageOptionsSaved": {
-    "message": "The preferences have been saved."
-  },
-  "messageNoOptionsSelected": {
-    "message": "Select distribution area and station."
-  },
-  "messageNoOptionsSelectedPopup": {
-    "message": "Select HEP distribution area and station in extension options to retrieve blackout areas."
-  },
-  "messageFetchNotificationsError": {
-    "message": "An error occurred. Please try again later."
-  },
-  "messageNoNotifications": {
-    "message": "There are no scheduled power outages."
-  },
-  "tooltipInfoIcon": {
-    "message": "Change of distribution area and station is possible in extension options."
+  "notificationTitlePlace": {
+    "message": "Power outage in your town"
   }
 }

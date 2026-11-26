@@ -8,7 +8,7 @@
 ![Github](https://img.shields.io/github/license/dineeek/hep-bez-struje)
 ![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/hahhmkkofmofnadefiadmpmcencoaljf)
 ![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/hahhmkkofmofnadefiadmpmcencoaljf)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 
 Unofficial HEP Chrome extension for checking areas without electric power. Based
@@ -23,17 +23,20 @@ Available at
 
 ## Screenshots
 
-| Settings                                       | Loading                                      | Notification list                                   | No notifications                                         |
-| ---------------------------------------------- | -------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------- |
-| ![Settings](assets/screenshots/1-settings.png) | ![Loading](assets/screenshots/2-loading.png) | ![Notification list](assets/screenshots/3-list.png) | ![No notifications](assets/screenshots/4-no-notifications.png) |
+| Settings | Outage list | Dark theme | No outages |
+|-|-|-|-|
+| ![Settings](assets/screenshots/1-settings.png) | ![Outage list](assets/screenshots/2-list.png) | ![Dark theme](assets/screenshots/3-list-dark.png) | ![No outages](assets/screenshots/4-no-outages.png) |
 
 ## Features
 
-- Showing areas without electrical power per selected area and station
-- Storing user selected distribution area and power station
-- Highlighting expected power outage for user street
-- Up to three days future date search
-- Automatic retry on network failures
+- Planned and unplanned outages for the selected distribution area and station,
+  grouped by day
+- Today only, or today and the next three days
+- Highlight and toolbar badge for outages on your streets or in your places. You
+  can save several, and they match without diacritics or capitals.
+- Background check every three hours, with an optional desktop notification
+- The last result is kept locally, so the popup opens without waiting for HEP
+- Light and dark theme
 - Available localization:
   - German
   - English
@@ -41,27 +44,37 @@ Available at
   - Hungarian
   - Slovenian
 
-## Tech Stack
+## Tech stack
 
-- React 18 with TypeScript 5
+- React 19 with TypeScript 6
 - Vite 8 with @crxjs/vite-plugin
-- Vitest for testing
+- Vitest for unit tests, Playwright for tests of the built extension
 - ESLint + Prettier for code quality
 - Chrome Extension Manifest V3
 
 ## Development
 
 ```bash
-npm install    # install dependencies
-npm run dev    # start dev server
-npm run build  # production build to dist/
-npm run test   # run tests
-npm run lint   # check formatting and lint
+npm install            # install dependencies
+npm run dev            # start dev server
+npm run build          # production build to dist/
+npm run check          # lint, typecheck, unit tests and build
+npm run test:e2e       # run the built extension in Chromium against a local HEP stand-in
+npm run sync:stations  # refresh the area and station list from hep.hr
+npm run screenshots    # regenerate the screenshots above
 ```
+
+Node comes from `.nvmrc`. Run `npx playwright install chromium` once before
+`npm run test:e2e`.
 
 ## Permissions
 
-The extension needs permissions for storing user options preferences.
+- `storage` saves your settings and the last fetched outage list.
+- `alarms` runs the background check every three hours.
+- Access to `https://www.hep.hr/*` reads the outage pages. The extension asks
+  for no other site.
+- `notifications` is optional. Chrome asks for it only when you switch on outage
+  notifications in the settings.
 
 ## Contributing
 

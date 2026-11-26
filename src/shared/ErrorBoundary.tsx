@@ -1,4 +1,5 @@
 import { Component, ReactNode } from 'react';
+import { localize } from '../utils';
 
 interface Props {
   children: ReactNode;
@@ -18,8 +19,8 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ padding: '16px', textAlign: 'center' }}>
-          <p>Something went wrong. Please try reopening the extension.</p>
+        <div style={{ padding: '16px', textAlign: 'center' }} role="alert">
+          <p>{localize('messageUnexpectedError')}</p>
         </div>
       );
     }
