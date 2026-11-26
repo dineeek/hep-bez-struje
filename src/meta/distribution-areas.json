@@ -1,0 +1,476 @@
+[
+  {
+    "value": "bjelovar",
+    "name": "Elektra Bjelovar",
+    "powerStations": [
+      {
+        "value": "BJ",
+        "name": "Elektra Bjelovar"
+      },
+      {
+        "value": "126",
+        "name": "Križevci"
+      }
+    ]
+  },
+  {
+    "value": "cakovec",
+    "name": "Elektra Čakovec",
+    "powerStations": [
+      {
+        "value": "CK",
+        "name": "Elektra Čakovec"
+      }
+    ]
+  },
+  {
+    "value": "karlovac",
+    "name": "Elektra Karlovac",
+    "powerStations": [
+      {
+        "value": "172",
+        "name": "Duga Resa"
+      },
+      {
+        "value": "171",
+        "name": "Jastrebarsko"
+      },
+      {
+        "value": "KA",
+        "name": "Karlovac"
+      },
+      {
+        "value": "169",
+        "name": "Ogulin"
+      },
+      {
+        "value": "168",
+        "name": "Ozalj"
+      }
+    ]
+  },
+  {
+    "value": "koprivnica",
+    "name": "Elektra Koprivnica",
+    "powerStations": [
+      {
+        "value": "124",
+        "name": "Đurđevac"
+      },
+      {
+        "value": "123",
+        "name": "Koprivnica"
+      },
+      {
+        "value": "125",
+        "name": "Ludbreg"
+      }
+    ]
+  },
+  {
+    "value": "kriz",
+    "name": "Elektra Križ",
+    "powerStations": [
+      {
+        "value": "KZ",
+        "name": "Elektra Križ"
+      },
+      {
+        "value": "116",
+        "name": "Daruvar"
+      },
+      {
+        "value": "112",
+        "name": "Kutina"
+      },
+      {
+        "value": "104",
+        "name": "Lipik"
+      }
+    ]
+  },
+  {
+    "value": "pozega",
+    "name": "Elektra Požega",
+    "powerStations": [
+      {
+        "value": "PO",
+        "name": "Elektra Požega"
+      }
+    ]
+  },
+  {
+    "value": "sisak",
+    "name": "Elektra Sisak",
+    "powerStations": [
+      {
+        "value": "150",
+        "name": "Dvor na Uni"
+      },
+      {
+        "value": "146",
+        "name": "Glina"
+      },
+      {
+        "value": "149",
+        "name": "Hrvatska Kostajnica"
+      },
+      {
+        "value": "145",
+        "name": "Petrinja"
+      },
+      {
+        "value": "148",
+        "name": "Sunja"
+      },
+      {
+        "value": "147",
+        "name": "Topusko"
+      },
+      {
+        "value": "SI",
+        "name": "Sjedište Elektre Sisak"
+      }
+    ]
+  },
+  {
+    "value": "sbrod",
+    "name": "Elektra Slavonski Brod",
+    "powerStations": [
+      {
+        "value": "SB",
+        "name": "Elektra Slavonski Brod"
+      },
+      {
+        "value": "137",
+        "name": "Nova Gradiška"
+      }
+    ]
+  },
+  {
+    "value": "sibenik",
+    "name": "Elektra Šibenik",
+    "powerStations": [
+      {
+        "value": "SIB",
+        "name": "Elektra Šibenik"
+      },
+      {
+        "value": "107",
+        "name": "Drniš"
+      },
+      {
+        "value": "106",
+        "name": "Knin"
+      }
+    ]
+  },
+  {
+    "value": "varazdin",
+    "name": "Elektra Varaždin",
+    "powerStations": [
+      {
+        "value": "108",
+        "name": "Ivanec"
+      },
+      {
+        "value": "109",
+        "name": "Novi Marof"
+      },
+      {
+        "value": "134",
+        "name": "Vinica"
+      },
+      {
+        "value": "VZ",
+        "name": "Sjedište Varaždin"
+      }
+    ]
+  },
+  {
+    "value": "vinkovci",
+    "name": "Elektra Vinkovci",
+    "powerStations": [
+      {
+        "value": "VI",
+        "name": "Elektra Vinkovci"
+      },
+      {
+        "value": "180",
+        "name": "Ilok"
+      },
+      {
+        "value": "179",
+        "name": "Vukovar"
+      },
+      {
+        "value": "184",
+        "name": "Županja"
+      }
+    ]
+  },
+  {
+    "value": "virovitica",
+    "name": "Elektra Virovitica",
+    "powerStations": [
+      {
+        "value": "VIR",
+        "name": "Elektra Virovitica"
+      },
+      {
+        "value": "151",
+        "name": "Slatina"
+      }
+    ]
+  },
+  {
+    "value": "zabok",
+    "name": "Elektra Zabok",
+    "powerStations": [
+      {
+        "value": "193",
+        "name": "Pregrada"
+      },
+      {
+        "value": "ZB",
+        "name": "Zabok"
+      },
+      {
+        "value": "194",
+        "name": "Zlatar Bistrica"
+      }
+    ]
+  },
+  {
+    "value": "zadar",
+    "name": "Elektra Zadar",
+    "powerStations": [
+      {
+        "value": "ZD",
+        "name": "Elektra Zadar"
+      }
+    ]
+  },
+  {
+    "value": "zagreb",
+    "name": "Elektra Zagreb",
+    "powerStations": [
+      {
+        "value": "ZG",
+        "name": "Elektra Zagreb"
+      },
+      {
+        "value": "115",
+        "name": "Samobor"
+      },
+      {
+        "value": "114",
+        "name": "Velika Gorica"
+      },
+      {
+        "value": "177",
+        "name": "Zaprešić"
+      },
+      {
+        "value": "113",
+        "name": "Zelina"
+      },
+      {
+        "value": "187",
+        "name": "Dugo Selo"
+      },
+      {
+        "value": "118",
+        "name": "Sveta Klara"
+      }
+    ]
+  },
+  {
+    "value": "split",
+    "name": "Elektrodalmacija Split",
+    "powerStations": [
+      {
+        "value": "208",
+        "name": "Elektrodalmacija Split"
+      },
+      {
+        "value": "161",
+        "name": "Brač"
+      },
+      {
+        "value": "162",
+        "name": "Hvar"
+      },
+      {
+        "value": "156",
+        "name": "Imotski"
+      },
+      {
+        "value": "157",
+        "name": "Makarska"
+      },
+      {
+        "value": "159",
+        "name": "Metković"
+      },
+      {
+        "value": "153",
+        "name": "Omiš"
+      },
+      {
+        "value": "158",
+        "name": "Ploče"
+      },
+      {
+        "value": "198",
+        "name": "Sinj"
+      },
+      {
+        "value": "164",
+        "name": "Trogir"
+      },
+      {
+        "value": "160",
+        "name": "Vrgorac"
+      },
+      {
+        "value": "163",
+        "name": "Vis"
+      }
+    ]
+  },
+  {
+    "value": "pula",
+    "name": "Elektroistra Pula",
+    "powerStations": [
+      {
+        "value": "130",
+        "name": "Buzet"
+      },
+      {
+        "value": "132",
+        "name": "Labin"
+      },
+      {
+        "value": "131",
+        "name": "Pazin"
+      },
+      {
+        "value": "128",
+        "name": "Poreč"
+      },
+      {
+        "value": "199",
+        "name": "Buje"
+      },
+      {
+        "value": "121",
+        "name": "Pula"
+      },
+      {
+        "value": "127",
+        "name": "Rovinj"
+      }
+    ]
+  },
+  {
+    "value": "dubrovnik",
+    "name": "Elektrojug Dubrovnik",
+    "powerStations": [
+      {
+        "value": "DU",
+        "name": "Elektrojug Dubrovnik"
+      }
+    ]
+  },
+  {
+    "value": "gospic",
+    "name": "Elektrolika Gospić",
+    "powerStations": [
+      {
+        "value": "GS",
+        "name": "Elektrolika Gospić"
+      },
+      {
+        "value": "176",
+        "name": "Karlobag"
+      },
+      {
+        "value": "195",
+        "name": "Otočac"
+      },
+      {
+        "value": "189",
+        "name": "Plitvička Jezera"
+      }
+    ]
+  },
+  {
+    "value": "rijeka",
+    "name": "Elektroprimorje Rijeka",
+    "powerStations": [
+      {
+        "value": "CL",
+        "name": "Cres - Lošinj"
+      },
+      {
+        "value": "CR",
+        "name": "Crikvenica"
+      },
+      {
+        "value": "KR",
+        "name": "Krk"
+      },
+      {
+        "value": "OP",
+        "name": "Opatija"
+      },
+      {
+        "value": "206",
+        "name": "Rab"
+      },
+      {
+        "value": "RI",
+        "name": "Rijeka"
+      },
+      {
+        "value": "SK",
+        "name": "Skrad"
+      }
+    ]
+  },
+  {
+    "value": "osijek",
+    "name": "Elektroslavonija Osijek",
+    "powerStations": [
+      {
+        "value": "OS",
+        "name": "Sjedište"
+      },
+      {
+        "value": "139",
+        "name": "Beli Manastir"
+      },
+      {
+        "value": "142",
+        "name": "Donji Miholjac"
+      },
+      {
+        "value": "122",
+        "name": "Đakovo"
+      },
+      {
+        "value": "120",
+        "name": "Našice"
+      },
+      {
+        "value": "117",
+        "name": "Orahovica"
+      },
+      {
+        "value": "135",
+        "name": "Valpovo"
+      }
+    ]
+  }
+]

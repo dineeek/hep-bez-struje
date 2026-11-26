@@ -3,9 +3,12 @@ const INITIAL_DELAY_MS = 500;
 const REQUEST_TIMEOUT_MS = 10_000;
 
 export class HttpStatusError extends Error {
-  constructor(readonly status: number) {
+  readonly status: number;
+
+  constructor(status: number) {
     super(`HTTP ${status}`);
     this.name = 'HttpStatusError';
+    this.status = status;
   }
 }
 

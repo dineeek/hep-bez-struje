@@ -5,9 +5,10 @@ import { IOutage, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
 import {
   fetchOutages,
+  getDistributionAreaName,
+  getPowerStationName,
   isUserStreet,
-  loadUserPreferences,
-  MetaUtil
+  loadUserPreferences
 } from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
@@ -89,16 +90,15 @@ const Popup = () => {
           <div className="meta">
             <span>
               {localize('labelDistributionArea')}
-              <b>
-                {MetaUtil.getDistributionAreaName(
-                  userPreferences.distributionArea
-                )}
-              </b>
+              <b>{getDistributionAreaName(userPreferences.distributionArea)}</b>
             </span>
             <span>
               {localize('labelPowerStation')}
               <b>
-                {MetaUtil.getPowerStationName(userPreferences.powerStation)}
+                {getPowerStationName(
+                  userPreferences.distributionArea,
+                  userPreferences.powerStation
+                )}
               </b>
             </span>
           </div>

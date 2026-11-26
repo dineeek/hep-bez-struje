@@ -3,7 +3,11 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
 import { ErrorBoundary } from '../shared/ErrorBoundary';
-import { loadUserPreferences, MetaUtil, saveUserPreferences } from '../utils';
+import {
+  getPowerStations,
+  loadUserPreferences,
+  saveUserPreferences
+} from '../utils';
 import './options.css';
 
 const Options = () => {
@@ -25,7 +29,7 @@ const Options = () => {
     setPowerStation('');
     setStreet('');
     setFutureSearch(false);
-    setAreaPowerStations(MetaUtil.getDistributionAreaPowerStations(areaValue));
+    setAreaPowerStations(getPowerStations(areaValue));
   };
 
   useEffect(() => {
@@ -34,11 +38,7 @@ const Options = () => {
         const preferences = await loadUserPreferences();
 
         setDistributionArea(preferences.distributionArea);
-        setAreaPowerStations(
-          MetaUtil.getDistributionAreaPowerStations(
-            preferences.distributionArea
-          )
-        );
+        setAreaPowerStations(getPowerStations(preferences.distributionArea));
         setPowerStation(preferences.powerStation);
         setStreet(preferences.street);
         setFutureSearch(preferences.futureSearch);
