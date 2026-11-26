@@ -1,14 +1,27 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
-import { ChromeStorage, INotification, IUserPreferences } from '../../models';
+import { INotification, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
-import { MetaUtil, ScrapperUtil } from '../../utils';
+import { loadUserPreferences, MetaUtil, ScrapperUtil } from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
 
 const localize = (translationKey: string): string => {
   return chrome.i18n.getMessage(translationKey);
+};
+
+const setBadge = (notifications: INotification[]): void => {
+  const userStreetCount = notifications.filter(
+    notification => notification.isUserStreet
+  ).length;
+
+  if (userStreetCount > 0) {
+    chrome.action.setBadgeBackgroundColor({ color: 'red' });
+    chrome.action.setBadgeText({ text: userStreetCount.toString() });
+  } else {
+    chrome.action.setBadgeText({ text: '' });
+  }
 };
 
 const Popup = () => {
@@ -22,65 +35,35 @@ const Popup = () => {
   const [notifications, setNotifications] = useState<INotification[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>('');
 
-  const setStatusAndBadge = (notifs: INotification[]) => {
-    if (notifs.length === 0) {
-      chrome.action.setBadgeText({ text: '' });
-      setFetchStatus(localize('messageNoNotifications'));
-      return;
-    }
-
-    const userAffectedDaysCount = notifs.filter(
-      notification => notification.isUserStreet
-    ).length;
-
-    if (userAffectedDaysCount > 0) {
-      chrome.action.setBadgeBackgroundColor({ color: 'red' });
-      chrome.action.setBadgeText({ text: userAffectedDaysCount.toString() });
-    } else {
-      chrome.action.setBadgeText({ text: '' });
-    }
-  };
-
-  const fetchNotifications = useCallback(async () => {
-    setLoading(true);
-    try {
-      const result = await ScrapperUtil.getNotifications(userPreferences);
-      setStatusAndBadge(result);
-      setNotifications(result);
-    } catch {
-      setFetchStatus(localize('messageFetchNotificationsError'));
-    } finally {
-      setLoading(false);
-    }
-  }, [userPreferences]);
-
   useEffect(() => {
-    const loadPreferences = async () => {
+    const loadNotifications = async () => {
       try {
-        const storage = await chrome.storage.sync.get({
-          [ChromeStorage.DISTRIBUTION_AREA]: '',
-          [ChromeStorage.POWER_STATION]: '',
-          [ChromeStorage.USER_STREET]: '',
-          [ChromeStorage.FUTURE_SEARCH]: false
-        });
-        setUserPreferences({
-          distributionArea: storage[ChromeStorage.DISTRIBUTION_AREA],
-          powerStation: storage[ChromeStorage.POWER_STATION],
-          street: storage[ChromeStorage.USER_STREET],
-          futureSearch: storage[ChromeStorage.FUTURE_SEARCH]
-        });
+        const preferences = await loadUserPreferences();
+
+        setUserPreferences(preferences);
+
+        if (!preferences.powerStation) {
+          return;
+        }
+
+        setLoading(true);
+
+        const result = await ScrapperUtil.getNotifications(preferences);
+
+        setBadge(result);
+        setNotifications(result);
+
+        if (result.length === 0) {
+          setFetchStatus(localize('messageNoNotifications'));
+        }
       } catch {
         setFetchStatus(localize('messageFetchNotificationsError'));
+      } finally {
+        setLoading(false);
       }
     };
-    loadPreferences();
+    loadNotifications();
   }, []);
-
-  useEffect(() => {
-    if (userPreferences.powerStation) {
-      fetchNotifications();
-    }
-  }, [userPreferences, fetchNotifications]);
 
   return (
     <div className="container">

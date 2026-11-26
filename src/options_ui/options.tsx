@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 import { DISTRIBUTION_AREAS, IDistributionArea, IPowerStation } from '../meta';
-import { ChromeStorage } from '../models';
 import { ErrorBoundary } from '../shared/ErrorBoundary';
-import { MetaUtil } from '../utils';
+import { loadUserPreferences, MetaUtil, saveUserPreferences } from '../utils';
 import './options.css';
 
 const Options = () => {
@@ -32,21 +31,17 @@ const Options = () => {
   useEffect(() => {
     const loadPreferences = async () => {
       try {
-        const storage = await chrome.storage.sync.get({
-          [ChromeStorage.DISTRIBUTION_AREA]: '',
-          [ChromeStorage.POWER_STATION]: '',
-          [ChromeStorage.USER_STREET]: '',
-          [ChromeStorage.FUTURE_SEARCH]: false
-        });
-        setDistributionArea(storage[ChromeStorage.DISTRIBUTION_AREA]);
+        const preferences = await loadUserPreferences();
+
+        setDistributionArea(preferences.distributionArea);
         setAreaPowerStations(
           MetaUtil.getDistributionAreaPowerStations(
-            storage[ChromeStorage.DISTRIBUTION_AREA]
+            preferences.distributionArea
           )
         );
-        setPowerStation(storage[ChromeStorage.POWER_STATION]);
-        setStreet(storage[ChromeStorage.USER_STREET]);
-        setFutureSearch(storage[ChromeStorage.FUTURE_SEARCH]);
+        setPowerStation(preferences.powerStation);
+        setStreet(preferences.street);
+        setFutureSearch(preferences.futureSearch);
       } catch {
         setSaveStatus(localize('messageFetchNotificationsError'));
       }
@@ -78,11 +73,11 @@ const Options = () => {
     }
 
     try {
-      await chrome.storage.sync.set({
-        [ChromeStorage.DISTRIBUTION_AREA]: distributionArea,
-        [ChromeStorage.POWER_STATION]: powerStation,
-        [ChromeStorage.USER_STREET]: street,
-        [ChromeStorage.FUTURE_SEARCH]: futureSearch
+      await saveUserPreferences({
+        distributionArea,
+        powerStation,
+        street,
+        futureSearch
       });
       showStatus('messageOptionsSaved');
     } catch {
