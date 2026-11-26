@@ -1,10 +1,30 @@
+const MIN_STREET_LENGTH = 3;
+
+export function parseUserStreets(userStreet: string): string[] {
+  return userStreet
+    .split(/[,;\n]/)
+    .map(street => street.trim())
+    .filter(Boolean);
+}
+
 export function isUserStreet(
   outageStreet: string,
   userStreet: string
 ): boolean {
-  return (
-    !!userStreet &&
-    !!outageStreet &&
-    outageStreet.toLowerCase().includes(userStreet.toLowerCase())
-  );
+  const outageWords = ` ${toWords(outageStreet)} `;
+
+  return parseUserStreets(userStreet)
+    .map(street => toWords(street).replace(/( \d\w*)+$/, ''))
+    .filter(street => street.length >= MIN_STREET_LENGTH)
+    .some(street => outageWords.includes(` ${street} `));
+}
+
+function toWords(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
 }
