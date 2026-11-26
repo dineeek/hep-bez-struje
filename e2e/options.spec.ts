@@ -1,4 +1,5 @@
 import { type Page } from '@playwright/test';
+import { evaluateInTarget } from './cdp-target.ts';
 import { expect, test } from './fixtures.ts';
 
 const readMessage = (page: Page, key: string): Promise<string> =>
@@ -107,4 +108,36 @@ test('options shows settings saved by version 2.0.0', async ({
   await expect(options.locator('#userStreet')).toHaveValue('Vukovarska');
   await expect(options.locator('#futureSearch')).toBeChecked();
   await expect(options.locator('#notify')).not.toBeChecked();
+});
+
+test('options fit the embedded dialog without a scrollbar', async ({
+  context,
+  extensionId
+}) => {
+  const extensionsPage = await context.newPage();
+  await extensionsPage.goto(`chrome://extensions/?options=${extensionId}`);
+  const session = await context.newCDPSession(extensionsPage);
+  const readHeights = async () =>
+    JSON.parse(
+      (await evaluateInTarget<string>(
+        session,
+        '/options.html',
+        `JSON.stringify({
+          form: document.querySelector('form')?.getBoundingClientRect().height ?? 0,
+          dialog: innerHeight
+        })`
+      )) ?? '{"form":0,"dialog":0}'
+    );
+
+  await expect
+    .poll(async () => {
+      const heights = await readHeights();
+
+      return heights.form > 0 && heights.dialog >= heights.form;
+    })
+    .toBe(true);
+  const heights = await readHeights();
+
+  // Chrome sizes the dialog in whole pixels and drops a half pixel on a 2x screen.
+  expect(heights.form % 1).toBe(0);
 });
