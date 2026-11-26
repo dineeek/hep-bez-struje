@@ -66,6 +66,7 @@ export function useOutages(): IOutagesState {
         setHasFailed(true);
       }
     };
+
     load();
   }, [refreshFor]);
 

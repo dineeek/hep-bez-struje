@@ -97,6 +97,7 @@ const Options = () => {
         setStatus('messageLoadError');
       }
     };
+
     load();
   }, []);
 
