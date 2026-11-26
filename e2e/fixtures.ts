@@ -2,6 +2,7 @@ import {
   type BrowserContext,
   chromium,
   type Page,
+  type ViewportSize,
   test as base,
   type Worker
 } from '@playwright/test';
@@ -15,7 +16,7 @@ interface IExtensionFixtures {
   context: BrowserContext;
   serviceWorker: Worker;
   extensionId: string;
-  openExtensionPage: (path: string) => Promise<Page>;
+  openExtensionPage: (path: string, viewport?: ViewportSize) => Promise<Page>;
 }
 
 export const test = base.extend<IExtensionFixtures>({
@@ -29,9 +30,10 @@ export const test = base.extend<IExtensionFixtures>({
     { auto: true }
   ],
 
-  context: async ({}, use) => {
+  context: async ({ deviceScaleFactor }, use) => {
     const context = await chromium.launchPersistentContext('', {
       channel: 'chromium',
+      deviceScaleFactor,
       args: [
         `--disable-extensions-except=${EXTENSION_DIR}`,
         `--load-extension=${EXTENSION_DIR}`
@@ -53,8 +55,12 @@ export const test = base.extend<IExtensionFixtures>({
   },
 
   openExtensionPage: async ({ context, extensionId }, use) => {
-    await use(async path => {
+    await use(async (path, viewport) => {
       const page = await context.newPage();
+
+      if (viewport) {
+        await page.setViewportSize(viewport);
+      }
 
       await page.goto(`chrome-extension://${extensionId}/${path}`);
 

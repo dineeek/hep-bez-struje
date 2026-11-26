@@ -16,7 +16,8 @@
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "npm run build:e2e && playwright test",
+    "test:e2e": "npm run build:e2e && playwright test --project e2e",
+    "screenshots": "npm run build:e2e && playwright test --project screenshots",
     "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "author": "Dino Klicek",

@@ -7,5 +7,9 @@ export default defineConfig({
   reporter: 'list',
   use: {
     trace: 'retain-on-failure'
-  }
+  },
+  projects: [
+    { name: 'e2e', testIgnore: 'screenshots.spec.ts' },
+    { name: 'screenshots', testMatch: 'screenshots.spec.ts' }
+  ]
 });
