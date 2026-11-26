@@ -20,9 +20,6 @@
   "labelFutureSearch": {
     "message": "Prüfen Sie drei Tage im Voraus: "
   },
-  "labelDate": {
-    "message": "Datum: "
-  },
   "labelPlace": {
     "message": "Ort: "
   },
@@ -34,9 +31,6 @@
   },
   "labelTime": {
     "message": "Erwartete Dauer: "
-  },
-  "labelReason": {
-    "message": "Art der Arbeit: "
   },
   "labelSave": {
     "message": "Speichern"
@@ -56,10 +50,47 @@
   "messageNoNotifications": {
     "message": "Es gibt keine geplanten Stromausfälle."
   },
-  "tooltipInfoIcon": {
-    "message": "Verteilgebiets- und Stationswechsel in Erweiterungsoptionen möglich."
-  },
   "notificationTitle": {
     "message": "Stromausfall in Ihrer Straße"
+  },
+  "buttonRefresh": {
+    "message": "Aktualisieren"
+  },
+  "buttonOpenOptions": {
+    "message": "Einstellungen"
+  },
+  "labelUpdated": {
+    "message": "Aktualisiert um $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Auf hep.hr öffnen"
+  },
+  "tagUserStreet": {
+    "message": "Ihre Straße"
+  },
+  "tagUnplanned": {
+    "message": "Störung"
+  },
+  "messageNoOutagesOnDay": {
+    "message": "Keine Unterbrechungen angekündigt."
+  },
+  "messageRefreshFailed": {
+    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden die Daten von $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Etwas ist schiefgelaufen. Schließen Sie die Erweiterung und öffnen Sie sie erneut."
+  },
+  "locale": {
+    "message": "de"
   }
 }

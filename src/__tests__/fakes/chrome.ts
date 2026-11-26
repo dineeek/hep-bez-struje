@@ -54,8 +54,7 @@ export function stubChrome(state: IChromeState = {}) {
       >(async id => id)
     },
     i18n: {
-      getMessage: vi.fn((key: string) => key),
-      getUILanguage: vi.fn(() => 'hr')
+      getMessage: vi.fn((key: string) => (key === 'locale' ? 'hr' : key))
     },
     runtime: {
       getURL: vi.fn((path: string) => `chrome-extension://test/${path}`)

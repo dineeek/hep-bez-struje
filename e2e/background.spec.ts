@@ -18,13 +18,14 @@ test('background worker badges an outage on the saved street', async ({
   await serviceWorker.evaluate(saveZagrebPreferences);
 
   await expect.poll(() => serviceWorker.evaluate(readBadge)).toBe('1');
-  expect(
-    hepServer.requests.map(request => request.searchParams.get('datum')).sort()
-  ).toEqual(
-    [0, 1, 2, 3].map(day => toHepDateParam(addDays(getHepToday(), day))).sort()
+  expect(new Set(hepServer.requests.map(request => request.search))).toEqual(
+    new Set(
+      [0, 1, 2, 3].map(
+        day =>
+          `?dp=zagreb&el=ZG&datum=${toHepDateParam(addDays(getHepToday(), day))}`
+      )
+    )
   );
-  expect(hepServer.requests[0].searchParams.get('dp')).toBe('zagreb');
-  expect(hepServer.requests[0].searchParams.get('el')).toBe('ZG');
 });
 
 test('background worker schedules a refresh every three hours', async ({

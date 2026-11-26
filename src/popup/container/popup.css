@@ -7,102 +7,252 @@
 }
 
 body {
-  color: var(--color-primary);
+  color: var(--color-text);
   font-size: var(--font-size-sm);
   font-family: var(--font-family);
   line-height: 1.5;
   background: var(--color-bg);
 }
 
-.container {
+:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+.popup {
   min-width: 400px;
   max-width: 480px;
   display: flex;
   flex-flow: column nowrap;
-  gap: 6px;
-  padding: 12px 14px;
+  gap: 8px;
+  padding: 0 14px 12px;
 }
 
-.title {
+.popup-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0 8px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.title {
   font-size: var(--font-size-lg);
   font-weight: 700;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-border);
   letter-spacing: -0.01em;
 }
 
-.info {
-  width: 20px;
-  height: 20px;
-  opacity: 0.45;
-  transition: opacity var(--transition);
-  cursor: help;
-}
-
-.info:hover {
-  opacity: 0.7;
-}
-
-.meta {
+.header-actions {
   display: flex;
-  flex-direction: column;
   gap: 2px;
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.icon-button:hover:not(:disabled) {
+  background: var(--color-card-alt);
+  color: var(--color-text);
+}
+
+.icon-button:disabled {
+  cursor: default;
+}
+
+.icon-button.is-spinning svg {
+  animation: spin 0.9s linear infinite;
+}
+
+.text-button {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  padding: 6px 14px;
+  background: var(--color-card);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.text-button:hover {
+  background: var(--color-card-alt);
+}
+
+.station {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
   font-size: var(--font-size-xs);
   color: var(--color-muted);
 }
 
-.meta b {
-  color: var(--color-primary);
+.station-name {
+  color: var(--color-text);
   font-weight: 600;
 }
 
-.line-break {
-  border: none;
-  border-top: 1px solid var(--color-border);
-  margin: 4px 0;
+.station-source {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
 }
 
-.notification-card {
+.station-source a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.station-source a:hover {
+  text-decoration: underline;
+}
+
+.notice {
+  padding: 6px 10px;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+  font-size: var(--font-size-xs);
+}
+
+.day {
   display: flex;
   flex-flow: column nowrap;
-  gap: 4px;
-  border-radius: var(--border-radius);
-  padding: 10px 12px;
-  border-left: 3px solid var(--color-border);
-  background: var(--color-bg);
-  font-size: var(--font-size-xs);
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.06);
-  transition: border-color var(--transition);
+  gap: 6px;
 }
 
-.notification-card:nth-of-type(2n) {
+.day-heading {
+  padding-top: 4px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+.day-empty {
+  font-size: var(--font-size-xs);
+  color: var(--color-muted);
+}
+
+.outage-list {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.outage-card {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2px;
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  border-left: 3px solid var(--color-border);
+  background: var(--color-card);
+  font-size: var(--font-size-xs);
+  box-shadow: var(--shadow-card);
+}
+
+.outage-card:nth-of-type(2n) {
   background-color: var(--color-card-alt);
 }
 
-.notification-card + .notification-card {
-  margin-top: 6px;
-}
-
-.highlight-card {
+.outage-card.is-user-street {
   border-left-color: var(--color-highlight);
-  background-color: var(--color-highlight-bg) !important;
+  background-color: var(--color-highlight-bg);
   color: var(--color-highlight-text);
 }
 
-.highlight-card b {
+.outage-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.outage-time {
+  margin-right: auto;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+}
+
+.is-user-street .outage-time {
   color: var(--color-highlight);
 }
 
+.outage-place {
+  font-weight: 600;
+}
+
+.outage-street {
+  overflow-wrap: anywhere;
+}
+
+.outage-note {
+  color: var(--color-muted);
+}
+
+.is-user-street .outage-note {
+  color: inherit;
+}
+
+.tag {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0 8px;
+  background: var(--color-card-alt);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag-user-street {
+  border-color: var(--color-highlight);
+  background: var(--color-highlight);
+  color: var(--color-on-highlight);
+}
+
+.tag-unplanned {
+  border-color: transparent;
+  background: var(--color-warning-bg);
+  color: var(--color-warning-text);
+}
+
 .empty-state {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 0;
   text-align: center;
   color: var(--color-muted);
   font-size: var(--font-size-sm);
-  padding: 20px 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .loader {
@@ -118,7 +268,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-primary-light);
+  background-color: var(--color-link);
   opacity: 0.6;
 }
 
@@ -144,5 +294,18 @@ body {
   40% {
     transform: scale(1.4);
     opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader span,
+  .icon-button.is-spinning svg {
+    animation: none;
   }
 }

@@ -20,9 +20,6 @@
   "labelFutureSearch": {
     "message": "Provjeri tri dana unaprijed: "
   },
-  "labelDate": {
-    "message": "Datum: "
-  },
   "labelPlace": {
     "message": "Mjesto: "
   },
@@ -34,9 +31,6 @@
   },
   "labelTime": {
     "message": "Očekivano trajanje: "
-  },
-  "labelReason": {
-    "message": "Vrsta radova: "
   },
   "labelSave": {
     "message": "Spremi"
@@ -56,10 +50,47 @@
   "messageNoNotifications": {
     "message": "Nema planiranih prekida napajanja."
   },
-  "tooltipInfoIcon": {
-    "message": "Promjena distribucijskog područja i pogona moguća je u opcijama proširenja."
-  },
   "notificationTitle": {
     "message": "Prekid napajanja u vašoj ulici"
+  },
+  "buttonRefresh": {
+    "message": "Osvježi"
+  },
+  "buttonOpenOptions": {
+    "message": "Postavke"
+  },
+  "labelUpdated": {
+    "message": "Ažurirano u $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Otvori na hep.hr"
+  },
+  "tagUserStreet": {
+    "message": "Vaša ulica"
+  },
+  "tagUnplanned": {
+    "message": "Kvar"
+  },
+  "messageNoOutagesOnDay": {
+    "message": "Nema najavljenih prekida."
+  },
+  "messageRefreshFailed": {
+    "message": "Osvježavanje nije uspjelo. Prikazani su podaci od $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Došlo je do pogreške. Zatvorite i ponovno otvorite proširenje."
+  },
+  "locale": {
+    "message": "hr"
   }
 }

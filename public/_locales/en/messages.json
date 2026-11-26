@@ -20,9 +20,6 @@
   "labelFutureSearch": {
     "message": "Check three days in advance: "
   },
-  "labelDate": {
-    "message": "Date: "
-  },
   "labelPlace": {
     "message": "Place: "
   },
@@ -34,9 +31,6 @@
   },
   "labelTime": {
     "message": "Expected duration: "
-  },
-  "labelReason": {
-    "message": "Type of work: "
   },
   "labelSave": {
     "message": "Save"
@@ -56,10 +50,47 @@
   "messageNoNotifications": {
     "message": "There are no scheduled power outages."
   },
-  "tooltipInfoIcon": {
-    "message": "Change of distribution area and station is possible in extension options."
-  },
   "notificationTitle": {
     "message": "Power outage on your street"
+  },
+  "buttonRefresh": {
+    "message": "Refresh"
+  },
+  "buttonOpenOptions": {
+    "message": "Settings"
+  },
+  "labelUpdated": {
+    "message": "Updated at $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Open on hep.hr"
+  },
+  "tagUserStreet": {
+    "message": "Your street"
+  },
+  "tagUnplanned": {
+    "message": "Fault"
+  },
+  "messageNoOutagesOnDay": {
+    "message": "No outages announced."
+  },
+  "messageRefreshFailed": {
+    "message": "Could not refresh. Showing data from $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Something went wrong. Close the extension and open it again."
+  },
+  "locale": {
+    "message": "en"
   }
 }

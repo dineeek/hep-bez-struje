@@ -1,119 +1,148 @@
-import { useEffect, useState } from 'react';
-import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
-import { IOutage, IUserPreferences } from '../../models';
+import { createRoot } from 'react-dom/client';
+import { IOutageCache, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
+import { setUpDocument } from '../../shared/set-up-document';
 import {
+  buildOutagesUrl,
+  formatClockTime,
   getDistributionAreaName,
+  getHepToday,
+  getMessageLocale,
   getPowerStationName,
-  loadUserPreferences,
-  markUserStreetOutagesSeen,
-  refreshOutages
+  localize
 } from '../../utils';
-import { Loader, NotificationList } from '../components';
+import { Loader, OutageList, RefreshIcon, SettingsIcon } from '../components';
 import './popup.css';
+import { useOutages } from './use-outages';
 
-const localize = (translationKey: string): string => {
-  return chrome.i18n.getMessage(translationKey);
+const openOptions = (): void => {
+  chrome.runtime.openOptionsPage();
 };
 
-const Popup = () => {
-  const [userPreferences, setUserPreferences] = useState<IUserPreferences>({
-    distributionArea: '',
-    powerStation: '',
-    street: '',
-    futureSearch: false,
-    notify: false
-  });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [outages, setOutages] = useState<IOutage[]>([]);
-  const [fetchStatus, setFetchStatus] = useState<string>('');
+interface StationProps {
+  preferences: IUserPreferences;
+  cache: IOutageCache | undefined;
+  locale: string;
+}
 
-  useEffect(() => {
-    const loadNotifications = async () => {
-      try {
-        const preferences = await loadUserPreferences();
-
-        setUserPreferences(preferences);
-
-        if (!preferences.powerStation) {
-          return;
-        }
-
-        setLoading(true);
-
-        const result = (await refreshOutages(preferences)).outages;
-
-        await markUserStreetOutagesSeen(result, preferences.street);
-        setOutages(result);
-
-        if (result.length === 0) {
-          setFetchStatus(localize('messageNoNotifications'));
-        }
-      } catch {
-        setFetchStatus(localize('messageFetchNotificationsError'));
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadNotifications();
-  }, []);
+const Station = ({ preferences, cache, locale }: StationProps) => {
+  const areaName = getDistributionAreaName(preferences.distributionArea);
+  const stationName = getPowerStationName(
+    preferences.distributionArea,
+    preferences.powerStation
+  );
 
   return (
-    <div className="container">
-      <div className="title">
-        <span> {localize('extensionName')}</span>
-        {userPreferences.powerStation ? (
-          <img
-            className="info"
-            src="icons/info.png"
-            alt={localize('tooltipInfoIcon')}
-            title={localize('tooltipInfoIcon')}
-          />
-        ) : null}
-      </div>
-
-      {userPreferences.powerStation ? (
-        <>
-          <div className="meta">
-            <span>
-              {localize('labelDistributionArea')}
-              <b>{getDistributionAreaName(userPreferences.distributionArea)}</b>
-            </span>
-            <span>
-              {localize('labelPowerStation')}
-              <b>
-                {getPowerStationName(
-                  userPreferences.distributionArea,
-                  userPreferences.powerStation
-                )}
-              </b>
-            </span>
-          </div>
-
-          {loading ? (
-            <Loader />
-          ) : outages.length > 0 ? (
-            <>
-              <hr className="line-break" />
-              <NotificationList
-                outages={outages}
-                userStreet={userPreferences.street}
-              />
-            </>
-          ) : (
-            <span className="empty-state">{fetchStatus}</span>
+    <div className="station">
+      <span className="station-name">
+        {[...new Set([areaName, stationName])].filter(Boolean).join(' · ')}
+      </span>
+      <span className="station-source">
+        {cache && (
+          <span data-testid="updated">
+            {localize('labelUpdated', formatClockTime(cache.fetchedAt, locale))}
+          </span>
+        )}
+        <a
+          href={buildOutagesUrl(
+            preferences.distributionArea,
+            preferences.powerStation,
+            cache?.today ?? getHepToday()
           )}
-        </>
-      ) : (
-        <span className="empty-state">
-          {localize('messageNoOptionsSelectedPopup')}
-        </span>
-      )}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {localize('linkHepPage')}
+        </a>
+      </span>
     </div>
   );
 };
 
+const Popup = () => {
+  const { preferences, cache, isRefreshing, hasFailed, refresh } = useOutages();
+  const locale = getMessageLocale();
+  const isConfigured = !!preferences?.powerStation;
+
+  return (
+    <main className="popup">
+      <header className="popup-header">
+        <h1 className="title">{localize('extensionName')}</h1>
+        <div className="header-actions">
+          {isConfigured && (
+            <button
+              type="button"
+              className={`icon-button ${isRefreshing ? 'is-spinning' : ''}`}
+              onClick={refresh}
+              disabled={isRefreshing}
+              aria-label={localize('buttonRefresh')}
+              title={localize('buttonRefresh')}
+            >
+              <RefreshIcon />
+            </button>
+          )}
+          <button
+            type="button"
+            className="icon-button"
+            onClick={openOptions}
+            aria-label={localize('buttonOpenOptions')}
+            title={localize('buttonOpenOptions')}
+          >
+            <SettingsIcon />
+          </button>
+        </div>
+      </header>
+
+      {preferences && !isConfigured && (
+        <div className="empty-state">
+          <p>{localize('messageNoOptionsSelectedPopup')}</p>
+          <button type="button" className="text-button" onClick={openOptions}>
+            {localize('buttonOpenOptions')}
+          </button>
+        </div>
+      )}
+
+      {preferences && isConfigured && (
+        <>
+          <Station preferences={preferences} cache={cache} locale={locale} />
+
+          {cache && hasFailed && (
+            <p className="notice" role="status">
+              {localize(
+                'messageRefreshFailed',
+                formatClockTime(cache.fetchedAt, locale)
+              )}
+            </p>
+          )}
+
+          {cache && (
+            <OutageList
+              cache={cache}
+              userStreet={preferences.street}
+              locale={locale}
+            />
+          )}
+        </>
+      )}
+
+      {!cache && hasFailed && (
+        <div className="empty-state" role="alert">
+          <p>{localize('messageFetchNotificationsError')}</p>
+          {isConfigured && (
+            <button type="button" className="text-button" onClick={refresh}>
+              {localize('buttonRefresh')}
+            </button>
+          )}
+        </div>
+      )}
+
+      {isConfigured && !cache && !hasFailed && <Loader />}
+    </main>
+  );
+};
+
+setUpDocument();
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>

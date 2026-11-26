@@ -41,7 +41,7 @@ describe('outage-notifications', () => {
       toOutageId(OUTAGES[2])
     );
     expect(fakeChrome.notifications.create.mock.calls[0][1].message).toContain(
-      '09:00 - 10:00\nSESVETE: BJELOVARSKA 2-32 par'
+      'četvrtak, 26. studenoga, 09:00 - 10:00\nSESVETE: BJELOVARSKA 2-32 par'
     );
   });
 

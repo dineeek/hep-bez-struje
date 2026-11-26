@@ -20,9 +20,6 @@
   "labelFutureSearch": {
     "message": "Ellenőrizze három nappal korábban: "
   },
-  "labelDate": {
-    "message": "Dátum: "
-  },
   "labelPlace": {
     "message": "Hely: "
   },
@@ -34,9 +31,6 @@
   },
   "labelTime": {
     "message": "Várható időtartam: "
-  },
-  "labelReason": {
-    "message": "Munka típusa: "
   },
   "labelSave": {
     "message": "Mentés"
@@ -56,10 +50,47 @@
   "messageNoNotifications": {
     "message": "Nincs ütemezett áramszünet."
   },
-  "tooltipInfoIcon": {
-    "message": "Az elosztási terület és az állomás megváltoztatása lehetséges a bővítési opciókban."
-  },
   "notificationTitle": {
     "message": "Áramszünet az Ön utcájában"
+  },
+  "buttonRefresh": {
+    "message": "Frissítés"
+  },
+  "buttonOpenOptions": {
+    "message": "Beállítások"
+  },
+  "labelUpdated": {
+    "message": "Frissítve: $TIME$",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "linkHepPage": {
+    "message": "Megnyitás a hep.hr oldalon"
+  },
+  "tagUserStreet": {
+    "message": "Az Ön utcája"
+  },
+  "tagUnplanned": {
+    "message": "Üzemzavar"
+  },
+  "messageNoOutagesOnDay": {
+    "message": "Nincs bejelentett áramszünet."
+  },
+  "messageRefreshFailed": {
+    "message": "A frissítés nem sikerült. A megjelenített adatok időpontja: $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Hiba történt. Zárja be, majd nyissa meg újra a bővítményt."
+  },
+  "locale": {
+    "message": "hu"
   }
 }

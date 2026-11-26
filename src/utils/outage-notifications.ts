@@ -1,5 +1,6 @@
 import { ChromeLocalStorage, IOutage, IUserPreferences } from '../models';
 import { formatOutageDay } from './format-date';
+import { getMessageLocale, localize } from './localize';
 import { getUserStreetOutages } from './outage-status';
 
 const NOTIFICATION_ICON = 'icons/no_power128.png';
@@ -48,13 +49,13 @@ export async function notifyUserStreetOutages(
     outages,
     preferences.street
   );
-  const locale = chrome.i18n.getUILanguage();
+  const locale = getMessageLocale();
 
   for (const outage of newOutages) {
     await chrome.notifications.create(toOutageId(outage), {
       type: 'basic',
       iconUrl: chrome.runtime.getURL(NOTIFICATION_ICON),
-      title: chrome.i18n.getMessage('notificationTitle'),
+      title: localize('notificationTitle'),
       message: `${formatOutageDay(outage.date, locale)}, ${outage.time}\n${outage.place}: ${outage.street}`
     });
   }
