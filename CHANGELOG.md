@@ -26,7 +26,8 @@
 
 ### UI
 
-- Outages grouped by day, your streets first
+- Outages grouped by day and ordered by start time, an outage on your street
+  shown as a red block
 - Dark theme
 - Settings as one form. Changing the area keeps your streets.
 - Dates follow the language of the interface text

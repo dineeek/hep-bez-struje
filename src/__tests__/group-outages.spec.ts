@@ -18,14 +18,18 @@ describe('groupOutagesByDay', () => {
     ]);
   });
 
-  it('should keep the HEP order when no user street matches', () => {
-    const [today] = groupOutagesByDay(TODAY, DATES, 'Ilica');
+  it('should order a day by start time and then by end time', () => {
+    const [today] = groupOutagesByDay(TODAY, DATES, '');
 
-    expect(today.outages.map(dayOutage => dayOutage.outage)).toEqual(TODAY);
-    expect(today.outages.some(dayOutage => dayOutage.isUserStreet)).toBe(false);
+    expect(today.outages.map(dayOutage => dayOutage.outage.time)).toEqual([
+      '08:00 - 13:00',
+      '09:00 - 10:00',
+      '09:00 - 13:00',
+      '09:00 - 14:00'
+    ]);
   });
 
-  it('should put outages on user streets first', () => {
+  it('should mark an outage on a user street where it stands', () => {
     const [today] = groupOutagesByDay(TODAY, DATES, 'Mate Meršića, Ozaljska');
 
     expect(
@@ -34,10 +38,24 @@ describe('groupOutagesByDay', () => {
         dayOutage.isUserStreet
       ])
     ).toEqual([
+      ['08:00 - 13:00', false],
       ['09:00 - 10:00', true],
-      ['09:00 - 14:00', true],
       ['09:00 - 13:00', false],
-      ['08:00 - 13:00', false]
+      ['09:00 - 14:00', true]
     ]);
+  });
+
+  it('should put an outage with an unreadable time last', () => {
+    const allDay = { ...TODAY[0], time: 'tijekom dana' };
+    const [today] = groupOutagesByDay([allDay, ...TODAY], DATES, '');
+
+    expect(today.outages.at(-1)?.outage).toEqual(allDay);
+  });
+
+  it('should leave the given outages in their order', () => {
+    const outages = [...TODAY];
+    groupOutagesByDay(outages, DATES, '');
+
+    expect(outages).toEqual(TODAY);
   });
 });

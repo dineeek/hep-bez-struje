@@ -57,7 +57,7 @@
     "message": "Nincs tervezett áramszünet."
   },
   "messageNoOutagesOnDay": {
-    "message": "Nincs tervezett áramszünet."
+    "message": "nincs áramszünet"
   },
   "messageRefreshFailed": {
     "message": "A frissítés nem sikerült. A $TIME$-kor lekért adatok jelennek meg.",

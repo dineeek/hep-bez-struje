@@ -57,7 +57,7 @@
     "message": "There are no scheduled power outages."
   },
   "messageNoOutagesOnDay": {
-    "message": "No scheduled outages."
+    "message": "no outages"
   },
   "messageRefreshFailed": {
     "message": "Could not refresh. Showing data from $TIME$.",

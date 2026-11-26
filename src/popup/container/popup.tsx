@@ -1,15 +1,13 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { IOutageCache, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
 import { setUpDocument } from '../../shared/set-up-document';
 import {
   buildOutagesUrl,
   formatClockTime,
-  getDistributionAreaName,
   getHepToday,
   getMessageLocale,
-  getPowerStationName,
+  getStationLabel,
   localize
 } from '../../utils';
 import { Loader, OutageList, RefreshIcon, SettingsIcon } from '../components';
@@ -20,46 +18,6 @@ const openOptions = (): void => {
   chrome.runtime.openOptionsPage();
 };
 
-interface StationProps {
-  preferences: IUserPreferences;
-  cache: IOutageCache | undefined;
-  locale: string;
-}
-
-const Station = ({ preferences, cache, locale }: StationProps) => {
-  const areaName = getDistributionAreaName(preferences.distributionArea);
-  const stationName = getPowerStationName(
-    preferences.distributionArea,
-    preferences.powerStation
-  );
-
-  return (
-    <div className="station">
-      <span className="station-name">
-        {[...new Set([areaName, stationName])].filter(Boolean).join(' · ')}
-      </span>
-      <span className="station-source">
-        {cache && (
-          <span data-testid="updated">
-            {localize('labelUpdated', formatClockTime(cache.fetchedAt, locale))}
-          </span>
-        )}
-        <a
-          href={buildOutagesUrl(
-            preferences.distributionArea,
-            preferences.powerStation,
-            cache?.today ?? getHepToday()
-          )}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {localize('linkHepPage')}
-        </a>
-      </span>
-    </div>
-  );
-};
-
 const Popup = () => {
   const { preferences, cache, isRefreshing, hasFailed, refresh } = useOutages();
   const locale = getMessageLocale();
@@ -68,7 +26,18 @@ const Popup = () => {
   return (
     <main className="popup">
       <header className="popup-header">
-        <h1 className="title">{localize('extensionName')}</h1>
+        <img className="popup-icon" src="icons/no_power48.png" alt="" />
+        <div className="popup-heading">
+          <h1 className="title">{localize('extensionName')}</h1>
+          {preferences && isConfigured && (
+            <p className="station">
+              {getStationLabel(
+                preferences.distributionArea,
+                preferences.powerStation
+              )}
+            </p>
+          )}
+        </div>
         <div className="header-actions">
           {isConfigured && (
             <button
@@ -103,27 +72,21 @@ const Popup = () => {
         </div>
       )}
 
-      {preferences && isConfigured && (
-        <>
-          <Station preferences={preferences} cache={cache} locale={locale} />
-
-          {cache && hasFailed && (
-            <p className="notice" role="status">
-              {localize(
-                'messageRefreshFailed',
-                formatClockTime(cache.fetchedAt, locale)
-              )}
-            </p>
+      {cache && hasFailed && (
+        <p className="notice" role="status">
+          {localize(
+            'messageRefreshFailed',
+            formatClockTime(cache.fetchedAt, locale)
           )}
+        </p>
+      )}
 
-          {cache && (
-            <OutageList
-              cache={cache}
-              userStreet={preferences.street}
-              locale={locale}
-            />
-          )}
-        </>
+      {preferences && cache && (
+        <OutageList
+          cache={cache}
+          userStreet={preferences.street}
+          locale={locale}
+        />
       )}
 
       {!cache && hasFailed && (
@@ -138,6 +101,30 @@ const Popup = () => {
       )}
 
       {isConfigured && !cache && !hasFailed && <Loader />}
+
+      {preferences && isConfigured && (
+        <footer className="popup-footer">
+          {cache && (
+            <span data-testid="updated">
+              {localize(
+                'labelUpdated',
+                formatClockTime(cache.fetchedAt, locale)
+              )}
+            </span>
+          )}
+          <a
+            href={buildOutagesUrl(
+              preferences.distributionArea,
+              preferences.powerStation,
+              cache?.today ?? getHepToday()
+            )}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {localize('linkHepPage')}
+          </a>
+        </footer>
+      )}
     </main>
   );
 };

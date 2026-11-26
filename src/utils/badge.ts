@@ -1,7 +1,7 @@
 import { IOutage } from '../models';
 import { getUserStreetOutages } from './outage-status';
 
-const BADGE_COLOR = '#d42b2b';
+const BADGE_COLOR = '#d9232a';
 
 export async function updateBadge(
   outages: IOutage[],

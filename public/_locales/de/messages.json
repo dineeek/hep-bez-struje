@@ -57,7 +57,7 @@
     "message": "Es gibt keine geplanten Stromausfälle."
   },
   "messageNoOutagesOnDay": {
-    "message": "Keine geplanten Ausfälle."
+    "message": "keine Stromausfälle"
   },
   "messageRefreshFailed": {
     "message": "Aktualisierung fehlgeschlagen. Angezeigt werden Daten mit Stand $TIME$ Uhr.",

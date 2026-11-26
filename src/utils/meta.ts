@@ -23,3 +23,15 @@ export function getPowerStationName(
     )?.name ?? ''
   );
 }
+
+export function getStationLabel(
+  distributionArea: string,
+  powerStation: string
+): string {
+  const names = [
+    getDistributionAreaName(distributionArea),
+    getPowerStationName(distributionArea, powerStation)
+  ];
+
+  return [...new Set(names)].filter(Boolean).join(' · ');
+}

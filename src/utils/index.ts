@@ -9,6 +9,7 @@ export * from './meta';
 export * from './outage-cache';
 export * from './outage-notifications';
 export * from './outage-status';
+export * from './outage-time';
 export * from './parse-outages';
 export * from './preferences';
 export * from './refresh-outages';

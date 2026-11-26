@@ -3,7 +3,8 @@ import { DISTRIBUTION_AREAS } from '../meta';
 import {
   getDistributionAreaName,
   getPowerStationName,
-  getPowerStations
+  getPowerStations,
+  getStationLabel
 } from '../utils';
 
 describe('meta', () => {
@@ -28,6 +29,16 @@ describe('meta', () => {
   it('should get power station name', () => {
     expect(getPowerStationName('zagreb', '115')).toBe('Samobor');
     expect(getPowerStationName('zagreb', '179')).toBe('');
+  });
+
+  it('should label a station with its area', () => {
+    expect(getStationLabel('varazdin', '108')).toBe(
+      'Elektra Varaždin · Ivanec'
+    );
+  });
+
+  it('should label a station once when it carries the area name', () => {
+    expect(getStationLabel('zagreb', 'ZG')).toBe('Elektra Zagreb');
   });
 
   it('should hold every HEP area with named, unique stations', () => {

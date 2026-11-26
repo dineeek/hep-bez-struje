@@ -57,7 +57,7 @@
     "message": "Ni načrtovanih izpadov elektrike."
   },
   "messageNoOutagesOnDay": {
-    "message": "Ni načrtovanih izpadov elektrike."
+    "message": "ni izpadov elektrike"
   },
   "messageRefreshFailed": {
     "message": "Osvežitev ni uspela. Prikazani so podatki, pridobljeni ob $TIME$.",

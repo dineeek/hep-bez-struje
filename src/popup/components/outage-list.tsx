@@ -5,7 +5,7 @@ import {
   groupOutagesByDay,
   localize
 } from '../../utils';
-import { OutageCard } from './outage-card';
+import { OutageRow } from './outage-row';
 
 export interface OutageListProps {
   cache: IOutageCache;
@@ -26,31 +26,39 @@ export const OutageList = ({ cache, userStreet, locale }: OutageListProps) => {
 
   return (
     <>
-      {days.map(day => (
-        <section
-          key={day.date}
-          className="day"
-          aria-labelledby={`day-${day.date}`}
-        >
-          <h2 id={`day-${day.date}`} className="day-heading">
-            {formatDayHeading(day.date, cache.today, locale)}
-          </h2>
+      {days.map(day => {
+        const headingId = `day-${day.date}`;
+        const hasOutages = day.outages.length > 0;
 
-          {day.outages.length > 0 ? (
-            <ul className="outage-list">
-              {day.outages.map((dayOutage, index) => (
-                <OutageCard
-                  key={`${day.date}-${index}`}
-                  outage={dayOutage.outage}
-                  isUserStreet={dayOutage.isUserStreet}
-                />
-              ))}
-            </ul>
-          ) : (
-            <p className="day-empty">{localize('messageNoOutagesOnDay')}</p>
-          )}
-        </section>
-      ))}
+        return (
+          <section
+            key={day.date}
+            className={hasOutages ? 'day' : 'day is-empty'}
+            aria-labelledby={headingId}
+          >
+            <div className="day-band">
+              <h2 id={headingId} className="day-title">
+                {formatDayHeading(day.date, cache.today, locale)}
+              </h2>
+              {!hasOutages && (
+                <p className="day-none">{localize('messageNoOutagesOnDay')}</p>
+              )}
+            </div>
+
+            {hasOutages && (
+              <ul className="outage-list">
+                {day.outages.map((dayOutage, index) => (
+                  <OutageRow
+                    key={`${day.date}-${index}`}
+                    outage={dayOutage.outage}
+                    isUserStreet={dayOutage.isUserStreet}
+                  />
+                ))}
+              </ul>
+            )}
+          </section>
+        );
+      })}
     </>
   );
 };

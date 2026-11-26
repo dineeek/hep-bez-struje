@@ -57,7 +57,7 @@
     "message": "Nema planiranih prekida napajanja."
   },
   "messageNoOutagesOnDay": {
-    "message": "Nema planiranih prekida."
+    "message": "nema prekida"
   },
   "messageRefreshFailed": {
     "message": "Osvježavanje nije uspjelo. Prikazani su podaci dohvaćeni u $TIME$.",
