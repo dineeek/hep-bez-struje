@@ -9,7 +9,7 @@
 - Station list regenerated from hep.hr: adds Vukovar, Ilok and Županja and takes
   HEP's current names
 - Street names that HEP writes on several lines keep their spaces
-- Two outages with the same place and time each get their own card
+- Two outages with the same place and time each get their own entry
 - Host permission limited to hep.hr, was all sites
 - Minimum Chrome version raised from 88 to 111, the version the bundle is built
   for
@@ -17,7 +17,7 @@
 ### Features
 
 - Background check every three hours keeps the toolbar badge current
-- Optional desktop notification for an outage on your street
+- Optional desktop notification for an outage on your street or in your place
 - Several streets or places, matched as whole words without diacritics or
   capitals
 - Unplanned outages are tagged as faults
@@ -27,10 +27,10 @@
 
 ### UI
 
-- Outages grouped by day and ordered by start time, an outage on your street
-  shown as a red block
+- Popup redesigned as a notice sheet: day bands, outages ordered by start time,
+  an outage on your street or in your place shown as a red block
 - Dark theme
-- Settings as one form. Changing the area keeps your streets.
+- Settings as one form. Changing the area keeps your streets and places.
 - Dates follow the language of the interface text
 
 ### Stack
@@ -42,7 +42,8 @@
 ### DX
 
 - Typecheck and Playwright tests of the built extension in CI
-- `npm run sync:stations` and `npm run screenshots`
+- `npm run sync:stations` and `npm run screenshots`, which also writes the
+  Web Store images
 - Manifest generated from `manifest.config.ts`, version taken from
   `package.json`
 
@@ -83,7 +84,7 @@
 
 ### DX
 
-- GitHub Actions updated to Node 20, actions v4, npm cache
+- GitHub Actions updated to Node 22, actions v4, npm cache
 - Removed unused dependencies (glob, rimraf, webpack toolchain)
 - Expanded test coverage (12 tests)
 

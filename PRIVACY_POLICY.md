@@ -10,11 +10,11 @@ This extension does **not** collect, transmit, or share any personal data.
 
 ## Data Storage
 
-The extension stores your preferences (selected distribution area, power station, street names, future search and notification settings) in Chrome's synced storage (`chrome.storage.sync`). Chrome syncs them through your Google account. The last outage list fetched from HEP is kept on your device (`chrome.storage.local`). None of this is sent to a server controlled by the developer.
+The extension stores your preferences (selected distribution area, power station, street and place names, future search and notification settings) in Chrome's synced storage (`chrome.storage.sync`). Chrome syncs them through your Google account. The last outage list fetched from HEP is kept on your device (`chrome.storage.local`). None of this is sent to a server controlled by the developer.
 
 ## Network Requests
 
-The extension fetches publicly available power outage data from the official HEP website (hep.hr) when you open it and in the background every three hours. A request carries the selected distribution area, the power station and a date. Street names are compared on your device and are not part of any request.
+The extension fetches publicly available power outage data from the official HEP website (hep.hr) when you open it and in the background every three hours. A request carries the selected distribution area, the power station and a date. Street and place names are compared on your device and are not part of any request.
 
 ## Notifications
 
