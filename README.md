@@ -61,11 +61,22 @@ npm run build          # production build to dist/
 npm run check          # lint, typecheck, unit tests and build
 npm run test:e2e       # run the built extension in Chromium against a local HEP stand-in
 npm run sync:stations  # refresh the area and station list from hep.hr
-npm run screenshots    # regenerate the screenshots above
+npm run screenshots    # regenerate the README and Web Store screenshots
 ```
 
 Node comes from `.nvmrc`. Run `npx playwright install chromium` once before
 `npm run test:e2e`.
+
+## Release
+
+1. Set the new version in `package.json`. The manifest takes it from there.
+2. Merge to `master`, run `npm run build` and zip the contents of `dist/`.
+3. Create the GitHub release `hep-bez-struje@<version>` on the tag
+   `v<version>` and attach the zip.
+4. Upload the same zip in the Chrome Web Store developer dashboard. A new
+   permission needs a justification in its privacy section before the item can
+   be submitted.
+5. `npm run screenshots` writes the 1280x800 store images to `assets/store/`.
 
 ## Permissions
 
