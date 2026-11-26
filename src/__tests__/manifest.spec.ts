@@ -16,6 +16,12 @@ describe('manifest', () => {
     expect(production.host_permissions).toEqual(['https://www.hep.hr/*']);
   });
 
+  it('should require the Chrome version the bundle is built for', async () => {
+    const production = await buildManifest('production');
+
+    expect(production.minimum_chrome_version).toBe('111');
+  });
+
   it('should take its version from package.json', async () => {
     const production = await buildManifest('production');
 

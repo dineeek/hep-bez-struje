@@ -3,6 +3,8 @@ import { loadEnv } from 'vite';
 import packageJson from './package.json' with { type: 'json' };
 import { HEP_OUTAGES_URL } from './src/meta/hep-url.ts';
 
+export const MIN_CHROME_VERSION = 111;
+
 const NOTIFICATIONS = ['notifications'];
 
 export default defineManifest(({ mode }) => {
@@ -16,7 +18,7 @@ export default defineManifest(({ mode }) => {
     name: '__MSG_extensionName__',
     description: '__MSG_extensionDescription__',
     default_locale: 'hr',
-    minimum_chrome_version: '88',
+    minimum_chrome_version: String(MIN_CHROME_VERSION),
 
     permissions: ['storage', 'alarms', ...(isE2e ? NOTIFICATIONS : [])],
     optional_permissions: isE2e ? [] : NOTIFICATIONS,
