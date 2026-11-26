@@ -1,66 +1,74 @@
-import { INotification } from '../../models';
+import { IOutage } from '../../models';
+import { isUserStreet } from '../../utils';
 
 export interface NotificationListProps {
-  notifications: INotification[];
+  outages: IOutage[];
+  userStreet: string;
 }
 
 export const NotificationList = (props: NotificationListProps) => {
   const localize = (translationKey: string): string => {
     return chrome.i18n.getMessage(translationKey);
   };
+  const formatDate = (date: string): string =>
+    new Date(`${date}T00:00:00`).toLocaleDateString(
+      chrome.i18n.getUILanguage()
+    );
 
   return (
     <div role="list">
-      {props.notifications.map(notification => {
+      {props.outages.map((outage, index) => {
+        const isHighlighted = isUserStreet(outage.street, props.userStreet);
+
         return (
           <div
-            key={`${notification.date}-${notification.place}-${notification.time}`}
+            key={`${outage.date}-${index}`}
             role="listitem"
             className={`notification-card ${
-              notification.isUserStreet ? 'highlight-card' : ''
+              isHighlighted ? 'highlight-card' : ''
             }`}
             aria-label={
-              notification.isUserStreet
-                ? `${notification.place} - ${notification.time} (your street)`
-                : `${notification.place} - ${notification.time}`
+              isHighlighted
+                ? `${outage.place} - ${outage.time} (your street)`
+                : `${outage.place} - ${outage.time}`
             }
           >
             <span>
-              {localize('labelDate')} <b>{notification.date}</b>
+              {localize('labelDate')} <b>{formatDate(outage.date)}</b>
             </span>
 
-            {notification.place && (
+            {outage.place && (
               <span>
                 {localize('labelPlace')}
-                {notification.place}
+                {outage.place}
               </span>
             )}
 
-            {notification.street && (
+            {outage.street && (
               <span>
                 {localize('labelStreet')}
-                {notification.street}
+                {outage.street}
               </span>
             )}
 
-            {notification.note && (
+            {outage.note && (
               <span>
                 {localize('labelNote')}
-                {notification.note}
+                {outage.note}
               </span>
             )}
 
-            {notification.time && (
+            {outage.time && (
               <span>
                 {localize('labelTime')}
-                <b>{notification.time}</b>
+                <b>{outage.time}</b>
               </span>
             )}
 
-            {notification.reason && (
+            {outage.reason && (
               <span>
                 {localize('labelReason')}
-                {notification.reason}
+                {outage.reason}
               </span>
             )}
           </div>

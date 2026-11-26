@@ -1,5 +1,5 @@
 import { defineManifest } from '@crxjs/vite-plugin';
-import packageJson from './package.json';
+import packageJson from './package.json' with { type: 'json' };
 
 export default defineManifest({
   manifest_version: 3,

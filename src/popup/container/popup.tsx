@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
-import { INotification, IUserPreferences } from '../../models';
+import { IOutage, IUserPreferences } from '../../models';
 import { ErrorBoundary } from '../../shared/ErrorBoundary';
-import { loadUserPreferences, MetaUtil, ScrapperUtil } from '../../utils';
+import {
+  fetchOutages,
+  isUserStreet,
+  loadUserPreferences,
+  MetaUtil
+} from '../../utils';
 import { Loader, NotificationList } from '../components';
 import './popup.css';
 
@@ -11,9 +16,9 @@ const localize = (translationKey: string): string => {
   return chrome.i18n.getMessage(translationKey);
 };
 
-const setBadge = (notifications: INotification[]): void => {
-  const userStreetCount = notifications.filter(
-    notification => notification.isUserStreet
+const setBadge = (outages: IOutage[], userStreet: string): void => {
+  const userStreetCount = outages.filter(outage =>
+    isUserStreet(outage.street, userStreet)
   ).length;
 
   if (userStreetCount > 0) {
@@ -32,7 +37,7 @@ const Popup = () => {
     futureSearch: false
   });
   const [loading, setLoading] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<INotification[]>([]);
+  const [outages, setOutages] = useState<IOutage[]>([]);
   const [fetchStatus, setFetchStatus] = useState<string>('');
 
   useEffect(() => {
@@ -48,10 +53,10 @@ const Popup = () => {
 
         setLoading(true);
 
-        const result = await ScrapperUtil.getNotifications(preferences);
+        const result = await fetchOutages(preferences);
 
-        setBadge(result);
-        setNotifications(result);
+        setBadge(result, preferences.street);
+        setOutages(result);
 
         if (result.length === 0) {
           setFetchStatus(localize('messageNoNotifications'));
@@ -100,10 +105,13 @@ const Popup = () => {
 
           {loading ? (
             <Loader />
-          ) : notifications.length > 0 ? (
+          ) : outages.length > 0 ? (
             <>
               <hr className="line-break" />
-              <NotificationList notifications={notifications} />
+              <NotificationList
+                outages={outages}
+                userStreet={userPreferences.street}
+              />
             </>
           ) : (
             <span className="empty-state">{fetchStatus}</span>
