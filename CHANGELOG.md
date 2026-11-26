@@ -1,5 +1,49 @@
 # Changelog
 
+## 2.1.0
+
+### Fixes
+
+- An HTTP error or a changed HEP page shows an error. Both used to show "no
+  scheduled outages".
+- Station list regenerated from hep.hr: adds Vukovar, Ilok and Županja and takes
+  HEP's current names
+- Street names that HEP writes on several lines keep their spaces
+- Two outages with the same place and time each get their own card
+- Host permission limited to hep.hr, was all sites
+- Minimum Chrome version raised from 88 to 111, the version the bundle is built
+  for
+
+### Features
+
+- Background check every three hours keeps the toolbar badge current
+- Optional desktop notification for an outage on your street
+- Several streets, matched as whole words without diacritics or capitals
+- Unplanned outages are tagged as faults
+- Popup opens from the last result and refreshes when it is older than 15
+  minutes
+- Refresh and settings buttons, link to the same data on hep.hr
+
+### UI
+
+- Outages grouped by day, your streets first
+- Dark theme
+- Settings as one form. Changing the area keeps your streets.
+- Dates follow the language of the interface text
+
+### Stack
+
+- React 18 to 19, TypeScript 5 to 6, ESLint 9 to 10, Prettier 2 to 3, Vitest 4
+  to 5
+- The parser reads HEP's page without a DOM, so the service worker can use it
+
+### DX
+
+- Typecheck and Playwright tests of the built extension in CI
+- `npm run sync:stations` and `npm run screenshots`
+- Manifest generated from `manifest.config.ts`, version taken from
+  `package.json`
+
 ## 2.0.0
 
 ### Stack

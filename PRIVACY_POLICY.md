@@ -2,7 +2,7 @@
 
 **Hep - bez struje** Chrome Extension
 
-*Last updated: April 5, 2026*
+*Last updated: November 26, 2026*
 
 ## Data Collection
 
@@ -10,11 +10,15 @@ This extension does **not** collect, transmit, or share any personal data.
 
 ## Data Storage
 
-The extension stores your preferences (selected distribution area, power station, street name, and future search setting) locally in Chrome's synced storage (`chrome.storage.sync`). This data stays within your browser and Google account — it is never sent to any external server controlled by the developer.
+The extension stores your preferences (selected distribution area, power station, street names, future search and notification settings) in Chrome's synced storage (`chrome.storage.sync`). Chrome syncs them through your Google account. The last outage list fetched from HEP is kept on your device (`chrome.storage.local`). None of this is sent to a server controlled by the developer.
 
 ## Network Requests
 
-The extension fetches publicly available power outage data from the official HEP website (hep.hr) based on your selected preferences. No personal information is included in these requests.
+The extension fetches publicly available power outage data from the official HEP website (hep.hr) when you open it and in the background every three hours. A request carries the selected distribution area, the power station and a date. Street names are compared on your device and are not part of any request.
+
+## Notifications
+
+Desktop notifications are off by default. Chrome asks for the notification permission only when you switch them on in the settings, and saving the settings with them switched off removes it.
 
 ## Third Parties
 
