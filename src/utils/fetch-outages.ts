@@ -1,10 +1,10 @@
+import { HEP_OUTAGES_URL } from '../meta';
 import { IOutage, IUserPreferences } from '../models';
 import { fetchWithRetry } from './fetchWithRetry';
 import { addDays, getHepToday, toHepDateParam } from './hep-date';
 import { parseOutages } from './parse-outages';
 
-const HEP_OUTAGES_URL =
-  import.meta.env.VITE_HEP_BASE_URL || 'https://www.hep.hr/ods/bez-struje/19';
+const OUTAGES_URL = import.meta.env.VITE_HEP_BASE_URL || HEP_OUTAGES_URL;
 const FUTURE_DAYS = 3;
 
 export function buildOutagesUrl(
@@ -12,7 +12,7 @@ export function buildOutagesUrl(
   powerStation: string,
   date: string
 ): string {
-  const url = new URL(HEP_OUTAGES_URL);
+  const url = new URL(OUTAGES_URL);
 
   url.searchParams.set('dp', distributionArea);
   url.searchParams.set('el', powerStation);
