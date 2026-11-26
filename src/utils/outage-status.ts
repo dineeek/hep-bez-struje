@@ -1,7 +1,7 @@
 import { IOutage } from '../models';
 import { getHepTime, getHepToday } from './hep-date';
 import { readTimeRange } from './outage-time';
-import { isUserStreet } from './street-match';
+import { findUserMatch } from './street-match';
 
 export function hasOutageEnded(
   outage: IOutage,
@@ -18,13 +18,12 @@ export function hasOutageEnded(
   return !!range && range.start < range.end && range.end <= getHepTime(now);
 }
 
-export function getUserStreetOutages(
+export function getUserOutages(
   outages: IOutage[],
   userStreet: string,
   now: Date = new Date()
 ): IOutage[] {
   return outages.filter(
-    outage =>
-      isUserStreet(outage.street, userStreet) && !hasOutageEnded(outage, now)
+    outage => findUserMatch(outage, userStreet) && !hasOutageEnded(outage, now)
   );
 }

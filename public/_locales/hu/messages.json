@@ -15,19 +15,19 @@
     "message": "Területi egység"
   },
   "labelMyStreet": {
-    "message": "Utcáim"
+    "message": "Utcáim vagy településeim"
   },
   "placeholderMyStreet": {
-    "message": "pl. Vukovarska, Ilica"
+    "message": "pl. Vukovarska, Sesvete"
   },
   "hintMyStreet": {
-    "message": "Nem kötelező. Több utcát vesszővel válasszon el."
+    "message": "Nem kötelező. Több utcát vagy települést vesszővel válasszon el."
   },
   "labelFutureSearch": {
     "message": "A következő három nap megjelenítése is"
   },
   "labelNotify": {
-    "message": "Értesítés, ha az utcámban áramszünet lesz"
+    "message": "Értesítés, ha az utcámban vagy a településemen áramszünet lesz"
   },
   "labelSave": {
     "message": "Mentés"
@@ -90,6 +90,9 @@
   "tagUserStreet": {
     "message": "Az Ön utcája"
   },
+  "tagUserPlace": {
+    "message": "Az Ön települése"
+  },
   "tagUnplanned": {
     "message": "Üzemzavar"
   },
@@ -107,5 +110,8 @@
   },
   "notificationTitle": {
     "message": "Áramszünet az Ön utcájában"
+  },
+  "notificationTitlePlace": {
+    "message": "Áramszünet az Ön településén"
   }
 }

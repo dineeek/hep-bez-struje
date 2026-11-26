@@ -29,19 +29,19 @@ describe('groupOutagesByDay', () => {
     ]);
   });
 
-  it('should mark an outage on a user street where it stands', () => {
-    const [today] = groupOutagesByDay(TODAY, DATES, 'Mate Meršića, Ozaljska');
+  it('should mark an outage on a user street or place where it stands', () => {
+    const [today] = groupOutagesByDay(TODAY, DATES, 'Mate Meršića, Sesvete');
 
     expect(
       today.outages.map(dayOutage => [
         dayOutage.outage.time,
-        dayOutage.isUserStreet
+        dayOutage.userMatch
       ])
     ).toEqual([
-      ['08:00 - 13:00', false],
-      ['09:00 - 10:00', true],
-      ['09:00 - 13:00', false],
-      ['09:00 - 14:00', true]
+      ['08:00 - 13:00', undefined],
+      ['09:00 - 10:00', 'place'],
+      ['09:00 - 13:00', undefined],
+      ['09:00 - 14:00', 'street']
     ]);
   });
 

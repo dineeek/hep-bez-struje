@@ -1,10 +1,10 @@
 import { IOutage } from '../models';
 import { readTimeRange } from './outage-time';
-import { isUserStreet } from './street-match';
+import { findUserMatch, UserMatch } from './street-match';
 
 export interface IDayOutage {
   outage: IOutage;
-  isUserStreet: boolean;
+  userMatch: UserMatch | undefined;
 }
 
 export interface IOutageDay {
@@ -34,7 +34,7 @@ export function groupOutagesByDay(
       )
       .map(outage => ({
         outage,
-        isUserStreet: isUserStreet(outage.street, userStreet)
+        userMatch: findUserMatch(outage, userStreet)
       }))
   }));
 }

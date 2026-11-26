@@ -15,19 +15,19 @@
     "message": "Betriebsstelle"
   },
   "labelMyStreet": {
-    "message": "Meine Straßen"
+    "message": "Meine Straßen oder Orte"
   },
   "placeholderMyStreet": {
-    "message": "z. B. Vukovarska, Ilica"
+    "message": "z. B. Vukovarska, Sesvete"
   },
   "hintMyStreet": {
-    "message": "Optional. Mehrere Straßen mit Komma trennen."
+    "message": "Optional. Mehrere Straßen oder Orte mit Komma trennen."
   },
   "labelFutureSearch": {
     "message": "Auch die nächsten drei Tage anzeigen"
   },
   "labelNotify": {
-    "message": "Bei einem Stromausfall in meiner Straße benachrichtigen"
+    "message": "Bei einem Stromausfall in meiner Straße oder meinem Ort benachrichtigen"
   },
   "labelSave": {
     "message": "Speichern"
@@ -90,6 +90,9 @@
   "tagUserStreet": {
     "message": "Ihre Straße"
   },
+  "tagUserPlace": {
+    "message": "Ihr Ort"
+  },
   "tagUnplanned": {
     "message": "Störung"
   },
@@ -107,5 +110,8 @@
   },
   "notificationTitle": {
     "message": "Stromausfall in Ihrer Straße"
+  },
+  "notificationTitlePlace": {
+    "message": "Stromausfall in Ihrem Ort"
   }
 }

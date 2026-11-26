@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { IOutage } from '../models';
-import { getUserStreetOutages, hasOutageEnded } from '../utils/outage-status';
+import { getUserOutages, hasOutageEnded } from '../utils/outage-status';
 
 const createOutage = (fields: Partial<IOutage>): IOutage => ({
   date: '2026-11-26',
@@ -64,11 +64,24 @@ describe('outage-status', () => {
     const otherStreet = createOutage({ street: 'ILICA 1-20' });
 
     expect(
-      getUserStreetOutages(
+      getUserOutages(
         [ended, running, otherStreet],
         'Ozaljska',
         AT_NOON_IN_ZAGREB
       )
     ).toEqual([running]);
+  });
+
+  it('should list an outage that names a user place and no street', () => {
+    const village = createOutage({
+      place: 'VETERNICA, KUZMINEC',
+      street: '',
+      time: '14:00 - 15:00'
+    });
+
+    expect(getUserOutages([village], 'kuzminec', AT_NOON_IN_ZAGREB)).toEqual([
+      village
+    ]);
+    expect(getUserOutages([village], 'Ilica', AT_NOON_IN_ZAGREB)).toEqual([]);
   });
 });

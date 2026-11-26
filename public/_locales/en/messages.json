@@ -15,19 +15,19 @@
     "message": "Local unit"
   },
   "labelMyStreet": {
-    "message": "My streets"
+    "message": "My streets or towns"
   },
   "placeholderMyStreet": {
-    "message": "e.g. Vukovarska, Ilica"
+    "message": "e.g. Vukovarska, Sesvete"
   },
   "hintMyStreet": {
-    "message": "Optional. Separate multiple street names with commas."
+    "message": "Optional. Separate multiple streets or towns with commas."
   },
   "labelFutureSearch": {
     "message": "Also show the next three days"
   },
   "labelNotify": {
-    "message": "Notify me about an outage on my street"
+    "message": "Notify me about an outage on my street or in my town"
   },
   "labelSave": {
     "message": "Save"
@@ -90,6 +90,9 @@
   "tagUserStreet": {
     "message": "Your street"
   },
+  "tagUserPlace": {
+    "message": "Your town"
+  },
   "tagUnplanned": {
     "message": "Unplanned"
   },
@@ -107,5 +110,8 @@
   },
   "notificationTitle": {
     "message": "Power outage on your street"
+  },
+  "notificationTitlePlace": {
+    "message": "Power outage in your town"
   }
 }

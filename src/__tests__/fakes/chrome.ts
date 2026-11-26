@@ -50,7 +50,10 @@ export function stubChrome(state: IChromeState = {}) {
     },
     notifications: {
       create: vi.fn<
-        (id: string, options: { message: string }) => Promise<string>
+        (
+          id: string,
+          options: { title: string; message: string }
+        ) => Promise<string>
       >(async id => id)
     },
     i18n: {

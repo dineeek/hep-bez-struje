@@ -15,19 +15,19 @@
     "message": "Terenska jedinica"
   },
   "labelMyStreet": {
-    "message": "Moje ulice"
+    "message": "Moje ulice ili mjesta"
   },
   "placeholderMyStreet": {
-    "message": "npr. Vukovarska, Ilica"
+    "message": "npr. Vukovarska, Sesvete"
   },
   "hintMyStreet": {
-    "message": "Neobavezno. Više ulica odvojite zarezom."
+    "message": "Neobavezno. Više ulica ili mjesta odvojite zarezom."
   },
   "labelFutureSearch": {
     "message": "Prikaži i sljedeća tri dana"
   },
   "labelNotify": {
-    "message": "Obavijesti me o prekidu u mojoj ulici"
+    "message": "Obavijesti me o prekidu u mojoj ulici ili mjestu"
   },
   "labelSave": {
     "message": "Spremi"
@@ -90,6 +90,9 @@
   "tagUserStreet": {
     "message": "Vaša ulica"
   },
+  "tagUserPlace": {
+    "message": "Vaše mjesto"
+  },
   "tagUnplanned": {
     "message": "Kvar"
   },
@@ -107,5 +110,8 @@
   },
   "notificationTitle": {
     "message": "Prekid napajanja u vašoj ulici"
+  },
+  "notificationTitlePlace": {
+    "message": "Prekid napajanja u vašem mjestu"
   }
 }

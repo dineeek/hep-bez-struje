@@ -204,15 +204,15 @@ body {
   color: var(--color-muted);
 }
 
-.outage.is-user-street {
+.outage.is-user-outage {
   border-top-color: var(--color-alert);
   background: var(--color-alert);
   color: var(--color-on-alert);
 }
 
-.is-user-street .outage-street,
-.is-user-street .outage-note,
-.is-user-street .flag-fault {
+.is-user-outage .outage-street,
+.is-user-outage .outage-note,
+.is-user-outage .flag-fault {
   color: inherit;
 }
 

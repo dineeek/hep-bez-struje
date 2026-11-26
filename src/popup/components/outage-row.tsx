@@ -1,16 +1,14 @@
 import { IOutage } from '../../models';
-import { formatTimeRange, localize } from '../../utils';
+import { formatTimeRange, localize, UserMatch } from '../../utils';
 
 export interface OutageRowProps {
   outage: IOutage;
-  isUserStreet: boolean;
+  userMatch: UserMatch | undefined;
 }
 
-export const OutageRow = ({ outage, isUserStreet }: OutageRowProps) => {
+export const OutageRow = ({ outage, userMatch }: OutageRowProps) => {
   const isFault = outage.kind === 'unplanned';
-  const className = ['outage', isUserStreet && 'is-user-street']
-    .filter(Boolean)
-    .join(' ');
+  const className = userMatch ? 'outage is-user-outage' : 'outage';
 
   return (
     <li className={className}>
@@ -26,8 +24,12 @@ export const OutageRow = ({ outage, isUserStreet }: OutageRowProps) => {
           {outage.kind === 'other' && outage.reason && (
             <span className="flag">{outage.reason}</span>
           )}
-          {isUserStreet && (
-            <span className="flag">{localize('tagUserStreet')}</span>
+          {userMatch && (
+            <span className="flag">
+              {localize(
+                userMatch === 'place' ? 'tagUserPlace' : 'tagUserStreet'
+              )}
+            </span>
           )}
         </span>
       </div>

@@ -1,5 +1,5 @@
 import { IOutage } from '../models';
-import { getUserStreetOutages } from './outage-status';
+import { getUserOutages } from './outage-status';
 
 const BADGE_COLOR = '#d9232a';
 
@@ -7,7 +7,7 @@ export async function updateBadge(
   outages: IOutage[],
   userStreet: string
 ): Promise<void> {
-  const count = getUserStreetOutages(outages, userStreet).length;
+  const count = getUserOutages(outages, userStreet).length;
 
   await chrome.action.setBadgeBackgroundColor({ color: BADGE_COLOR });
   await chrome.action.setBadgeText({ text: count ? String(count) : '' });

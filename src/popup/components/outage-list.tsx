@@ -51,7 +51,7 @@ export const OutageList = ({ cache, userStreet, locale }: OutageListProps) => {
                   <OutageRow
                     key={`${day.date}-${index}`}
                     outage={dayOutage.outage}
-                    isUserStreet={dayOutage.isUserStreet}
+                    userMatch={dayOutage.userMatch}
                   />
                 ))}
               </ul>

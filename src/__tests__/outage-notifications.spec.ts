@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { IUserPreferences } from '../models';
 import {
-  markUserStreetOutagesSeen,
-  notifyUserStreetOutages,
+  markUserOutagesSeen,
+  notifyUserOutages,
   readOutageDate,
   toOutageId
 } from '../utils/outage-notifications';
@@ -33,8 +33,8 @@ describe('outage-notifications', () => {
 
   it('should notify once about an outage on a user street', async () => {
     const fakeChrome = stubChrome({ permissions: ['notifications'] });
-    await notifyUserStreetOutages(OUTAGES, PREFERENCES);
-    await notifyUserStreetOutages(OUTAGES, PREFERENCES);
+    await notifyUserOutages(OUTAGES, PREFERENCES);
+    await notifyUserOutages(OUTAGES, PREFERENCES);
 
     expect(fakeChrome.notifications.create).toHaveBeenCalledTimes(1);
     expect(fakeChrome.notifications.create.mock.calls[0][0]).toBe(
@@ -47,7 +47,7 @@ describe('outage-notifications', () => {
 
   it('should notify about each affected user street', async () => {
     const fakeChrome = stubChrome({ permissions: ['notifications'] });
-    await notifyUserStreetOutages(OUTAGES, {
+    await notifyUserOutages(OUTAGES, {
       ...PREFERENCES,
       street: 'Ozaljska, Orešići'
     });
@@ -58,31 +58,43 @@ describe('outage-notifications', () => {
   it('should not notify about an outage that has ended', async () => {
     vi.setSystemTime(new Date('2026-11-26T09:30:00Z'));
     const fakeChrome = stubChrome({ permissions: ['notifications'] });
-    await notifyUserStreetOutages(OUTAGES, PREFERENCES);
+    await notifyUserOutages(OUTAGES, PREFERENCES);
 
     expect(fakeChrome.notifications.create).not.toHaveBeenCalled();
   });
 
   it('should not notify when the user has not opted in', async () => {
     const fakeChrome = stubChrome({ permissions: ['notifications'] });
-    await notifyUserStreetOutages(OUTAGES, { ...PREFERENCES, notify: false });
+    await notifyUserOutages(OUTAGES, { ...PREFERENCES, notify: false });
 
     expect(fakeChrome.notifications.create).not.toHaveBeenCalled();
   });
 
   it('should not notify without the notifications permission', async () => {
     const fakeChrome = stubChrome();
-    await notifyUserStreetOutages(OUTAGES, PREFERENCES);
+    await notifyUserOutages(OUTAGES, PREFERENCES);
 
     expect(fakeChrome.notifications.create).not.toHaveBeenCalled();
   });
 
   it('should not notify about an outage the popup already showed', async () => {
     const fakeChrome = stubChrome({ permissions: ['notifications'] });
-    await markUserStreetOutagesSeen(OUTAGES, PREFERENCES.street);
-    await notifyUserStreetOutages(OUTAGES, PREFERENCES);
+    await markUserOutagesSeen(OUTAGES, PREFERENCES.street);
+    await notifyUserOutages(OUTAGES, PREFERENCES);
 
     expect(fakeChrome.notifications.create).not.toHaveBeenCalled();
+  });
+
+  it('should name the place when the user saved a place', async () => {
+    const pulaOutages = parseOutages(readFixture('pula-121'), FIXTURE_DATE);
+    const fakeChrome = stubChrome({ permissions: ['notifications'] });
+    await notifyUserOutages(pulaOutages, { ...PREFERENCES, street: 'marčana' });
+
+    expect(fakeChrome.notifications.create).toHaveBeenCalledTimes(1);
+    expect(fakeChrome.notifications.create.mock.calls[0][1]).toMatchObject({
+      title: 'notificationTitlePlace',
+      message: 'četvrtak, 26. studenoga, 08:30 - 10:00\nMarčana'
+    });
   });
 
   it('should read the outage date back from a notification id', () => {

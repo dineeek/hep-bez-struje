@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { isUserStreet, parseUserStreets } from '../utils/street-match';
+import {
+  findUserMatch,
+  isUserStreet,
+  parseUserStreets
+} from '../utils/street-match';
 
 const SESVETE_STREETS =
   'BJELOVARSKA 2-32 par, 3, KARLOVAČKA 2-30 par, 1-25 nep, OZALJSKA 1-24 obje, KAŠINSKA 40/A';
@@ -53,5 +57,26 @@ describe('street-match', () => {
     expect(isUserStreet(SESVETE_STREETS, '')).toBe(false);
     expect(isUserStreet(SESVETE_STREETS, ' , ')).toBe(false);
     expect(isUserStreet('', 'Ozaljska')).toBe(false);
+  });
+
+  it('should match a saved street before a saved place', () => {
+    const outage = { place: 'SESVETE', street: 'OZALJSKA 1-24 obje' };
+
+    expect(findUserMatch(outage, 'Ozaljska, Sesvete')).toBe('street');
+    expect(findUserMatch(outage, 'Sesvete')).toBe('place');
+    expect(findUserMatch(outage, 'Ilica')).toBeUndefined();
+  });
+
+  it('should match a place that HEP lists without a street', () => {
+    const outage = { place: 'VETERNICA, KUZMINEC', street: '' };
+
+    expect(findUserMatch(outage, 'kuzminec')).toBe('place');
+  });
+
+  it('should match a town inside a longer place description', () => {
+    const outage = { place: 'IVANEC - DIO CENTRA', street: 'VRTNA ULICA 11' };
+
+    expect(findUserMatch(outage, 'Ivanec')).toBe('place');
+    expect(findUserMatch(outage, 'Ivan')).toBeUndefined();
   });
 });

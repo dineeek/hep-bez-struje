@@ -15,19 +15,19 @@
     "message": "Terenska enota"
   },
   "labelMyStreet": {
-    "message": "Moje ulice"
+    "message": "Moje ulice ali kraji"
   },
   "placeholderMyStreet": {
-    "message": "npr. Vukovarska, Ilica"
+    "message": "npr. Vukovarska, Sesvete"
   },
   "hintMyStreet": {
-    "message": "Neobvezno. Več ulic ločite z vejico."
+    "message": "Neobvezno. Več ulic ali krajev ločite z vejico."
   },
   "labelFutureSearch": {
     "message": "Prikaži tudi naslednje tri dni"
   },
   "labelNotify": {
-    "message": "Obvesti me o izpadu elektrike v moji ulici"
+    "message": "Obvesti me o izpadu elektrike v moji ulici ali kraju"
   },
   "labelSave": {
     "message": "Shrani"
@@ -90,6 +90,9 @@
   "tagUserStreet": {
     "message": "Vaša ulica"
   },
+  "tagUserPlace": {
+    "message": "Vaš kraj"
+  },
   "tagUnplanned": {
     "message": "Okvara"
   },
@@ -107,5 +110,8 @@
   },
   "notificationTitle": {
     "message": "Izpad elektrike v vaši ulici"
+  },
+  "notificationTitlePlace": {
+    "message": "Izpad elektrike v vašem kraju"
   }
 }

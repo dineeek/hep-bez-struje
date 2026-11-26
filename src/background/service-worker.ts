@@ -4,7 +4,7 @@ import {
   clearOutageCache,
   getHepToday,
   loadUserPreferences,
-  notifyUserStreetOutages,
+  notifyUserOutages,
   readOutageDate,
   refreshOutages
 } from '../utils';
@@ -32,7 +32,7 @@ async function refreshInBackground(): Promise<void> {
 
     const cache = await refreshOutages(preferences);
 
-    await notifyUserStreetOutages(cache.outages, preferences);
+    await notifyUserOutages(cache.outages, preferences);
   } catch (error) {
     console.warn('HEP outage refresh failed', error);
   }

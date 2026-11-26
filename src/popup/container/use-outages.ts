@@ -4,7 +4,7 @@ import {
   isOutageCacheFresh,
   loadOutageCache,
   loadUserPreferences,
-  markUserStreetOutagesSeen,
+  markUserOutagesSeen,
   refreshOutages
 } from '../../utils';
 
@@ -29,7 +29,7 @@ export function useOutages(): IOutagesState {
     try {
       const newCache = await refreshOutages(userPreferences);
 
-      await markUserStreetOutagesSeen(newCache.outages, userPreferences.street);
+      await markUserOutagesSeen(newCache.outages, userPreferences.street);
       setCache(newCache);
     } catch {
       setHasFailed(true);
@@ -53,7 +53,7 @@ export function useOutages(): IOutagesState {
 
         if (storedCache) {
           setCache(storedCache);
-          await markUserStreetOutagesSeen(
+          await markUserOutagesSeen(
             storedCache.outages,
             userPreferences.street
           );

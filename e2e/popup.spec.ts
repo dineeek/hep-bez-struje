@@ -55,7 +55,7 @@ test('popup lists each searched day by start time and marks the user street', as
   const popup = await openExtensionPage('popup.html');
   const days = popup.locator('.day');
   const tomorrow = days.nth(1);
-  const userStreetOutage = tomorrow.locator('.outage.is-user-street');
+  const userStreetOutage = tomorrow.locator('.outage.is-user-outage');
 
   await expect(days).toHaveCount(4);
   await expect(tomorrow.locator('.outage-time > span:first-child')).toHaveText([
@@ -78,6 +78,28 @@ test('popup lists each searched day by start time and marks the user street', as
   ).toHaveAttribute(
     'href',
     `http://localhost:4319/ods/bez-struje/19?dp=zagreb&el=ZG&datum=${toHepDateParam(getHepToday())}`
+  );
+});
+
+test('popup marks an outage in a saved place', async ({
+  serviceWorker,
+  openExtensionPage
+}) => {
+  await serviceWorker.evaluate(() =>
+    chrome.storage.sync.set({
+      hep_distribution_area: 'zagreb',
+      hep_power_station: 'ZG',
+      hep_user_street: 'sesvete',
+      hep_future_search: true
+    })
+  );
+  const popup = await openExtensionPage('popup.html');
+  const userOutage = popup.locator('.outage.is-user-outage');
+
+  await expect(userOutage).toHaveCount(1);
+  await expect(userOutage).toContainText('SESVETE');
+  await expect(userOutage.locator('.flag')).toHaveText(
+    await readMessage(popup, 'tagUserPlace')
   );
 });
 

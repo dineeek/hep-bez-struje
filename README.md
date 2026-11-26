@@ -32,8 +32,8 @@ Available at
 - Planned and unplanned outages for the selected distribution area and station,
   grouped by day
 - Today only, or today and the next three days
-- Highlight and toolbar badge for outages on your streets. You can save several
-  streets, and they match without diacritics or capitals.
+- Highlight and toolbar badge for outages on your streets or in your places. You
+  can save several, and they match without diacritics or capitals.
 - Background check every three hours, with an optional desktop notification
 - The last result is kept locally, so the popup opens without waiting for HEP
 - Light and dark theme

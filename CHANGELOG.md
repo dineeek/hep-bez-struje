@@ -18,7 +18,8 @@
 
 - Background check every three hours keeps the toolbar badge current
 - Optional desktop notification for an outage on your street
-- Several streets, matched as whole words without diacritics or capitals
+- Several streets or places, matched as whole words without diacritics or
+  capitals
 - Unplanned outages are tagged as faults
 - Popup opens from the last result and refreshes when it is older than 15
   minutes
