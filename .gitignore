@@ -1,6 +1,9 @@
 npm-debug.log
 node_modules/
 dist/
+dist-e2e/
+test-results/
+playwright-report/
 tmp/
 .DS_Store
 .env

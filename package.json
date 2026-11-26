@@ -7,14 +7,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "clean": "rm -rf dist",
+    "build:e2e": "VITE_HEP_BASE_URL=http://localhost:4319/ods/bez-struje/19 vite build --outDir dist-e2e",
+    "clean": "rm -rf dist dist-e2e",
     "sync:stations": "node scripts/sync-stations.ts",
-    "style": "prettier --write \"{src,scripts}/**/*.{ts,tsx,css}\" \"*.{ts,mjs}\"",
-    "lint": "prettier --check \"{src,scripts}/**/*.{ts,tsx,css}\" \"*.{ts,mjs}\" && eslint .",
+    "style": "prettier --write \"{src,scripts,e2e}/**/*.{ts,tsx,css}\" \"*.{ts,mjs}\"",
+    "lint": "prettier --check \"{src,scripts,e2e}/**/*.{ts,tsx,css}\" \"*.{ts,mjs}\" && eslint .",
     "lint:eslint": "eslint .",
     "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "npm run build:e2e && playwright test",
     "check": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "author": "Dino Klicek",
@@ -40,6 +42,7 @@
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^3.0.0",
+    "@playwright/test": "^1.65.1",
     "@types/chrome": "^0.3.8",
     "@types/jsdom": "^30.0.0",
     "@types/node": "^24.19.4",
