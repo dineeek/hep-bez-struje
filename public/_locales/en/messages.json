@@ -12,7 +12,7 @@
     "message": "Distribution area"
   },
   "labelPowerStation": {
-    "message": "Station"
+    "message": "Local unit"
   },
   "labelMyStreet": {
     "message": "My streets"
@@ -21,10 +21,10 @@
     "message": "e.g. Vukovarska, Ilica"
   },
   "hintMyStreet": {
-    "message": "Optional. Separate several streets with commas."
+    "message": "Optional. Separate multiple street names with commas."
   },
   "labelFutureSearch": {
-    "message": "Also check three days ahead"
+    "message": "Also show the next three days"
   },
   "labelNotify": {
     "message": "Notify me about an outage on my street"
@@ -48,7 +48,7 @@
     "message": "Chrome did not allow notifications."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Choose a distribution area and a station in the settings."
+    "message": "Choose a distribution area and a local unit in the settings."
   },
   "messageFetchNotificationsError": {
     "message": "HEP data is not available right now. Try again later."
@@ -68,7 +68,7 @@
     }
   },
   "messageUnexpectedError": {
-    "message": "Something went wrong. Close the extension and open it again."
+    "message": "Something went wrong. Close this window and open it again."
   },
   "buttonRefresh": {
     "message": "Refresh"
@@ -91,10 +91,10 @@
     "message": "Your street"
   },
   "tagUnplanned": {
-    "message": "Fault"
+    "message": "Unplanned"
   },
   "labelPlace": {
-    "message": "Place: "
+    "message": "Location: "
   },
   "labelStreet": {
     "message": "Street: "

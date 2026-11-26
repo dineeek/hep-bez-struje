@@ -12,7 +12,7 @@
     "message": "Distribucijsko območje"
   },
   "labelPowerStation": {
-    "message": "Postaja"
+    "message": "Terenska enota"
   },
   "labelMyStreet": {
     "message": "Moje ulice"
@@ -24,10 +24,10 @@
     "message": "Neobvezno. Več ulic ločite z vejico."
   },
   "labelFutureSearch": {
-    "message": "Preveri tudi tri dni vnaprej"
+    "message": "Prikaži tudi naslednje tri dni"
   },
   "labelNotify": {
-    "message": "Obvesti me o prekinitvi v moji ulici"
+    "message": "Obvesti me o izpadu elektrike v moji ulici"
   },
   "labelSave": {
     "message": "Shrani"
@@ -48,19 +48,19 @@
     "message": "Chrome ni dovolil obvestil."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "V nastavitvah izberite distribucijsko območje in postajo."
+    "message": "V nastavitvah izberite distribucijsko območje in terensko enoto."
   },
   "messageFetchNotificationsError": {
     "message": "Podatki HEP trenutno niso na voljo. Poskusite znova pozneje."
   },
   "messageNoNotifications": {
-    "message": "Ni načrtovanih izpadov električne energije."
+    "message": "Ni načrtovanih izpadov elektrike."
   },
   "messageNoOutagesOnDay": {
-    "message": "Ni načrtovanih prekinitev."
+    "message": "Ni načrtovanih izpadov elektrike."
   },
   "messageRefreshFailed": {
-    "message": "Osvežitev ni uspela. Prikazani so podatki od $TIME$.",
+    "message": "Osvežitev ni uspela. Prikazani so podatki, pridobljeni ob $TIME$.",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "messageUnexpectedError": {
-    "message": "Prišlo je do napake. Zaprite razširitev in jo znova odprite."
+    "message": "Prišlo je do napake. Zaprite to okno in ga znova odprite."
   },
   "buttonRefresh": {
     "message": "Osveži"
@@ -106,6 +106,6 @@
     "message": "Predvideno trajanje: "
   },
   "notificationTitle": {
-    "message": "Prekinitev napajanja v vaši ulici"
+    "message": "Izpad elektrike v vaši ulici"
   }
 }

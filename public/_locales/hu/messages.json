@@ -12,7 +12,7 @@
     "message": "Elosztási terület"
   },
   "labelPowerStation": {
-    "message": "Állomás"
+    "message": "Területi egység"
   },
   "labelMyStreet": {
     "message": "Utcáim"
@@ -24,7 +24,7 @@
     "message": "Nem kötelező. Több utcát vesszővel válasszon el."
   },
   "labelFutureSearch": {
-    "message": "Ellenőrzés három nappal előre is"
+    "message": "A következő három nap megjelenítése is"
   },
   "labelNotify": {
     "message": "Értesítés, ha az utcámban áramszünet lesz"
@@ -48,7 +48,7 @@
     "message": "A Chrome nem engedélyezte az értesítéseket."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Válasszon elosztási területet és állomást a beállításokban."
+    "message": "Válasszon elosztási területet és területi egységet a beállításokban."
   },
   "messageFetchNotificationsError": {
     "message": "A HEP adatai most nem érhetők el. Próbálja újra később."
@@ -60,7 +60,7 @@
     "message": "Nincs tervezett áramszünet."
   },
   "messageRefreshFailed": {
-    "message": "A frissítés nem sikerült. A megjelenített adatok időpontja: $TIME$.",
+    "message": "A frissítés nem sikerült. A $TIME$-kor lekért adatok jelennek meg.",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "messageUnexpectedError": {
-    "message": "Hiba történt. Zárja be, majd nyissa meg újra a bővítményt."
+    "message": "Hiba történt. Zárja be ezt az ablakot, majd nyissa meg újra."
   },
   "buttonRefresh": {
     "message": "Frissítés"

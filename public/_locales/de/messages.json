@@ -9,10 +9,10 @@
     "message": "de"
   },
   "labelDistributionArea": {
-    "message": "Verteilgebiet"
+    "message": "Versorgungsgebiet"
   },
   "labelPowerStation": {
-    "message": "Station"
+    "message": "Betriebsstelle"
   },
   "labelMyStreet": {
     "message": "Meine Straßen"
@@ -24,7 +24,7 @@
     "message": "Optional. Mehrere Straßen mit Komma trennen."
   },
   "labelFutureSearch": {
-    "message": "Auch drei Tage im Voraus prüfen"
+    "message": "Auch die nächsten drei Tage anzeigen"
   },
   "labelNotify": {
     "message": "Bei einem Stromausfall in meiner Straße benachrichtigen"
@@ -48,7 +48,7 @@
     "message": "Chrome hat Benachrichtigungen nicht erlaubt."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Wählen Sie in den Einstellungen ein Verteilgebiet und eine Station."
+    "message": "Wählen Sie in den Einstellungen ein Versorgungsgebiet und eine Betriebsstelle."
   },
   "messageFetchNotificationsError": {
     "message": "Die HEP-Daten sind derzeit nicht verfügbar. Versuchen Sie es später erneut."
@@ -60,7 +60,7 @@
     "message": "Keine geplanten Ausfälle."
   },
   "messageRefreshFailed": {
-    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden die Daten von $TIME$.",
+    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden Daten mit Stand $TIME$ Uhr.",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "messageUnexpectedError": {
-    "message": "Etwas ist schiefgelaufen. Schließen Sie die Erweiterung und öffnen Sie sie erneut."
+    "message": "Etwas ist schiefgelaufen. Schließen Sie dieses Fenster und öffnen Sie es erneut."
   },
   "buttonRefresh": {
     "message": "Aktualisieren"
@@ -77,7 +77,7 @@
     "message": "Einstellungen"
   },
   "labelUpdated": {
-    "message": "Aktualisiert um $TIME$",
+    "message": "Aktualisiert um $TIME$ Uhr",
     "placeholders": {
       "time": {
         "content": "$1"

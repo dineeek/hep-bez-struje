@@ -24,7 +24,7 @@
     "message": "Neobavezno. Više ulica odvojite zarezom."
   },
   "labelFutureSearch": {
-    "message": "Provjeri i tri dana unaprijed"
+    "message": "Prikaži i sljedeća tri dana"
   },
   "labelNotify": {
     "message": "Obavijesti me o prekidu u mojoj ulici"
@@ -60,7 +60,7 @@
     "message": "Nema planiranih prekida."
   },
   "messageRefreshFailed": {
-    "message": "Osvježavanje nije uspjelo. Prikazani su podaci od $TIME$.",
+    "message": "Osvježavanje nije uspjelo. Prikazani su podaci dohvaćeni u $TIME$.",
     "placeholders": {
       "time": {
         "content": "$1"
@@ -68,7 +68,7 @@
     }
   },
   "messageUnexpectedError": {
-    "message": "Došlo je do pogreške. Zatvorite i ponovno otvorite proširenje."
+    "message": "Došlo je do pogreške. Zatvorite ovaj prozor i ponovno ga otvorite."
   },
   "buttonRefresh": {
     "message": "Osvježi"
