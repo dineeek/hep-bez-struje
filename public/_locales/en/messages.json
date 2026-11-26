@@ -5,53 +5,70 @@
   "extensionDescription": {
     "message": "HEP areas without electricity"
   },
+  "locale": {
+    "message": "en"
+  },
   "labelDistributionArea": {
-    "message": "Distribution area: "
+    "message": "Distribution area"
   },
   "labelPowerStation": {
-    "message": "Station: "
+    "message": "Station"
   },
   "labelMyStreet": {
-    "message": "My street: "
+    "message": "My streets"
   },
   "placeholderMyStreet": {
-    "message": "Optional - e.g. Vukovarska"
+    "message": "e.g. Vukovarska, Ilica"
+  },
+  "hintMyStreet": {
+    "message": "Optional. Separate several streets with commas."
   },
   "labelFutureSearch": {
-    "message": "Check three days in advance: "
+    "message": "Also check three days ahead"
   },
-  "labelPlace": {
-    "message": "Place: "
-  },
-  "labelStreet": {
-    "message": "Street: "
-  },
-  "labelNote": {
-    "message": "Note: "
-  },
-  "labelTime": {
-    "message": "Expected duration: "
+  "labelNotify": {
+    "message": "Notify me about an outage on my street"
   },
   "labelSave": {
     "message": "Save"
   },
-  "messageOptionsSaved": {
-    "message": "The preferences have been saved."
+  "optionChoose": {
+    "message": "Choose"
   },
-  "messageNoOptionsSelected": {
-    "message": "Select distribution area and station."
+  "messageOptionsSaved": {
+    "message": "Settings saved."
+  },
+  "messageSaveError": {
+    "message": "Could not save. Try again."
+  },
+  "messageLoadError": {
+    "message": "Settings did not load. Open this page again."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome did not allow notifications."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Select HEP distribution area and station in extension options to retrieve blackout areas."
+    "message": "Choose a distribution area and a station in the settings."
   },
   "messageFetchNotificationsError": {
-    "message": "An error occurred. Please try again later."
+    "message": "HEP data is not available right now. Try again later."
   },
   "messageNoNotifications": {
     "message": "There are no scheduled power outages."
   },
-  "notificationTitle": {
-    "message": "Power outage on your street"
+  "messageNoOutagesOnDay": {
+    "message": "No scheduled outages."
+  },
+  "messageRefreshFailed": {
+    "message": "Could not refresh. Showing data from $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Something went wrong. Close the extension and open it again."
   },
   "buttonRefresh": {
     "message": "Refresh"
@@ -76,21 +93,19 @@
   "tagUnplanned": {
     "message": "Fault"
   },
-  "messageNoOutagesOnDay": {
-    "message": "No outages announced."
+  "labelPlace": {
+    "message": "Place: "
   },
-  "messageRefreshFailed": {
-    "message": "Could not refresh. Showing data from $TIME$.",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+  "labelStreet": {
+    "message": "Street: "
   },
-  "messageUnexpectedError": {
-    "message": "Something went wrong. Close the extension and open it again."
+  "labelNote": {
+    "message": "Note: "
   },
-  "locale": {
-    "message": "en"
+  "labelTime": {
+    "message": "Expected duration: "
+  },
+  "notificationTitle": {
+    "message": "Power outage on your street"
   }
 }

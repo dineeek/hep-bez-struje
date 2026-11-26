@@ -5,53 +5,70 @@
   "extensionDescription": {
     "message": "HEP területek áram nélkül"
   },
+  "locale": {
+    "message": "hu"
+  },
   "labelDistributionArea": {
-    "message": "Terjesztési terület: "
+    "message": "Elosztási terület"
   },
   "labelPowerStation": {
-    "message": "Állomás: "
+    "message": "Állomás"
   },
   "labelMyStreet": {
-    "message": "Az én utcám: "
+    "message": "Utcáim"
   },
   "placeholderMyStreet": {
-    "message": "Opcionális - pl. Vukovarska"
+    "message": "pl. Vukovarska, Ilica"
+  },
+  "hintMyStreet": {
+    "message": "Nem kötelező. Több utcát vesszővel válasszon el."
   },
   "labelFutureSearch": {
-    "message": "Ellenőrizze három nappal korábban: "
+    "message": "Ellenőrzés három nappal előre is"
   },
-  "labelPlace": {
-    "message": "Hely: "
-  },
-  "labelStreet": {
-    "message": "Utca: "
-  },
-  "labelNote": {
-    "message": "Megjegyzés: "
-  },
-  "labelTime": {
-    "message": "Várható időtartam: "
+  "labelNotify": {
+    "message": "Értesítés, ha az utcámban áramszünet lesz"
   },
   "labelSave": {
     "message": "Mentés"
   },
-  "messageOptionsSaved": {
-    "message": "Az értékek mentésre kerültek."
+  "optionChoose": {
+    "message": "Válasszon"
   },
-  "messageNoOptionsSelected": {
-    "message": "Válassza ki a terjesztési területet és az állomást."
+  "messageOptionsSaved": {
+    "message": "A beállítások mentve."
+  },
+  "messageSaveError": {
+    "message": "A mentés nem sikerült. Próbálja újra."
+  },
+  "messageLoadError": {
+    "message": "A beállítások nem töltődtek be. Nyissa meg újra ezt az oldalt."
+  },
+  "messageNotifyDenied": {
+    "message": "A Chrome nem engedélyezte az értesítéseket."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Válassza ki a HEP-elosztási területet és az állomást a bővítési lehetőségek közül az áramszünet-területek lekéréséhez."
+    "message": "Válasszon elosztási területet és állomást a beállításokban."
   },
   "messageFetchNotificationsError": {
-    "message": "Hiba történt. Kérjük, próbálja újra később."
+    "message": "A HEP adatai most nem érhetők el. Próbálja újra később."
   },
   "messageNoNotifications": {
-    "message": "Nincs ütemezett áramszünet."
+    "message": "Nincs tervezett áramszünet."
   },
-  "notificationTitle": {
-    "message": "Áramszünet az Ön utcájában"
+  "messageNoOutagesOnDay": {
+    "message": "Nincs tervezett áramszünet."
+  },
+  "messageRefreshFailed": {
+    "message": "A frissítés nem sikerült. A megjelenített adatok időpontja: $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Hiba történt. Zárja be, majd nyissa meg újra a bővítményt."
   },
   "buttonRefresh": {
     "message": "Frissítés"
@@ -76,21 +93,19 @@
   "tagUnplanned": {
     "message": "Üzemzavar"
   },
-  "messageNoOutagesOnDay": {
-    "message": "Nincs bejelentett áramszünet."
+  "labelPlace": {
+    "message": "Hely: "
   },
-  "messageRefreshFailed": {
-    "message": "A frissítés nem sikerült. A megjelenített adatok időpontja: $TIME$.",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+  "labelStreet": {
+    "message": "Utca: "
   },
-  "messageUnexpectedError": {
-    "message": "Hiba történt. Zárja be, majd nyissa meg újra a bővítményt."
+  "labelNote": {
+    "message": "Megjegyzés: "
   },
-  "locale": {
-    "message": "hu"
+  "labelTime": {
+    "message": "Várható időtartam: "
+  },
+  "notificationTitle": {
+    "message": "Áramszünet az Ön utcájában"
   }
 }

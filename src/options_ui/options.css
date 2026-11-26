@@ -7,69 +7,85 @@
 }
 
 body {
+  color: var(--color-text);
+  font-size: var(--font-size-md);
   font-family: var(--font-family);
   line-height: 1.5;
+  background: var(--color-bg);
 }
 
-.container {
+:focus-visible {
+  outline: 2px solid var(--color-link);
+  outline-offset: 2px;
+}
+
+.options {
   display: flex;
   flex-flow: column nowrap;
   gap: 16px;
-  font-size: var(--font-size-md);
-  padding: 8px 16px 16px;
+  min-width: 360px;
+  padding: 12px 16px 16px;
 }
 
-.selection {
+.field {
   display: flex;
   flex-flow: column nowrap;
   gap: 4px;
 }
 
-.selection label {
+.field label {
   font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-dark);
-  letter-spacing: 0.01em;
+  font-weight: 600;
 }
 
-.select-input {
+.input {
   height: 36px;
-  font-size: var(--font-size-md);
-  font-family: var(--font-family);
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-sm);
   padding: 0 10px;
-  background: var(--color-bg);
-  color: var(--color-dark);
-  outline: none;
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
+  background: var(--color-card);
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family);
+  transition: border-color var(--transition);
 }
 
-.select-input:focus {
-  border-color: var(--color-primary-light);
-  box-shadow: 0 0 0 2px rgba(45, 74, 138, 0.15);
+.input:focus {
+  border-color: var(--color-link);
 }
 
-.checkbox {
+.input:disabled {
+  background: var(--color-card-alt);
+  color: var(--color-muted);
+}
+
+.hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-muted);
+}
+
+.check {
   display: flex;
-  flex-flow: row nowrap;
   align-items: center;
   gap: 8px;
-}
-
-.checkbox label {
   font-size: var(--font-size-sm);
-  color: var(--color-dark);
   cursor: pointer;
 }
 
-.check-input {
-  height: 16px;
+.check input {
   width: 16px;
+  height: 16px;
   accent-color: var(--color-primary);
   cursor: pointer;
+}
+
+.check:has(input:disabled) {
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.check input:disabled {
+  cursor: default;
 }
 
 .actions {
@@ -84,27 +100,28 @@ body {
   height: 38px;
   border: none;
   border-radius: var(--border-radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
   font-size: var(--font-size-md);
   font-family: var(--font-family);
   font-weight: 600;
-  color: white;
   letter-spacing: 0.02em;
-  background-color: var(--color-primary);
   cursor: pointer;
   transition: background-color var(--transition);
 }
 
-.save-button:hover {
+.save-button:hover:not(:disabled) {
   background-color: var(--color-primary-light);
 }
 
-.save-button:active {
-  background-color: var(--color-dark);
+.save-button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
-.status-color {
+.status {
+  min-height: 18px;
   text-align: center;
   color: var(--color-muted);
   font-size: var(--font-size-xs);
-  min-height: 18px;
 }

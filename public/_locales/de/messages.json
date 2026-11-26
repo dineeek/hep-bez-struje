@@ -5,53 +5,70 @@
   "extensionDescription": {
     "message": "HEP-Bereiche ohne Strom"
   },
+  "locale": {
+    "message": "de"
+  },
   "labelDistributionArea": {
-    "message": "Verbreitungsgebiet: "
+    "message": "Verteilgebiet"
   },
   "labelPowerStation": {
-    "message": "Station: "
+    "message": "Station"
   },
   "labelMyStreet": {
-    "message": "Meine Straße: "
+    "message": "Meine Straßen"
   },
   "placeholderMyStreet": {
-    "message": "Optional - z. B. Vukovarska"
+    "message": "z. B. Vukovarska, Ilica"
+  },
+  "hintMyStreet": {
+    "message": "Optional. Mehrere Straßen mit Komma trennen."
   },
   "labelFutureSearch": {
-    "message": "Prüfen Sie drei Tage im Voraus: "
+    "message": "Auch drei Tage im Voraus prüfen"
   },
-  "labelPlace": {
-    "message": "Ort: "
-  },
-  "labelStreet": {
-    "message": "Straße: "
-  },
-  "labelNote": {
-    "message": "Hinweis: "
-  },
-  "labelTime": {
-    "message": "Erwartete Dauer: "
+  "labelNotify": {
+    "message": "Bei einem Stromausfall in meiner Straße benachrichtigen"
   },
   "labelSave": {
     "message": "Speichern"
   },
-  "messageOptionsSaved": {
-    "message": "Die Werte wurden gespeichert."
+  "optionChoose": {
+    "message": "Auswählen"
   },
-  "messageNoOptionsSelected": {
-    "message": "Verteilgebiet und Station auswählen."
+  "messageOptionsSaved": {
+    "message": "Einstellungen gespeichert."
+  },
+  "messageSaveError": {
+    "message": "Speichern fehlgeschlagen. Versuchen Sie es erneut."
+  },
+  "messageLoadError": {
+    "message": "Die Einstellungen wurden nicht geladen. Öffnen Sie diese Seite erneut."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome hat Benachrichtigungen nicht erlaubt."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Wählen Sie den HEP-Verteilerbereich und die Station in den Erweiterungsoptionen, um Blackout-Bereiche abzurufen."
+    "message": "Wählen Sie in den Einstellungen ein Verteilgebiet und eine Station."
   },
   "messageFetchNotificationsError": {
-    "message": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+    "message": "Die HEP-Daten sind derzeit nicht verfügbar. Versuchen Sie es später erneut."
   },
   "messageNoNotifications": {
     "message": "Es gibt keine geplanten Stromausfälle."
   },
-  "notificationTitle": {
-    "message": "Stromausfall in Ihrer Straße"
+  "messageNoOutagesOnDay": {
+    "message": "Keine geplanten Ausfälle."
+  },
+  "messageRefreshFailed": {
+    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden die Daten von $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Etwas ist schiefgelaufen. Schließen Sie die Erweiterung und öffnen Sie sie erneut."
   },
   "buttonRefresh": {
     "message": "Aktualisieren"
@@ -76,21 +93,19 @@
   "tagUnplanned": {
     "message": "Störung"
   },
-  "messageNoOutagesOnDay": {
-    "message": "Keine Unterbrechungen angekündigt."
+  "labelPlace": {
+    "message": "Ort: "
   },
-  "messageRefreshFailed": {
-    "message": "Aktualisierung fehlgeschlagen. Angezeigt werden die Daten von $TIME$.",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+  "labelStreet": {
+    "message": "Straße: "
   },
-  "messageUnexpectedError": {
-    "message": "Etwas ist schiefgelaufen. Schließen Sie die Erweiterung und öffnen Sie sie erneut."
+  "labelNote": {
+    "message": "Hinweis: "
   },
-  "locale": {
-    "message": "de"
+  "labelTime": {
+    "message": "Erwartete Dauer: "
+  },
+  "notificationTitle": {
+    "message": "Stromausfall in Ihrer Straße"
   }
 }

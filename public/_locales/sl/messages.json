@@ -5,53 +5,70 @@
   "extensionDescription": {
     "message": "HEP območja brez elektrike"
   },
+  "locale": {
+    "message": "sl"
+  },
   "labelDistributionArea": {
-    "message": "Distribucijsko območje: "
+    "message": "Distribucijsko območje"
   },
   "labelPowerStation": {
-    "message": "Postaja: "
+    "message": "Postaja"
   },
   "labelMyStreet": {
-    "message": "Moja ulica: "
+    "message": "Moje ulice"
   },
   "placeholderMyStreet": {
-    "message": "Izbirno - npr. Vukovarska"
+    "message": "npr. Vukovarska, Ilica"
+  },
+  "hintMyStreet": {
+    "message": "Neobvezno. Več ulic ločite z vejico."
   },
   "labelFutureSearch": {
-    "message": "Preveri tri dni vnaprej: "
+    "message": "Preveri tudi tri dni vnaprej"
   },
-  "labelPlace": {
-    "message": "Kraj: "
-  },
-  "labelStreet": {
-    "message": "Ulica: "
-  },
-  "labelNote": {
-    "message": "Opomba: "
-  },
-  "labelTime": {
-    "message": "Predvideno trajanje: "
+  "labelNotify": {
+    "message": "Obvesti me o prekinitvi v moji ulici"
   },
   "labelSave": {
     "message": "Shrani"
   },
-  "messageOptionsSaved": {
-    "message": "Vrednosti so bile shranjene."
+  "optionChoose": {
+    "message": "Izberite"
   },
-  "messageNoOptionsSelected": {
-    "message": "Izberi distribucijsko območje in postajo."
+  "messageOptionsSaved": {
+    "message": "Nastavitve so shranjene."
+  },
+  "messageSaveError": {
+    "message": "Shranjevanje ni uspelo. Poskusite znova."
+  },
+  "messageLoadError": {
+    "message": "Nastavitve se niso naložile. Znova odprite to stran."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome ni dovolil obvestil."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Izberite distribucijsko območje in postajo HEP v možnostih razširitve za pridobitev območij izpada."
+    "message": "V nastavitvah izberite distribucijsko območje in postajo."
   },
   "messageFetchNotificationsError": {
-    "message": "Prišlo je do napake. Poskusite znova pozneje."
+    "message": "Podatki HEP trenutno niso na voljo. Poskusite znova pozneje."
   },
   "messageNoNotifications": {
     "message": "Ni načrtovanih izpadov električne energije."
   },
-  "notificationTitle": {
-    "message": "Prekinitev napajanja v vaši ulici"
+  "messageNoOutagesOnDay": {
+    "message": "Ni načrtovanih prekinitev."
+  },
+  "messageRefreshFailed": {
+    "message": "Osvežitev ni uspela. Prikazani so podatki od $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Prišlo je do napake. Zaprite razširitev in jo znova odprite."
   },
   "buttonRefresh": {
     "message": "Osveži"
@@ -76,21 +93,19 @@
   "tagUnplanned": {
     "message": "Okvara"
   },
-  "messageNoOutagesOnDay": {
-    "message": "Ni napovedanih prekinitev."
+  "labelPlace": {
+    "message": "Kraj: "
   },
-  "messageRefreshFailed": {
-    "message": "Osvežitev ni uspela. Prikazani so podatki od $TIME$.",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+  "labelStreet": {
+    "message": "Ulica: "
   },
-  "messageUnexpectedError": {
-    "message": "Prišlo je do napake. Zaprite razširitev in jo znova odprite."
+  "labelNote": {
+    "message": "Opomba: "
   },
-  "locale": {
-    "message": "sl"
+  "labelTime": {
+    "message": "Predvideno trajanje: "
+  },
+  "notificationTitle": {
+    "message": "Prekinitev napajanja v vaši ulici"
   }
 }

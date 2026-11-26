@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:e2e": "VITE_HEP_BASE_URL=http://localhost:4319/ods/bez-struje/19 vite build --outDir dist-e2e",
+    "build:e2e": "VITE_HEP_BASE_URL=http://localhost:4319/ods/bez-struje/19 vite build --mode e2e --outDir dist-e2e",
     "clean": "rm -rf dist dist-e2e",
     "sync:stations": "node scripts/sync-stations.ts",
     "style": "prettier --write \"{src,scripts,e2e}/**/*.{ts,tsx,css}\" \"*.{ts,mjs}\"",

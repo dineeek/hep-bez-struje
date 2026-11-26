@@ -3,7 +3,10 @@ import { loadEnv } from 'vite';
 import packageJson from './package.json' with { type: 'json' };
 import { HEP_OUTAGES_URL } from './src/meta/hep-url.ts';
 
+const NOTIFICATIONS = ['notifications'];
+
 export default defineManifest(({ mode }) => {
+  const isE2e = mode === 'e2e';
   const outagesUrl =
     loadEnv(mode, process.cwd()).VITE_HEP_BASE_URL || HEP_OUTAGES_URL;
 
@@ -15,8 +18,8 @@ export default defineManifest(({ mode }) => {
     default_locale: 'hr',
     minimum_chrome_version: '88',
 
-    permissions: ['storage', 'alarms'],
-    optional_permissions: ['notifications'],
+    permissions: ['storage', 'alarms', ...(isE2e ? NOTIFICATIONS : [])],
+    optional_permissions: isE2e ? [] : NOTIFICATIONS,
     host_permissions: [`${new URL(outagesUrl).origin}/*`],
 
     background: {

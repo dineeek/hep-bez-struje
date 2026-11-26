@@ -5,53 +5,70 @@
   "extensionDescription": {
     "message": "HEP područja bez struje"
   },
+  "locale": {
+    "message": "hr"
+  },
   "labelDistributionArea": {
-    "message": "Distribucijsko područje: "
+    "message": "Distribucijsko područje"
   },
   "labelPowerStation": {
-    "message": "Pogon: "
+    "message": "Terenska jedinica"
   },
   "labelMyStreet": {
-    "message": "Moja ulica: "
+    "message": "Moje ulice"
   },
   "placeholderMyStreet": {
-    "message": "Opcionalno - npr. Vukovarska"
+    "message": "npr. Vukovarska, Ilica"
+  },
+  "hintMyStreet": {
+    "message": "Neobavezno. Više ulica odvojite zarezom."
   },
   "labelFutureSearch": {
-    "message": "Provjeri tri dana unaprijed: "
+    "message": "Provjeri i tri dana unaprijed"
   },
-  "labelPlace": {
-    "message": "Mjesto: "
-  },
-  "labelStreet": {
-    "message": "Ulica: "
-  },
-  "labelNote": {
-    "message": "Napomena: "
-  },
-  "labelTime": {
-    "message": "Očekivano trajanje: "
+  "labelNotify": {
+    "message": "Obavijesti me o prekidu u mojoj ulici"
   },
   "labelSave": {
     "message": "Spremi"
   },
-  "messageOptionsSaved": {
-    "message": "Vrijednosti su spremljene."
+  "optionChoose": {
+    "message": "Odaberite"
   },
-  "messageNoOptionsSelected": {
-    "message": "Odaberite distribucijsko područje i pogon."
+  "messageOptionsSaved": {
+    "message": "Postavke su spremljene."
+  },
+  "messageSaveError": {
+    "message": "Spremanje nije uspjelo. Pokušajte ponovno."
+  },
+  "messageLoadError": {
+    "message": "Postavke se nisu učitale. Ponovno otvorite ovu stranicu."
+  },
+  "messageNotifyDenied": {
+    "message": "Chrome nije dopustio obavijesti."
   },
   "messageNoOptionsSelectedPopup": {
-    "message": "Odaberite HEP distribucijsko područje i pogon u opcijama proširenja za dohvat područja bez struje."
+    "message": "Odaberite distribucijsko područje i terensku jedinicu u postavkama."
   },
   "messageFetchNotificationsError": {
-    "message": "Dogodila se pogreška. Probajte ponovno kasnije."
+    "message": "Podaci s HEP-a trenutno nisu dostupni. Pokušajte ponovno kasnije."
   },
   "messageNoNotifications": {
     "message": "Nema planiranih prekida napajanja."
   },
-  "notificationTitle": {
-    "message": "Prekid napajanja u vašoj ulici"
+  "messageNoOutagesOnDay": {
+    "message": "Nema planiranih prekida."
+  },
+  "messageRefreshFailed": {
+    "message": "Osvježavanje nije uspjelo. Prikazani su podaci od $TIME$.",
+    "placeholders": {
+      "time": {
+        "content": "$1"
+      }
+    }
+  },
+  "messageUnexpectedError": {
+    "message": "Došlo je do pogreške. Zatvorite i ponovno otvorite proširenje."
   },
   "buttonRefresh": {
     "message": "Osvježi"
@@ -76,21 +93,19 @@
   "tagUnplanned": {
     "message": "Kvar"
   },
-  "messageNoOutagesOnDay": {
-    "message": "Nema najavljenih prekida."
+  "labelPlace": {
+    "message": "Mjesto: "
   },
-  "messageRefreshFailed": {
-    "message": "Osvježavanje nije uspjelo. Prikazani su podaci od $TIME$.",
-    "placeholders": {
-      "time": {
-        "content": "$1"
-      }
-    }
+  "labelStreet": {
+    "message": "Ulica: "
   },
-  "messageUnexpectedError": {
-    "message": "Došlo je do pogreške. Zatvorite i ponovno otvorite proširenje."
+  "labelNote": {
+    "message": "Napomena: "
   },
-  "locale": {
-    "message": "hr"
+  "labelTime": {
+    "message": "Očekivano trajanje: "
+  },
+  "notificationTitle": {
+    "message": "Prekid napajanja u vašoj ulici"
   }
 }
